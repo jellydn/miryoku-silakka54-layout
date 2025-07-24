@@ -1,0 +1,228 @@
+# Miryoku Silakka54 Layout
+
+An interactive visualization and educational resource for adapting the Miryoku keyboard layout system to the Silakka54 split keyboard.
+
+## Overview
+
+This project provides both educational documentation and an interactive web-based visualizer for understanding and implementing the ergonomic Miryoku layout on a 54-key split keyboard. Miryoku is a modern keyboard layout system that reduces a full keyboard's functionality to just 36 keys through intelligent layering and home row modifiers.
+
+Miryoku operates on **five core principles**: using layers instead of reaching, employing both hands instead of contortions, maximizing home position usage, leveraging thumbs as primary controls, and avoiding unnecessary complication. These principles manifest in a **3×5+3 configuration** where fingers never move more than one unit from their home positions.
+
+The Silakka54 represents the ideal adaptation target - **54-60 key layouts hit a sweet spot** with enough extra keys for meaningful enhancements without overwhelming the minimalist philosophy, as noted in community research.
+
+## Features
+
+- **Interactive Keyboard Visualizer**: Visual representation of the 54-key layout with layer switching
+- **6-Layer System**: Base, Navigation, Symbols, Numbers, Function, and Media layers
+- **Educational Guide**: Comprehensive documentation of Miryoku principles and adaptation strategies
+- **Colemak-DH Integration**: Ergonomic alpha layout with home row modifiers
+- **Color-coded Keys**: Visual distinction between home row, thumb keys, and extra keys
+
+## Quick Start
+
+### Local Development
+
+Serve the project locally using npx:
+
+```bash
+npx serve
+```
+
+Then open your browser to the displayed URL (typically `http://localhost:3000`).
+
+### Alternative Servers
+
+```bash
+# Python 3
+python3 -m http.server 8000
+
+# Python 2
+python -m http.server 8000
+
+# Node.js live-server
+npx live-server
+```
+
+### Direct Access
+
+You can also open `index.html` directly in your web browser, though some features may work better with a local server.
+
+## How to Use This Layout
+
+### Understanding the Layer System
+
+The Miryoku layout uses **6 layers with orthogonal functionality** - each layer serves a single purpose per hand and is accessed through thumb-key holds on the opposite hand:
+
+- **Base layer**: Colemak-DH alpha layout with essential punctuation
+- **Navigation layer** (right hand): Inverted-T arrow arrangement, clipboard functions, page controls
+- **Symbols layer** (left hand): Direct access to shifted numbers and programming symbols
+- **Numbers layer**: Standard numpad arrangement 
+- **Function layer**: F1-F12 in logical positions
+- **Media layer**: System controls and media functions
+
+**Key concepts:**
+- **Tap thumb keys**: Space, Enter, Backspace (primary functions)
+- **Hold thumb keys**: Activate layers on the opposite hand
+- **Home row modifiers**: GACS pattern (GUI on pinkies, Alt on ring, Ctrl on middle, Shift on index)
+- **Orthogonal design**: Each layer serves distinct functions to ensure intuitive access patterns
+
+### Layer Access Pattern
+
+```
+Left Thumb Hold → Right Hand Layers
+- Hold Space → Navigation layer (arrows, clipboard)
+- Hold Tab → Numbers layer (numpad layout)
+
+Right Thumb Hold → Left Hand Layers  
+- Hold Enter → Symbols layer (punctuation, operators)
+- Hold Escape → Function layer (F-keys, system)
+```
+
+### Visualizer Usage
+
+1. Open the visualizer in your browser
+2. Click layer buttons to switch between keyboard layers
+3. Hover over keys to see their functions and modifiers
+4. Note the color coding: blue for home row, green for thumb keys
+5. Use this as reference when configuring your firmware
+
+### Recommended Implementation (V2 Approach)
+
+Based on community feedback and ergonomic research, follow this implementation order. **Home row modifiers represent the steepest learning curve, requiring 2-3 weeks of dedicated practice**, but the ergonomic benefits justify this investment.
+
+#### Phase 1: Core Foundation (Week 1-2)
+1. **Preserve the sacred core** - Center the 36-key Miryoku layout within Silakka54's arrangement
+2. **Start with base layer only** - Focus on Colemak-DH layout (or specify `MIRYOKU_ALPHAS=QWERTY/DVORAK` if preferred)
+3. **Add home row modifiers gradually** - Begin with just Shift on index fingers, symmetric mirroring for both hands
+4. **Practice daily** - 15-30 minutes of deliberate practice
+5. **Use typing tests** - Focus on accuracy over speed initially
+
+#### Phase 2: Layer Integration (Week 3-4)  
+1. **Add Navigation layer** - Hold space for inverted-T arrows, clipboard (Cut/Copy/Paste on bottom row)
+2. **Master thumb holds** - Practice the tap vs hold distinction with dual-function approach
+3. **Add Symbols layer** - Direct access eliminates three-key chords (e.g., "!" = Sym + 1)
+4. **Adjust timing** - Fine-tune tapping terms: 240ms for pinkies, 160ms for index fingers
+
+#### Phase 3: Full System & Silakka54 Enhancements (Week 5-6)
+1. **Add remaining layers** - Numbers (numpad layout), Function (F1-F12), Media
+2. **Utilize number row strategically** - Place 1-0 above alphas for immediate access
+3. **Follow overflow patterns** - Use outer columns for [, ], ; in standard positions
+4. **Enhance thumb clusters** - Extra positions for Tab/Escape or specialized toggles
+5. **Consider combos** - Adjacent key combinations (JK→Escape, DF→Tab) for virtual expansion
+
+### Adaptation Timeline Expectations
+
+Research shows consistent patterns in successful adaptations:
+
+- **Days 1-7**: Frustrating but normal - expect 30-50% speed reduction
+- **Days 8-21**: Gradual improvement - speed recovery to 70-80%  
+- **Days 22-42**: Muscle memory formation - approach original speed
+- **Days 43+**: Ergonomic benefits realized - potential speed increase
+
+**Critical insight**: The most effective approach treats the 36-key core as inviolate, using extra keys as functional enhancements rather than replacements. The Silakka54's extra keys should feel like natural extensions rather than departures from Miryoku's elegant design.
+
+## File Structure
+
+- `index.html` - Interactive keyboard layout visualizer
+- `Keyboard layout.md` - **Comprehensive Miryoku adaptation guide** with detailed research on successful implementations, community feedback, and specific Silakka54 recommendations
+- `CLAUDE.md` - Development guidance for Claude Code
+
+## Layout Layers
+
+1. **Base** - Colemak-DH alpha layout with home row modifiers
+2. **Navigation** - Arrow keys, page navigation, clipboard operations
+3. **Symbols** - Special characters and punctuation marks
+4. **Numbers** - Numeric keypad layout
+5. **Function** - F-keys and system functions
+6. **Media** - Volume and playback controls
+
+## Key Principles
+
+- **Home Row Modifiers**: GACS pattern (GUI, Alt, Ctrl, Shift)
+- **Layer Switching**: Thumb keys for accessing different layers
+- **Ergonomic Design**: Minimize finger movement and maximize comfort
+- **3×5+3 Core**: Preserve Miryoku's 36-key essence within the 54-key layout
+
+## Contributing
+
+This is a static website built with vanilla HTML, CSS, and JavaScript. To contribute:
+
+1. Fork the repository
+2. Make your changes
+3. Test locally with `npx serve`
+4. Submit a pull request
+
+## Firmware Implementation
+
+### QMK Setup (Recommended)
+
+1. **Enable Required Features** in `config.h`:
+   ```c
+   #define PERMISSIVE_HOLD
+   #define TAPPING_TERM 200
+   #define TAPPING_TERM_PER_KEY
+   ```
+
+2. **Configure Home Row Modifiers**:
+   ```c
+   // Left: GUI(A), Alt(R), Ctrl(S), Shift(T)
+   // Right: Shift(N), Ctrl(E), Alt(I), GUI(O)
+   LGUI_T(KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T)
+   ```
+
+3. **Set Per-Key Timing**:
+   ```c
+   uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+       switch (keycode) {
+           case LSFT_T(KC_T): return 160;  // Index fingers (faster)
+           case LGUI_T(KC_A): return 240;  // Pinkies (slower)
+           default: return TAPPING_TERM;
+       }
+   }
+   ```
+
+### Vial Setup (GUI Alternative)
+
+1. Flash Vial-compatible firmware for your keyboard
+2. Open Vial application and connect keyboard
+3. Configure **Tap Hold** keys for home row modifiers
+4. Set thumb keys as **Layer Tap** (tap for key, hold for layer)
+5. Adjust timing in Settings → Tap-Hold Settings (200ms base)
+
+### ZMK Setup (Wireless Option)
+
+1. **Configure Hold-Tap Behaviors**:
+   ```
+   &mt {
+       flavor = "balanced";
+       tapping-term-ms = <200>;
+   };
+   ```
+
+2. **Use Different Flavors by Position**:
+   - `balanced` for most keys
+   - `tap-preferred` for index fingers
+   - Longer timing for weaker fingers
+
+### Silakka54-Specific Adaptations
+
+Following successful community implementations and the documented **56-key Sofle adaptation** best practices:
+
+- **Preserve the sacred core** - Center the 36-key Miryoku layout exactly as standard specification
+- **Strategic number row** - Place 1-0 in familiar positions, consider leaving outermost positions for layer toggles
+- **Established outer patterns** - Follow Miryoku's overflow logic: [, ], ; in standard row positions for muscle memory
+- **Thoughtful thumb enhancement** - Use 1-2 extra thumb positions for specialized toggles (gaming mode, function lock) or workflow-specific operations
+- **Full keyboard layer** - Implement specialized layer activating all 54 keys for gaming/applications
+- **Virtual expansion via combos** - Adjacent key combinations (JK→Escape, DF→Tab) can add 6-8 virtual keys without physical additions
+
+**Key principle**: Extra keys should provide convenient access to additional functions without compromising the ergonomic benefits of the core layout. The goal is enhancing Miryoku's philosophy rather than replacing it.
+
+## Resources
+
+- [Miryoku Official Repository](https://github.com/manna-harbour/miryoku) - Original layout and documentation
+- [Miryoku QMK Reference](https://github.com/manna-harbour/miryoku_qmk) - QMK implementation
+- [Colemak-DH Layout](https://colemakmods.github.io/mod-dh/) - Optimized alpha layout
+- [QMK Firmware](https://qmk.fm/) - Customizable keyboard firmware
+- [ZMK Firmware](https://zmk.dev/) - Wireless keyboard firmware
+- [Vial](https://vial.rocks/) - GUI for QMK configuration
+- [Home Row Mods Guide](https://precondition.github.io/home-row-mods) - Detailed implementation guide
