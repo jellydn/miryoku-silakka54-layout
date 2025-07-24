@@ -375,145 +375,145 @@
             'RT2': 'Backspace key'
         };
 
-        // Simplified layer definitions
+        // V2-style layer definitions (clean and consistent)
         const layers = {
             base: {
                 // Left side - Number row
-                L01: { main: 'Esc', sub: '`' },
-                L02: { main: '1', sub: '!' },
-                L03: { main: '2', sub: '@' },
-                L04: { main: '3', sub: '#' },
-                L05: { main: '4', sub: '$' },
-                L06: { main: '5', sub: '%' },
+                L01: '<div class="key-label">Esc<br><span class="mod-label">`</span></div>',
+                L02: '<div class="key-label">1<br><span class="mod-label">!</span></div>',
+                L03: '<div class="key-label">2<br><span class="mod-label">@</span></div>',
+                L04: '<div class="key-label">3<br><span class="mod-label">#</span></div>',
+                L05: '<div class="key-label">4<br><span class="mod-label">$</span></div>',
+                L06: '<div class="key-label">5<br><span class="mod-label">%</span></div>',
                 
                 // Left side - Main keys (Colemak-DH)
-                L11: { main: 'Tab' },
-                L12: { main: 'Q' },
-                L13: { main: 'W' },
-                L14: { main: 'F' },
-                L15: { main: 'P' },
-                L16: { main: 'B' },
+                L11: 'Tab',
+                L12: 'Q',
+                L13: 'W',
+                L14: 'F',
+                L15: 'P',
+                L16: 'B',
                 
-                L21: { main: 'Caps' },
-                L22: { main: 'A' },
-                L23: { main: 'R' },
-                L24: { main: 'S' },
-                L25: { main: 'T' },
-                L26: { main: 'G' },
+                L21: 'Caps',
+                L22: 'A',
+                L23: 'R',
+                L24: 'S',
+                L25: 'T',
+                L26: 'G',
                 
-                L31: { main: 'Shift' },
-                L32: { main: 'Z' },
-                L33: { main: 'X' },
-                L34: { main: 'C' },
-                L35: { main: 'D' },
-                L36: { main: 'V' },
+                L31: 'Shift',
+                L32: 'Z',
+                L33: 'X',
+                L34: 'C',
+                L35: 'D',
+                L36: 'V',
                 
                 // Left thumb cluster
-                LT1: { main: 'Ctrl' },
-                LT2: { main: 'Space' },
-                LT3: { main: 'Sym', sub: 'Hold' },
+                LT1: 'Ctrl',
+                LT2: 'Space',
+                LT3: '<div class="key-label">Sym<br><span class="mod-label">Hold</span></div>',
                 
                 // Right side - Number row
-                R06: { main: '6', sub: '^' },
-                R05: { main: '7', sub: '&' },
-                R04: { main: '8', sub: '*' },
-                R03: { main: '9', sub: '(' },
-                R02: { main: '0', sub: ')' },
-                R01: { main: '-', sub: '_' },
+                R06: '<div class="key-label">6<br><span class="mod-label">^</span></div>',
+                R05: '<div class="key-label">7<br><span class="mod-label">&</span></div>',
+                R04: '<div class="key-label">8<br><span class="mod-label">*</span></div>',
+                R03: '<div class="key-label">9<br><span class="mod-label">(</span></div>',
+                R02: '<div class="key-label">0<br><span class="mod-label">)</span></div>',
+                R01: '<div class="key-label">-<br><span class="mod-label">_</span></div>',
                 
                 // Right side - Main keys (Colemak-DH)
-                R16: { main: 'J' },
-                R15: { main: 'L' },
-                R14: { main: 'U' },
-                R13: { main: 'Y' },
-                R12: { main: ';', sub: ':' },
-                R11: { main: '=', sub: '+' },
+                R16: 'J',
+                R15: 'L',
+                R14: 'U',
+                R13: 'Y',
+                R12: '<div class="key-label">;<br><span class="mod-label">:</span></div>',
+                R11: '<div class="key-label">=<br><span class="mod-label">+</span></div>',
                 
-                R26: { main: 'M' },
-                R25: { main: 'N' },
-                R24: { main: 'E' },
-                R23: { main: 'I' },
-                R22: { main: 'O' },
-                R21: { main: "'", sub: '"' },
+                R26: 'M',
+                R25: 'N',
+                R24: 'E',
+                R23: 'I',
+                R22: 'O',
+                R21: "'",
                 
-                R36: { main: 'K' },
-                R35: { main: 'H' },
-                R34: { main: ',', sub: '<' },
-                R33: { main: '.', sub: '>' },
-                R32: { main: '/', sub: '?' },
-                R31: { main: 'Shift' },
+                R36: 'K',
+                R35: 'H',
+                R34: ',',
+                R33: '.',
+                R32: '/',
+                R31: 'Shift',
                 
                 // Right thumb cluster
-                RT3: { main: 'Nav', sub: 'Hold' },
-                RT2: { main: 'Bksp' },
-                RT1: { main: 'Enter' }
+                RT3: '<div class="key-label">Nav<br><span class="mod-label">Hold</span></div>',
+                RT2: 'Bksp',
+                RT1: 'Enter'
             },
             sym: {
                 // Left side - Symbols layer
-                L01: { main: '~' },
-                L02: { main: '!' },
-                L03: { main: '@' },
-                L04: { main: '#' },
-                L05: { main: '$' },
-                L06: { main: '%' },
+                L01: '~',
+                L02: '!',
+                L03: '@',
+                L04: '#',
+                L05: '$',
+                L06: '%',
                 
-                L11: { main: '`' },
-                L12: { main: '{' },
-                L13: { main: '}' },
-                L14: { main: '(' },
-                L15: { main: ')' },
-                L16: { main: '|' },
+                L11: '`',
+                L12: '{',
+                L13: '}',
+                L14: '(',
+                L15: ')',
+                L16: '|',
                 
-                L21: { main: '~' },
-                L22: { main: '[' },
-                L23: { main: ']' },
-                L24: { main: '<' },
-                L25: { main: '>' },
-                L26: { main: '\\' },
+                L21: '~',
+                L22: '[',
+                L23: ']',
+                L24: '<',
+                L25: '>',
+                L26: '\\',
                 
-                L31: { main: '' },
-                L32: { main: '_' },
-                L33: { main: '-' },
-                L34: { main: '+' },
-                L35: { main: '=' },
-                L36: { main: '&' },
+                L31: '',
+                L32: '_',
+                L33: '-',
+                L34: '+',
+                L35: '=',
+                L36: '&',
                 
-                LT1: { main: '' },
-                LT2: { main: '' },
-                LT3: { main: 'Sym' },
+                LT1: '',
+                LT2: '',
+                LT3: 'Sym',
                 
                 // Right side - Mostly unchanged
-                R06: { main: '^' },
-                R05: { main: '&' },
-                R04: { main: '*' },
-                R03: { main: '(' },
-                R02: { main: ')' },
-                R01: { main: '' },
+                R06: '^',
+                R05: '&',
+                R04: '*',
+                R03: '(',
+                R02: ')',
+                R01: '',
                 
-                R16: { main: '' },
-                R15: { main: '' },
-                R14: { main: '' },
-                R13: { main: '' },
-                R12: { main: '' },
-                R11: { main: '' },
+                R16: '',
+                R15: '',
+                R14: '',
+                R13: '',
+                R12: '',
+                R11: '',
                 
-                R26: { main: '' },
-                R25: { main: '' },
-                R24: { main: '' },
-                R23: { main: '' },
-                R22: { main: '' },
-                R21: { main: '' },
+                R26: '',
+                R25: '',
+                R24: '',
+                R23: '',
+                R22: '',
+                R21: '',
                 
-                R36: { main: '' },
-                R35: { main: '' },
-                R34: { main: '' },
-                R33: { main: '' },
-                R32: { main: '' },
-                R31: { main: '' },
+                R36: '',
+                R35: '',
+                R34: '',
+                R33: '',
+                R32: '',
+                R31: '',
                 
-                RT3: { main: '' },
-                RT2: { main: 'Del' },
-                RT1: { main: '' }
+                RT3: '',
+                RT2: 'Del',
+                RT1: ''
             },
             nav: {
                 // Left side - Numpad
@@ -652,23 +652,7 @@
 
         let currentLayer = 'base';
 
-        function renderKey(keyData) {
-            if (!keyData || !keyData.main) return '';
-            
-            // For punctuation keys, show only the main character like V2
-            // Keep number+symbol combos (1!, 2@) and operators (=+, -_) showing both
-            const hideSub = [',', '.', '/', ';', "'"].includes(keyData.main);
-            const showBothForOperators = ['=', '-'].includes(keyData.main);
-            
-            let html = '<div class="key-label">';
-            html += `<span class="key-main">${keyData.main}</span>`;
-            // Show sub for numbers, operators, layer keys, but not basic punctuation  
-            if (keyData.sub && !hideSub) {
-                html += `<span class="key-sub">${keyData.sub}</span>`;
-            }
-            html += '</div>';
-            return html;
-        }
+        // No renderKey function needed - using V2's direct HTML approach
 
         function showLayer(layer) {
             currentLayer = layer;
@@ -681,12 +665,12 @@
             document.getElementById(`${layer}-btn`).classList.remove('bg-gray-300');
             document.getElementById(`${layer}-btn`).classList.add('bg-blue-500', 'text-white');
             
-            // Update key labels and tooltips
+            // Update key labels and tooltips - V2's simple approach
             const layerData = layers[layer];
             Object.keys(layerData).forEach(keyId => {
                 const keyElement = document.querySelector(`[data-key="${keyId}"]`);
                 if (keyElement) {
-                    const keyContent = renderKey(layerData[keyId]);
+                    let content = layerData[keyId] || '';
                     
                     // Add tooltip functionality
                     let tooltipText = '';
@@ -696,10 +680,13 @@
                         } else {
                             tooltipText = tooltips[keyId];
                         }
-                    } else if (!layerData[keyId] || !layerData[keyId].main) {
+                    } else if (content === '') {
                         tooltipText = 'No function on this layer';
                     } else {
-                        // Generic tooltip for regular keys
+                        // Clean content for tooltip (remove HTML)
+                        const cleanContent = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+                        
+                        // Generic tooltip descriptions for special keys
                         const keyDescriptions = {
                             '←': 'Left arrow key',
                             '→': 'Right arrow key', 
@@ -717,16 +704,16 @@
                             'Nav': 'Layer key - hold for navigation/numbers',
                             'Hold': 'Hold this key to access layer'
                         };
-                        const mainKey = layerData[keyId].main;
-                        tooltipText = keyDescriptions[mainKey] || `${mainKey} key`;
+                        
+                        tooltipText = keyDescriptions[cleanContent] || `${cleanContent} key`;
                     }
                     
-                    // Add tooltip class and content
+                    // Wrap content with tooltip if we have tooltip text
                     if (tooltipText) {
                         keyElement.classList.add('tooltip');
-                        keyElement.innerHTML = keyContent + `<div class="tooltip-text">${tooltipText}</div>`;
+                        keyElement.innerHTML = content + `<div class="tooltip-text">${tooltipText}</div>`;
                     } else {
-                        keyElement.innerHTML = keyContent;
+                        keyElement.innerHTML = content;
                     }
                 }
             });
