@@ -48,6 +48,42 @@
             font-size: 0.6rem;
             color: #6b7280;
         }
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 1000;
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1f2937 transparent transparent transparent;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-8">
@@ -304,6 +340,24 @@
     </div>
 
     <script>
+        // Tooltip explanations for optimized layout
+        const tooltips = {
+            // Home row with dual functions (optimized)
+            'L22': 'A key | Also serves as GUI when held',
+            'L23': 'R key | Also serves as Alt when held', 
+            'L24': 'S key | Also serves as Ctrl when held',
+            'L25': 'T key | Also serves as Shift when held',
+            'R25': 'N key | Also serves as Shift when held',
+            'R24': 'E key | Also serves as Ctrl when held',
+            'R23': 'I key | Also serves as Alt when held',
+            'R22': 'O key | Also serves as GUI when held',
+            // Thumb layer switching (only 2 needed!)
+            'LT2': 'Space key | Hold: Nav/Function layer (combined!)',
+            'LT1': 'Esc key | Hold: Media/System layer',
+            'RT3': 'Enter key | Also activates Nav layer',
+            'RT1': 'Del key | Includes = symbol function'
+        };
+
         // Optimized layer definitions - only 3 layers needed!
         const layers = {
             base: {
@@ -397,13 +451,60 @@
             document.getElementById(`${layer}-btn`).classList.remove('bg-gray-300');
             document.getElementById(`${layer}-btn`).classList.add('bg-blue-500', 'text-white');
             
-            // Update key labels
+            // Update key labels and tooltips
             const layerData = layers[layer];
             Object.keys(layerData).forEach(keyId => {
                 const keyElement = document.querySelector(`[data-key="${keyId}"]`);
                 if (keyElement) {
-                    const content = layerData[keyId] || '';
-                    keyElement.innerHTML = content;
+                    let content = layerData[keyId] || '';
+                    
+                    // Add tooltip functionality
+                    let tooltipText = '';
+                    if (tooltips[keyId]) {
+                        tooltipText = tooltips[keyId];
+                    } else if (content === '') {
+                        tooltipText = 'No function on this layer';
+                    } else {
+                        // Clean content for tooltip (remove HTML)
+                        const cleanContent = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+                        
+                        // Generic tooltip descriptions for special keys
+                        const keyDescriptions = {
+                            '←': 'Left arrow key',
+                            '→': 'Right arrow key', 
+                            '↑': 'Up arrow key',
+                            '↓': 'Down arrow key',
+                            'Home': 'Home key - go to beginning',
+                            'End': 'End key - go to end',
+                            'PgUp': 'Page Up key',
+                            'PgDn': 'Page Down key',
+                            'Prev': 'Previous track',
+                            'Next': 'Next track',
+                            'Play': 'Play/Pause media',
+                            'Vol+': 'Volume up',
+                            'Vol-': 'Volume down',
+                            'Mute': 'Mute audio',
+                            'Cut': 'Cut to clipboard (Ctrl+X)',
+                            'Copy': 'Copy to clipboard (Ctrl+C)',
+                            'Paste': 'Paste from clipboard (Ctrl+V)'
+                        };
+                        
+                        if (cleanContent.includes('~')) {
+                            tooltipText = 'Backtick (`) key | Shift: Tilde (~)';
+                        } else if (cleanContent.includes('!')) {
+                            tooltipText = 'Number key | Shift: Symbol above';
+                        } else {
+                            tooltipText = keyDescriptions[cleanContent] || `${cleanContent} key`;
+                        }
+                    }
+                    
+                    // Wrap content with tooltip if we have tooltip text
+                    if (tooltipText) {
+                        keyElement.classList.add('tooltip');
+                        keyElement.innerHTML = content + `<div class="tooltip-text">${tooltipText}</div>`;
+                    } else {
+                        keyElement.innerHTML = content;
+                    }
                 }
             });
         }

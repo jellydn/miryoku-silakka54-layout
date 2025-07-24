@@ -48,6 +48,42 @@
             font-size: 0.6rem;
             color: #6b7280;
         }
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 1000;
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1f2937 transparent transparent transparent;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-8">
@@ -295,6 +331,24 @@
     </div>
 
     <script>
+        // Tooltip explanations for keys  
+        const tooltips = {
+            // Home row modifiers with dual function
+            'L22': 'A key | Hold: GUI/Super modifier',
+            'L23': 'R key | Hold: Alt modifier', 
+            'L24': 'S key | Hold: Control modifier',
+            'L25': 'T key | Hold: Shift modifier',
+            'R25': 'N key | Hold: Shift modifier',
+            'R24': 'E key | Hold: Control modifier',
+            'R23': 'I key | Hold: Alt modifier',
+            'R22': 'O key | Hold: GUI/Super modifier',
+            // Thumb keys with layer switching
+            'LT2': 'Space key | Hold: Navigation layer',
+            'LT3': 'Tab key | Hold: Numbers layer',
+            'RT3': 'Enter key | Hold: Symbols layer',
+            'RT1': 'Delete key | Hold: Function layer'
+        };
+
         // Layer definitions
         const layers = {
             base: {
@@ -406,12 +460,59 @@
             document.getElementById(`${layer}-btn`).classList.remove('bg-gray-300');
             document.getElementById(`${layer}-btn`).classList.add('bg-blue-500', 'text-white');
             
-            // Update key labels
+            // Update key labels and tooltips
             const layerData = layers[layer];
             Object.keys(layerData).forEach(keyId => {
                 const keyElement = document.querySelector(`[data-key="${keyId}"]`);
                 if (keyElement) {
-                    keyElement.innerHTML = `<span class="text-xs font-medium">${layerData[keyId]}</span>`;
+                    const keyValue = layerData[keyId];
+                    
+                    // Add tooltip functionality
+                    let tooltipText = '';
+                    if (tooltips[keyId]) {
+                        tooltipText = tooltips[keyId];
+                    } else if (keyValue === '') {
+                        tooltipText = 'No function on this layer';
+                    } else {
+                        // Generic tooltip for regular keys
+                        const keyDescriptions = {
+                            '←': 'Left arrow key',
+                            '→': 'Right arrow key', 
+                            '↑': 'Up arrow key',
+                            '↓': 'Down arrow key',
+                            'PgUp': 'Page Up key',
+                            'PgDn': 'Page Down key',
+                            'Bksp': 'Backspace key',
+                            'GUI': 'GUI/Super modifier',
+                            'Alt': 'Alt modifier',
+                            'Ctrl': 'Control modifier', 
+                            'Shift': 'Shift modifier',
+                            'Cut': 'Cut to clipboard (Ctrl+X)',
+                            'Copy': 'Copy to clipboard (Ctrl+C)',
+                            'Paste': 'Paste from clipboard (Ctrl+V)',
+                            'Undo': 'Undo last action (Ctrl+Z)',
+                            'Redo': 'Redo last action (Ctrl+Y)',
+                            'A/GUI': 'A key | Hold: GUI modifier',
+                            'R/Alt': 'R key | Hold: Alt modifier',
+                            'S/Ctrl': 'S key | Hold: Control modifier',
+                            'T/Shft': 'T key | Hold: Shift modifier',
+                            'N/Shft': 'N key | Hold: Shift modifier',
+                            'E/Ctrl': 'E key | Hold: Control modifier',
+                            'I/Alt': 'I key | Hold: Alt modifier',
+                            'O/GUI': 'O key | Hold: GUI modifier'
+                        };
+                        tooltipText = keyDescriptions[keyValue] || `${keyValue} key`;
+                    }
+                    
+                    // Create tooltip HTML
+                    const tooltipHtml = tooltipText ? 
+                        `<span class="text-xs font-medium">${keyValue}</span>
+                         <div class="tooltip-text">${tooltipText}</div>` :
+                        `<span class="text-xs font-medium">${keyValue}</span>`;
+                    
+                    // Add tooltip class and content
+                    keyElement.classList.add('tooltip');
+                    keyElement.innerHTML = tooltipHtml;
                 }
             });
         }

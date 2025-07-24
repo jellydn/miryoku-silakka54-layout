@@ -54,6 +54,42 @@
             font-size: 0.6rem;
             color: #6b7280;
         }
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 1000;
+            transition: opacity 0.2s, visibility 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1f2937 transparent transparent transparent;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-100 p-8">
@@ -315,6 +351,42 @@
     </div>
 
     <script>
+        // Tooltip explanations for keys
+        const tooltips = {
+            // Layer switching explanations
+            'LT1': {
+                base: 'Hold: Navigation layer | Current layer inactive (---)',
+                nav: 'Current layer: Navigation (holding this key)',
+                sym: 'Hold: Function layer',
+                num: 'Hold: Media layer', 
+                fun: 'Current layer: Function (---)', 
+                media: 'Current layer: Media (---)'
+            },
+            'RT1': {
+                base: 'Hold: Symbols layer',
+                nav: 'Hold: Delete key',
+                sym: 'Current layer: Symbols (holding this key)',
+                num: 'Tap: Period (.) key',
+                fun: 'Hold: Numbers layer',
+                media: 'Tap: Mute key'
+            },
+            // Modifier keys explanations
+            'L21': 'Dedicated Control modifier (always Ctrl)',
+            'L31': 'Dedicated Shift modifier (always Shift)', 
+            'LT3': 'Dedicated GUI/Super modifier (always GUI)',
+            'R21': 'Dedicated Alt modifier (always Alt)',
+            'R31': 'Dedicated Shift modifier (always Shift)',
+            'RT3': 'Dedicated GUI/Super modifier (always GUI)',
+            // Space/Enter keys
+            'LT2': 'Space key (tap for space)',
+            'RT2': {
+                base: 'Enter key (tap for enter)',
+                nav: 'Backspace key',
+                num: '0 key',
+                media: 'Pause key'
+            }
+        };
+
         // Layer definitions
         const layers = {
             base: {
@@ -426,12 +498,57 @@
             document.getElementById(`${layer}-btn`).classList.remove('bg-gray-300');
             document.getElementById(`${layer}-btn`).classList.add('bg-blue-500', 'text-white');
             
-            // Update key labels
+            // Update key labels and tooltips
             const layerData = layers[layer];
             Object.keys(layerData).forEach(keyId => {
                 const keyElement = document.querySelector(`[data-key="${keyId}"]`);
                 if (keyElement) {
-                    keyElement.innerHTML = `<span class="text-xs font-medium">${layerData[keyId]}</span>`;
+                    const keyValue = layerData[keyId];
+                    
+                    // Add tooltip functionality
+                    let tooltipText = '';
+                    if (tooltips[keyId]) {
+                        if (typeof tooltips[keyId] === 'object') {
+                            tooltipText = tooltips[keyId][layer] || '';
+                        } else {
+                            tooltipText = tooltips[keyId];
+                        }
+                    } else if (keyValue === '---') {
+                        tooltipText = 'Layer inactive (not being held)';
+                    } else if (keyValue === '') {
+                        tooltipText = 'No function on this layer';
+                    } else {
+                        // Generic tooltip for regular keys
+                        const keyDescriptions = {
+                            '←': 'Left arrow key',
+                            '→': 'Right arrow key', 
+                            '↑': 'Up arrow key',
+                            '↓': 'Down arrow key',
+                            'PgUp': 'Page Up key',
+                            'PgDn': 'Page Down key',
+                            'Bksp': 'Backspace key',
+                            'Ctrl': 'Control modifier key',
+                            'Shift': 'Shift modifier key',
+                            'Alt': 'Alt modifier key',
+                            'GUI': 'GUI/Super/Windows key',
+                            'Cut': 'Cut to clipboard (Ctrl+X)',
+                            'Copy': 'Copy to clipboard (Ctrl+C)',
+                            'Paste': 'Paste from clipboard (Ctrl+V)',
+                            'Undo': 'Undo last action (Ctrl+Z)',
+                            'Redo': 'Redo last action (Ctrl+Y)'
+                        };
+                        tooltipText = keyDescriptions[keyValue] || `${keyValue} key`;
+                    }
+                    
+                    // Create tooltip HTML
+                    const tooltipHtml = tooltipText ? 
+                        `<span class="text-xs font-medium">${keyValue}</span>
+                         <div class="tooltip-text">${tooltipText}</div>` :
+                        `<span class="text-xs font-medium">${keyValue}</span>`;
+                    
+                    // Add tooltip class and content
+                    keyElement.classList.add('tooltip');
+                    keyElement.innerHTML = tooltipHtml;
                 }
             });
         }
