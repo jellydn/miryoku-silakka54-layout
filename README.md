@@ -13,9 +13,15 @@ The Silakka54 represents the ideal adaptation target - **54-60 key layouts hit a
 ## Features
 
 - **Interactive Keyboard Visualizer**: Visual representation of the 54-key layout with layer switching
-- **6-Layer System**: Base, Navigation, Symbols, Numbers, Function, and Media layers
+- **Multiple Layout Versions**: 4 different approaches to Miryoku implementation
+  - Traditional HRM: 6-Layer with Home Row Modifiers
+  - Optimized 3-Layer: Minimal layers with direct symbol access
+  - No HRM Dedicated: 6-Layer with dedicated modifier keys
+  - 4-Layer Balanced: Perfect balance of simplicity and efficiency
+- **Interactive Tooltips**: Hover over any key to see detailed explanations
 - **Educational Guide**: Comprehensive documentation of Miryoku principles and adaptation strategies
-- **Colemak-DH Integration**: Ergonomic alpha layout with home row modifiers
+- **Layer Switching Guide**: Step-by-step instructions for each version
+- **Version Navigation**: Easy comparison between different approaches
 - **Color-coded Keys**: Visual distinction between home row, thumb keys, and extra keys
 
 ## Quick Start
@@ -120,6 +126,33 @@ Research shows consistent patterns in successful adaptations:
 - **Days 43+**: Ergonomic benefits realized - potential speed increase
 
 **Critical insight**: The most effective approach treats the 36-key core as inviolate, using extra keys as functional enhancements rather than replacements. The Silakka54's extra keys should feel like natural extensions rather than departures from Miryoku's elegant design.
+
+## Interactive Features
+
+### Tooltip System
+All layout versions now include comprehensive tooltips that appear when you hover over any key:
+
+#### Traditional Version (index.html)
+- **Home row modifiers**: "A key | Hold: GUI/Super modifier"
+- **Layer switching**: "Space key | Hold: Navigation layer" 
+- **Dual-function keys**: Clear explanation of tap vs hold behavior
+
+#### Optimized Version (index-v2.html)
+- **Direct symbol access**: "Backtick (`) key | Shift: Tilde (~)"
+- **Combined layers**: "Space key | Hold: Nav/Function layer (combined!)"
+- **Efficiency notes**: Highlights reduced layer switching requirements
+
+#### No HRM Version (index-v3.html)
+- **Dedicated modifiers**: "Dedicated Control modifier (always Ctrl)"
+- **Layer states**: "Layer inactive (not being held)" for "---" keys
+- **Traditional feel**: Familiar modifier placement explanations
+
+### Version Navigation
+Each layout includes navigation buttons to easily compare between:
+- **Traditional HRM**: Full Miryoku experience with home row modifiers
+- **Optimized 3-Layer**: Reduced complexity with direct symbol access
+- **No HRM Dedicated**: Familiar modifier keys for easier transition
+- **4-Layer Balanced**: Perfect balance between simplicity and efficiency
 
 ## File Structure
 
