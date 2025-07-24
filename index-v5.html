@@ -704,9 +704,15 @@
         function renderKey(keyData) {
             if (!keyData || !keyData.main) return '';
             
+            // For punctuation keys, show only the main character like V2
+            // Keep number+symbol combos (1!, 2@) and operators (=+, -_) showing both
+            const hideSub = [',', '.', '/', ';', "'"].includes(keyData.main);
+            const showBothForOperators = ['=', '-'].includes(keyData.main);
+            
             let html = '<div class="key-label">';
             html += `<span class="key-main">${keyData.main}</span>`;
-            if (keyData.sub) {
+            // Show sub for numbers, operators, layer keys, but not basic punctuation  
+            if (keyData.sub && !hideSub) {
                 html += `<span class="key-sub">${keyData.sub}</span>`;
             }
             html += '</div>';
