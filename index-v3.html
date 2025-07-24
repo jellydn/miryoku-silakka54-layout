@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miryoku Layout for Silakka54</title>
+    <title>Miryoku Layout for Silakka54 - No HRM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .key {
@@ -33,6 +33,12 @@
         .thumb-key {
             min-width: 4.5rem;
         }
+        .mod-key {
+            background-color: #fef3c7 !important;
+        }
+        .layer-key {
+            background-color: #ddd6fe !important;
+        }
         .layer-active {
             background-color: #3b82f6 !important;
             color: white !important;
@@ -52,8 +58,8 @@
 </head>
 <body class="bg-gray-100 p-8">
     <div class="max-w-7xl mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-4">Miryoku Layout for Silakka54</h1>
-        <p class="text-center text-gray-600 mb-8">54-key split keyboard with Colemak-DH and home row modifiers</p>
+        <h1 class="text-3xl font-bold text-center mb-4">Miryoku Layout for Silakka54 (No Home Row Mods)</h1>
+        <p class="text-center text-gray-600 mb-8">54-key split keyboard with Colemak-DH and dedicated modifiers</p>
         
         <!-- Layer Selector -->
         <div class="flex justify-center gap-2 mb-8">
@@ -72,15 +78,15 @@
                 <h3 class="text-center font-semibold mb-4">Left Half</h3>
                 <div class="grid grid-cols-6 gap-1.5">
                     <!-- Number Row -->
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="L01"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="L02"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="L03"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="L04"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="L05"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="L06"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L01"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L02"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L03"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L04"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L05"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L06"></div>
                     
                     <!-- Top Row -->
-                    <div class="key bg-purple-100 rounded flex items-center justify-center" data-key="L11"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L11"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L12"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L13"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L14"></div>
@@ -88,15 +94,15 @@
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L16"></div>
                     
                     <!-- Home Row -->
-                    <div class="key bg-purple-100 rounded flex items-center justify-center" data-key="L21"></div>
-                    <div class="key bg-blue-100 rounded flex items-center justify-center home-row" data-key="L22"></div>
-                    <div class="key bg-blue-100 rounded flex items-center justify-center home-row" data-key="L23"></div>
-                    <div class="key bg-blue-100 rounded flex items-center justify-center home-row" data-key="L24"></div>
-                    <div class="key bg-blue-100 rounded flex items-center justify-center home-row" data-key="L25"></div>
+                    <div class="key mod-key rounded flex items-center justify-center" data-key="L21"></div>
+                    <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="L22"></div>
+                    <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="L23"></div>
+                    <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="L24"></div>
+                    <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="L25"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L26"></div>
                     
                     <!-- Bottom Row -->
-                    <div class="key bg-purple-100 rounded flex items-center justify-center" data-key="L31"></div>
+                    <div class="key mod-key rounded flex items-center justify-center" data-key="L31"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L32"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L33"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L34"></div>
@@ -106,9 +112,9 @@
                 
                 <!-- Thumb Cluster -->
                 <div class="flex justify-center gap-2 mt-4">
-                    <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="LT1"></div>
+                    <div class="key thumb-key layer-key rounded flex items-center justify-center" data-key="LT1"></div>
                     <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="LT2"></div>
-                    <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="LT3"></div>
+                    <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="LT3"></div>
                 </div>
             </div>
 
@@ -117,12 +123,12 @@
                 <h3 class="text-center font-semibold mb-4">Right Half</h3>
                 <div class="grid grid-cols-6 gap-1.5">
                     <!-- Number Row -->
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="R06"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="R05"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="R04"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="R03"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="R02"></div>
-                    <div class="key bg-orange-100 rounded flex items-center justify-center" data-key="R01"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R06"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R05"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R04"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R03"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R02"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R01"></div>
                     
                     <!-- Top Row -->
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R16"></div>
@@ -130,15 +136,15 @@
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R14"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R13"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R12"></div>
-                    <div class="key bg-purple-100 rounded flex items-center justify-center" data-key="R11"></div>
+                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R11"></div>
                     
                     <!-- Home Row -->
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R26"></div>
-                    <div class="key bg-blue-100 rounded flex items-center justify-center home-row" data-key="R25"></div>
-                    <div class="key bg-blue-100 rounded flex items-center justify-center home-row" data-key="R24"></div>
-                    <div class="key bg-blue-100 rounded flex items-center justify-center home-row" data-key="R23"></div>
-                    <div class="key bg-blue-100 rounded flex items-center justify-center home-row" data-key="R22"></div>
-                    <div class="key bg-purple-100 rounded flex items-center justify-center" data-key="R21"></div>
+                    <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="R25"></div>
+                    <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="R24"></div>
+                    <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="R23"></div>
+                    <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="R22"></div>
+                    <div class="key mod-key rounded flex items-center justify-center" data-key="R21"></div>
                     
                     <!-- Bottom Row -->
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R36"></div>
@@ -146,126 +152,140 @@
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R34"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R33"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R32"></div>
-                    <div class="key bg-purple-100 rounded flex items-center justify-center" data-key="R31"></div>
+                    <div class="key mod-key rounded flex items-center justify-center" data-key="R31"></div>
                 </div>
                 
                 <!-- Thumb Cluster -->
                 <div class="flex justify-center gap-2 mt-4">
-                    <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="RT3"></div>
+                    <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="RT3"></div>
                     <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="RT2"></div>
-                    <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="RT1"></div>
+                    <div class="key thumb-key layer-key rounded flex items-center justify-center" data-key="RT1"></div>
                 </div>
             </div>
         </div>
 
         <!-- Legend -->
         <div class="mt-8 bg-white p-4 rounded-lg shadow">
-            <h3 class="font-semibold mb-3">Key Features of This Layout</h3>
+            <h3 class="font-semibold mb-3">Key Features of This No-HRM Layout</h3>
             <div class="grid grid-cols-2 gap-4 text-sm">
                 <div>
                     <h4 class="font-medium mb-2">Color Legend:</h4>
                     <div class="space-y-1">
                         <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-blue-100 rounded"></div>
-                            <span>Home row with modifiers (GUI/Alt/Ctrl/Shift)</span>
+                            <div class="w-4 h-4 bg-gray-100 rounded"></div>
+                            <span>Regular alpha keys (Colemak-DH)</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-orange-100 rounded"></div>
-                            <span>Number row with direct symbol access</span>
+                            <div class="w-4 h-4 bg-yellow-100 rounded"></div>
+                            <span>Dedicated modifier keys (Shift, Ctrl, Alt, GUI)</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 bg-purple-100 rounded"></div>
-                            <span>Common symbols and extra keys</span>
+                            <span>Layer switching keys</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 bg-green-200 rounded"></div>
-                            <span>Thumb keys (Space/Enter/Tab/Layer switches)</span>
+                            <span>Space/Enter/Backspace</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-gray-200 rounded"></div>
+                            <span>Number row & extra keys</span>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <h4 class="font-medium mb-2">Layout Benefits:</h4>
+                    <h4 class="font-medium mb-2">Why No Home Row Modifiers?</h4>
                     <ul class="space-y-1 text-gray-600">
-                        <li>• Direct access to numbers and symbols</li>
-                        <li>• Common punctuation readily available</li>
-                        <li>• Home row modifiers for ergonomics</li>
-                        <li>• Minimal layer switching needed</li>
-                        <li>• Preserves Miryoku core principles</li>
+                        <li>• Easier learning curve - no dual-function keys</li>
+                        <li>• Familiar modifier placement for newcomers</li>
+                        <li>• Dedicated keys prevent accidental activation</li>
+                        <li>• Good transition from traditional keyboards</li>
+                        <li>• Still preserves Miryoku layer principles</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <!-- How to Change Layers -->
-        <div class="mt-8 bg-blue-50 p-6 rounded-lg border border-blue-200">
-            <h3 class="font-semibold text-blue-900 mb-4 text-center">How to Change Between Layers</h3>
+        <div class="mt-8 bg-purple-50 p-6 rounded-lg border border-purple-200">
+            <h3 class="font-semibold text-purple-900 mb-4 text-center">How to Change Between Layers (No Home Row Modifiers)</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Physical Keyboard Usage -->
                 <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h4 class="font-medium text-blue-800 mb-3 flex items-center">
-                        <span class="bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">1</span>
+                    <h4 class="font-medium text-purple-800 mb-3 flex items-center">
+                        <span class="bg-purple-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">1</span>
                         On Your Physical Keyboard
                     </h4>
                     <div class="space-y-2 text-sm">
                         <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Space key</strong> → Navigation layer (arrows, clipboard)
-                                <div class="text-gray-600 text-xs">Right hand becomes navigation controls</div>
+                                <strong>Nav key (left thumb)</strong> → Navigation layer
+                                <div class="text-gray-600 text-xs">Arrows, clipboard, page controls on right hand</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Enter key</strong> → Symbols layer (punctuation)
-                                <div class="text-gray-600 text-xs">Left hand becomes symbol controls</div>
+                                <strong>Sym key (right thumb)</strong> → Symbols layer
+                                <div class="text-gray-600 text-xs">Punctuation and operators on left hand</div>
                             </div>
                         </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Tab/Del keys</strong> → Numbers/Function layers
-                                <div class="text-gray-600 text-xs">Access remaining layers as configured</div>
-                            </div>
+                        <div class="bg-yellow-50 p-3 rounded-lg mt-3">
+                            <div class="text-yellow-800 text-xs font-medium mb-1">🎯 Dedicated Modifiers</div>
+                            <div class="text-yellow-700 text-xs">Shift/Ctrl/Alt/GUI are on dedicated keys - no dual-function confusion!</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Visualizer Usage -->
                 <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h4 class="font-medium text-blue-800 mb-3 flex items-center">
-                        <span class="bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">2</span>
+                    <h4 class="font-medium text-purple-800 mb-3 flex items-center">
+                        <span class="bg-purple-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">2</span>
                         In This Visualizer
                     </h4>
                     <div class="space-y-2 text-sm">
                         <div class="flex items-start gap-2">
                             <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Click</span>
                             <div>
-                                <strong>Layer buttons above</strong> → Switch views
-                                <div class="text-gray-600 text-xs">See what each layer looks like</div>
+                                <strong>6 layer buttons above</strong> → Switch views
+                                <div class="text-gray-600 text-xs">Full traditional layers: Base, Nav, Sym, Num, Fun, Media</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hover</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">Notice</span>
                             <div>
-                                <strong>Over any key</strong> → See details
-                                <div class="text-gray-600 text-xs">Keys lift up to show they're interactive</div>
+                                <strong>Color coding</strong> → Easy identification
+                                <div class="text-gray-600 text-xs">Yellow = modifiers, Purple = layers, Green = space/enter</div>
                             </div>
                         </div>
                         <div class="text-gray-600 text-xs mt-3 p-2 bg-gray-50 rounded">
-                            💡 <strong>Tip:</strong> The visualizer shows the final result - on your keyboard, you hold thumb keys to temporarily access other layers while typing
+                            💡 <strong>Best of both worlds:</strong> Miryoku layer efficiency + traditional modifier familiarity
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Key Principle -->
-            <div class="mt-4 p-3 bg-blue-100 rounded-lg text-center">
-                <p class="text-sm text-blue-800">
-                    <strong>Key Principle:</strong> Tap thumb keys for their primary function (Space, Enter, etc.) • 
-                    Hold thumb keys to activate layers on the opposite hand
-                </p>
+            <!-- Key Benefits -->
+            <div class="mt-4 p-4 bg-purple-100 rounded-lg">
+                <div class="text-center">
+                    <p class="text-sm text-purple-800 font-medium mb-2">No Home Row Modifiers Advantages</p>
+                    <div class="grid grid-cols-3 gap-4 text-xs">
+                        <div class="bg-white p-2 rounded">
+                            <div class="font-medium text-green-700">Easier Learning</div>
+                            <div class="text-gray-600">No dual-function keys to master</div>
+                        </div>
+                        <div class="bg-white p-2 rounded">
+                            <div class="font-medium text-blue-700">Familiar Feel</div>
+                            <div class="text-gray-600">Traditional modifier positions</div>
+                        </div>
+                        <div class="bg-white p-2 rounded">
+                            <div class="font-medium text-purple-700">No Accidents</div>
+                            <div class="text-gray-600">Dedicated keys prevent mistakes</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -274,15 +294,15 @@
             <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <p class="text-sm text-gray-600 mb-2">Compare Layout Versions:</p>
                 <div class="flex justify-center gap-2 flex-wrap">
-                    <span class="px-3 py-2 bg-blue-500 text-white rounded text-sm">
-                        Current: Traditional 6-Layer
-                    </span>
+                    <a href="index.html" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm">
+                        Traditional 6-Layer
+                    </a>
                     <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm">
                         Optimized 3-Layer
                     </a>
-                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm">
-                        No HRM Version
-                    </a>
+                    <span class="px-3 py-2 bg-purple-500 text-white rounded text-sm">
+                        Current: No HRM Version
+                    </span>
                 </div>
             </div>
         </div>
@@ -290,7 +310,7 @@
         <!-- Quick Tips -->
         <div class="mt-4 text-center text-gray-600">
             <p class="font-medium">Quick Reference:</p>
-            <p class="text-sm mt-1">Home row modifiers: GUI (pinky) | Alt (ring) | Ctrl (middle) | Shift (index)</p>
+            <p class="text-sm mt-1">Modifiers are on dedicated keys: outer columns and thumb positions</p>
         </div>
     </div>
 
@@ -299,97 +319,97 @@
         const layers = {
             base: {
                 // Left side - Number row
-                L01: '`', L02: '1', L03: '2', L04: '3', L05: '4', L06: '5',
+                L01: 'Esc', L02: '1', L03: '2', L04: '3', L05: '4', L06: '5',
                 // Left side - Main keys (Colemak-DH)
                 L11: 'Tab', L12: 'Q', L13: 'W', L14: 'F', L15: 'P', L16: 'B',
-                L21: '[', L22: 'A/GUI', L23: 'R/Alt', L24: 'S/Ctrl', L25: 'T/Shft', L26: 'G',
-                L31: ';', L32: 'Z', L33: 'X', L34: 'C', L35: 'D', L36: 'V',
+                L21: 'Ctrl', L22: 'A', L23: 'R', L24: 'S', L25: 'T', L26: 'G',
+                L31: 'Shift', L32: 'Z', L33: 'X', L34: 'C', L35: 'D', L36: 'V',
                 // Left thumb cluster
-                LT1: 'Esc', LT2: 'Space', LT3: 'Tab',
+                LT1: 'Nav', LT2: 'Space', LT3: 'GUI',
                 
                 // Right side - Number row
                 R06: '6', R05: '7', R04: '8', R03: '9', R02: '0', R01: '-',
                 // Right side - Main keys (Colemak-DH)
                 R16: 'J', R15: 'L', R14: 'U', R13: 'Y', R12: "'", R11: '=',
-                R26: 'M', R25: 'N/Shft', R24: 'E/Ctrl', R23: 'I/Alt', R22: 'O/GUI', R21: ']',
-                R36: 'K', R35: 'H', R34: ',', R33: '.', R32: '/', R31: '\\',
+                R26: 'M', R25: 'N', R24: 'E', R23: 'I', R22: 'O', R21: 'Alt',
+                R36: 'K', R35: 'H', R34: ',', R33: '.', R32: '/', R31: 'Shift',
                 // Right thumb cluster
-                RT3: 'Enter', RT2: 'Bksp', RT1: 'Del'
+                RT3: 'GUI', RT2: 'Enter', RT1: 'Sym'
             },
             nav: {
-                // Left side remains mostly empty on nav layer
+                // Left side - mostly modifiers on nav layer
                 L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
                 L11: '', L12: '', L13: '', L14: '', L15: '', L16: '',
-                L21: '', L22: 'GUI', L23: 'Alt', L24: 'Ctrl', L25: 'Shift', L26: '',
-                L31: '', L32: '', L33: '', L34: '', L35: '', L36: '',
-                LT1: '', LT2: '', LT3: '',
+                L21: 'Ctrl', L22: '', L23: '', L24: '', L25: '', L26: '',
+                L31: 'Shift', L32: '', L33: '', L34: '', L35: '', L36: '',
+                LT1: '---', LT2: '', LT3: 'GUI',
                 
                 // Right side - Navigation
                 R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
                 R16: 'Redo', R15: 'Paste', R14: 'Copy', R13: 'Cut', R12: 'Undo', R11: '',
-                R26: 'Caps', R25: '←', R24: '↓', R23: '↑', R22: '→', R21: '',
-                R36: 'Ins', R35: 'Home', R34: 'PgDn', R33: 'PgUp', R32: 'End', R31: '',
-                RT3: '', RT2: '', RT1: ''
+                R26: 'Caps', R25: '←', R24: '↓', R23: '↑', R22: '→', R21: 'Alt',
+                R36: 'Ins', R35: 'Home', R34: 'PgDn', R33: 'PgUp', R32: 'End', R31: 'Shift',
+                RT3: 'GUI', RT2: 'Bksp', RT1: 'Del'
             },
             sym: {
                 // Left side - Symbols
-                L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
-                L11: '', L12: '{', L13: '&', L14: '*', L15: '(', L16: '}',
-                L21: '', L22: ':', L23: '$', L24: '%', L25: '^', L26: '+',
-                L31: '', L32: '~', L33: '!', L34: '@', L35: '#', L36: '|',
-                LT1: '', LT2: '', LT3: '',
+                L01: '~', L02: '!', L03: '@', L04: '#', L05: '$', L06: '%',
+                L11: '`', L12: '{', L13: '&', L14: '*', L15: '(', L16: '}',
+                L21: 'Ctrl', L22: ':', L23: '$', L24: '%', L25: '^', L26: '+',
+                L31: 'Shift', L32: '~', L33: '!', L34: '@', L35: '#', L36: '|',
+                LT1: 'Fun', LT2: '(', LT3: 'GUI',
                 
-                // Right side - mostly empty
-                R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
-                R16: '', R15: '', R14: '', R13: '', R12: '', R11: '',
-                R26: '', R25: 'Shift', R24: 'Ctrl', R23: 'Alt', R22: 'GUI', R21: '',
-                R36: '', R35: '', R34: '', R33: '', R32: '', R31: '',
-                RT3: '', RT2: '', RT1: ''
+                // Right side - mostly modifiers
+                R06: '^', R05: '&', R04: '*', R03: '(', R02: ')', R01: '_',
+                R16: '[', R15: ']', R14: '(', R13: ')', R12: '\\', R11: '`',
+                R26: ';', R25: '=', R24: '-', R23: '_', R22: '+', R21: 'Alt',
+                R36: '<', R35: '>', R34: '[', R33: ']', R32: '?', R31: 'Shift',
+                RT3: 'GUI', RT2: ')', RT1: '---'
             },
             num: {
-                // Left side - mostly empty
-                L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
+                // Left side - modifiers
+                L01: '', L02: 'F1', L03: 'F2', L04: 'F3', L05: 'F4', L06: 'F5',
                 L11: '', L12: '', L13: '', L14: '', L15: '', L16: '',
-                L21: '', L22: 'GUI', L23: 'Alt', L24: 'Ctrl', L25: 'Shift', L26: '',
-                L31: '', L32: '', L33: '', L34: '', L35: '', L36: '',
-                LT1: '', LT2: '', LT3: '',
+                L21: 'Ctrl', L22: '', L23: '', L24: '', L25: '', L26: '',
+                L31: 'Shift', L32: '', L33: '', L34: '', L35: '', L36: '',
+                LT1: 'Media', LT2: '', LT3: 'GUI',
                 
                 // Right side - Numpad
-                R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
-                R16: '[', R15: '7', R14: '8', R13: '9', R12: ']', R11: '',
-                R26: "'", R25: '4', R24: '5', R23: '6', R22: '=', R21: '',
-                R36: '`', R35: '1', R34: '2', R33: '3', R32: '\\', R31: '',
-                RT3: '.', RT2: '0', RT1: '-'
+                R06: 'F6', R05: 'F7', R04: 'F8', R03: 'F9', R02: 'F10', R01: 'F11',
+                R16: '[', R15: '7', R14: '8', R13: '9', R12: ']', R11: 'F12',
+                R26: "'", R25: '4', R24: '5', R23: '6', R22: '=', R21: 'Alt',
+                R36: '`', R35: '1', R34: '2', R33: '3', R32: '\\', R31: 'Shift',
+                RT3: 'GUI', RT2: '0', RT1: '.'
             },
             fun: {
-                // Left side - mostly empty
-                L01: '', L02: 'F1', L03: 'F2', L04: 'F3', L05: 'F4', L06: '',
+                // Left side - function keys
+                L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
                 L11: '', L12: 'F12', L13: 'F7', L14: 'F8', L15: 'F9', L16: 'PrtSc',
-                L21: '', L22: 'F11', L23: 'F4', L24: 'F5', L25: 'F6', L26: 'ScrLk',
-                L31: '', L32: 'F10', L33: 'F1', L34: 'F2', L35: 'F3', L36: 'Pause',
-                LT1: '', LT2: '', LT3: '',
+                L21: 'Ctrl', L22: 'F11', L23: 'F4', L24: 'F5', L25: 'F6', L26: 'ScrLk',
+                L31: 'Shift', L32: 'F10', L33: 'F1', L34: 'F2', L35: 'F3', L36: 'Pause',
+                LT1: '---', LT2: '', LT3: 'GUI',
                 
-                // Right side - mostly empty
-                R06: '', R05: 'F5', R04: 'F6', R03: 'F7', R02: 'F8', R01: '',
+                // Right side - modifiers
+                R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
                 R16: '', R15: '', R14: '', R13: '', R12: '', R11: '',
-                R26: '', R25: 'Shift', R24: 'Ctrl', R23: 'Alt', R22: 'GUI', R21: '',
-                R36: '', R35: '', R34: '', R33: '', R32: '', R31: '',
-                RT3: '', RT2: '', RT1: ''
+                R26: '', R25: '', R24: '', R23: '', R22: '', R21: 'Alt',
+                R36: '', R35: '', R34: '', R33: '', R32: '', R31: 'Shift',
+                RT3: 'GUI', RT2: '', RT1: 'Num'
             },
             media: {
-                // Left side - mostly empty
+                // Left side - modifiers
                 L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
                 L11: '', L12: '', L13: '', L14: '', L15: '', L16: '',
-                L21: '', L22: 'GUI', L23: 'Alt', L24: 'Ctrl', L25: 'Shift', L26: '',
-                L31: '', L32: '', L33: '', L34: '', L35: '', L36: '',
-                LT1: '', LT2: '', LT3: '',
+                L21: 'Ctrl', L22: '', L23: '', L24: '', L25: '', L26: '',
+                L31: 'Shift', L32: '', L33: '', L34: '', L35: '', L36: '',
+                LT1: '---', LT2: '', LT3: 'GUI',
                 
                 // Right side - Media controls
                 R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
                 R16: 'RGB+', R15: 'RGB-', R14: 'HUE+', R13: 'HUE-', R12: 'SAT+', R11: 'SAT-',
-                R26: 'TOG', R25: 'Prev', R24: 'Vol-', R23: 'Vol+', R22: 'Next', R21: '',
-                R36: '', R35: '', R34: 'Bright-', R33: 'Bright+', R32: '', R31: '',
-                RT3: 'Stop', RT2: 'Pause', RT1: 'Mute'
+                R26: 'TOG', R25: 'Prev', R24: 'Vol-', R23: 'Vol+', R22: 'Next', R21: 'Alt',
+                R36: '', R35: '', R34: 'Bright-', R33: 'Bright+', R32: '', R31: 'Shift',
+                RT3: 'GUI', RT2: 'Pause', RT1: 'Mute'
             }
         };
 
