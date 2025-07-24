@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimized 4-Layer Miryoku for Silakka54</title>
+    <title>Coding-Optimized Miryoku for Silakka54</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .key {
@@ -24,6 +24,9 @@
         }
         .layer-key {
             background-color: #ddd6fe !important;
+        }
+        .code-key {
+            background-color: #ecfdf5 !important;
         }
         .layer-active {
             background-color: #3b82f6 !important;
@@ -84,16 +87,16 @@
 </head>
 <body class="bg-gray-100 p-8">
     <div class="max-w-7xl mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-4">Optimized 4-Layer Miryoku for Silakka54</h1>
-        <p class="text-center text-gray-600 mb-2">Balanced approach: Direct access + minimal layers</p>
-        <p class="text-center text-sm text-gray-500 mb-8">Perfect balance between simplicity and efficiency!</p>
+        <h1 class="text-3xl font-bold text-center mb-4">Coding-Optimized Miryoku for Silakka54</h1>
+        <p class="text-center text-gray-600 mb-2">V5: Optimized for programming workflows and IDE usage</p>
+        <p class="text-center text-sm text-gray-500 mb-8">Direct access to brackets, coding symbols, and IDE shortcuts!</p>
         
         <!-- Layer Selector -->
         <div class="flex justify-center gap-2 mb-8">
             <button onclick="showLayer('base')" id="base-btn" class="layer-btn px-4 py-2 rounded bg-blue-500 text-white">Base</button>
-            <button onclick="showLayer('sym')" id="sym-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Symbols</button>
-            <button onclick="showLayer('nav')" id="nav-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Nav/Num</button>
-            <button onclick="showLayer('fun')" id="fun-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Function</button>
+            <button onclick="showLayer('code')" id="code-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Code</button>
+            <button onclick="showLayer('nav')" id="nav-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Nav/IDE</button>
+            <button onclick="showLayer('num')" id="num-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Numbers</button>
         </div>
 
         <!-- Keyboard Layout -->
@@ -119,7 +122,7 @@
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L16"></div>
                     
                     <!-- Home Row -->
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L21"></div>
+                    <div class="key code-key rounded flex items-center justify-center" data-key="L21"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L22"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L23"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L24"></div>
@@ -169,7 +172,7 @@
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R24"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R23"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R22"></div>
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R21"></div>
+                    <div class="key code-key rounded flex items-center justify-center" data-key="R21"></div>
                     
                     <!-- Bottom Row -->
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R36"></div>
@@ -191,7 +194,7 @@
 
         <!-- Legend -->
         <div class="mt-8 bg-white p-4 rounded-lg shadow">
-            <h3 class="font-semibold mb-3">Key Features of This 4-Layer Layout</h3>
+            <h3 class="font-semibold mb-3">Key Features of This Coding-Optimized Layout</h3>
             <div class="grid grid-cols-2 gap-4 text-sm">
                 <div>
                     <h4 class="font-medium mb-2">Color Legend:</h4>
@@ -201,8 +204,12 @@
                             <span>Regular alpha keys (Colemak-DH)</span>
                         </div>
                         <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-green-100 rounded"></div>
+                            <span>Direct coding symbols (brackets, operators)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
                             <div class="w-4 h-4 bg-yellow-100 rounded"></div>
-                            <span>Dedicated modifier keys (Shift, Ctrl)</span>
+                            <span>Dedicated modifier keys</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 bg-purple-200 rounded"></div>
@@ -212,106 +219,110 @@
                             <div class="w-4 h-4 bg-green-200 rounded"></div>
                             <span>Space/Backspace</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-gray-200 rounded"></div>
-                            <span>Extra keys and numbers</span>
-                        </div>
                     </div>
                 </div>
                 <div>
-                    <h4 class="font-medium mb-2">Perfect Balance Achieved:</h4>
+                    <h4 class="font-medium mb-2">Coding Optimizations:</h4>
                     <ul class="space-y-1 text-gray-600">
-                        <li>• Only 4 layers needed (vs 6 in traditional)</li>
-                        <li>• Dedicated modifiers (no dual-function)</li>
-                        <li>• Direct number row access</li>
-                        <li>• Combined Nav/Num layer for efficiency</li>
-                        <li>• Easier than full Miryoku, more efficient than standard</li>
+                        <li>• Direct bracket access [{()}] on base layer</li>
+                        <li>• Common operators (=, +, -, *) without shifting</li>
+                        <li>• IDE shortcuts on Nav/IDE layer</li>
+                        <li>• Code navigation (word jump, line select)</li>
+                        <li>• Debugging keys (F5, F9, F10, F11)</li>
+                        <li>• String manipulation shortcuts</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <!-- How to Change Layers -->
-        <div class="mt-8 bg-amber-50 p-6 rounded-lg border border-amber-200">
-            <h3 class="font-semibold text-amber-900 mb-4 text-center">How to Change Between Layers (4-Layer Optimized)</h3>
+        <div class="mt-8 bg-emerald-50 p-6 rounded-lg border border-emerald-200">
+            <h3 class="font-semibold text-emerald-900 mb-4 text-center">How to Use This Coding-Optimized Layout</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Physical Keyboard Usage -->
                 <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h4 class="font-medium text-amber-800 mb-3 flex items-center">
-                        <span class="bg-amber-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">1</span>
-                        On Your Physical Keyboard
+                    <h4 class="font-medium text-emerald-800 mb-3 flex items-center">
+                        <span class="bg-emerald-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">1</span>
+                        Coding Workflow
                     </h4>
                     <div class="space-y-2 text-sm">
                         <div class="flex items-start gap-2">
-                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Direct</span>
                             <div>
-                                <strong>Sym key (left thumb)</strong> → Symbols layer
-                                <div class="text-gray-600 text-xs">Access all punctuation and operators</div>
+                                <strong>Brackets & operators</strong> → No layer switching
+                                <div class="text-gray-600 text-xs">[]{}() =+- */  all on base layer</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Nav key (right thumb)</strong> → Nav/Num layer
-                                <div class="text-gray-600 text-xs">Navigation arrows + numpad combined</div>
+                                <strong>Code layer</strong> → Advanced symbols & strings
+                                <div class="text-gray-600 text-xs">String quotes, regex, advanced operators</div>
                             </div>
                         </div>
-                        <div class="bg-amber-50 p-3 rounded-lg mt-3">
-                            <div class="text-amber-800 text-xs font-medium mb-1">⚖️ Balanced Approach</div>
-                            <div class="text-amber-700 text-xs">Best of both worlds: dedicated modifiers + minimal layers!</div>
+                        <div class="flex items-start gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
+                            <div>
+                                <strong>Nav/IDE layer</strong> → IDE shortcuts & navigation
+                                <div class="text-gray-600 text-xs">Debugging, refactoring, code navigation</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Visualizer Usage -->
+                <!-- IDE Integration -->
                 <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h4 class="font-medium text-amber-800 mb-3 flex items-center">
-                        <span class="bg-amber-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">2</span>
-                        In This Visualizer
+                    <h4 class="font-medium text-emerald-800 mb-3 flex items-center">
+                        <span class="bg-emerald-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">2</span>
+                        IDE Integration
                     </h4>
                     <div class="space-y-2 text-sm">
                         <div class="flex items-start gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Click</span>
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-medium">F5</span>
                             <div>
-                                <strong>4 layer buttons above</strong> → Switch views
-                                <div class="text-gray-600 text-xs">Base, Symbols, Nav/Num, Function</div>
+                                <strong>Debug/Run</strong> → Start debugging or run code
+                                <div class="text-gray-600 text-xs">Universal across IDEs</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hover</span>
+                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-medium">Ctrl+D</span>
                             <div>
-                                <strong>Any key</strong> → See detailed tooltips
-                                <div class="text-gray-600 text-xs">Explains dedicated vs layer functions</div>
+                                <strong>Duplicate line</strong> → Quick line duplication
+                                <div class="text-gray-600 text-xs">VS Code, IntelliJ, Sublime</div>
                             </div>
                         </div>
-                        <div class="text-gray-600 text-xs mt-3 p-2 bg-gray-50 rounded">
-                            🎯 <strong>Sweet Spot:</strong> This layout balances simplicity and efficiency - perfect for users who want Miryoku benefits without the complexity
+                        <div class="flex items-start gap-2">
+                            <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs font-medium">Alt+↑/↓</span>
+                            <div>
+                                <strong>Move lines</strong> → Move current line up/down
+                                <div class="text-gray-600 text-xs">Essential for code organization</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Key Benefits -->
-            <div class="mt-4 p-4 bg-amber-100 rounded-lg">
+            <!-- Coding Benefits -->
+            <div class="mt-4 p-4 bg-emerald-100 rounded-lg">
                 <div class="text-center">
-                    <p class="text-sm text-amber-800 font-medium mb-2">4-Layer Optimization Strategy</p>
+                    <p class="text-sm text-emerald-800 font-medium mb-2">Coding Efficiency Features</p>
                     <div class="grid grid-cols-4 gap-2 text-xs">
                         <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-blue-700">Base</div>
-                            <div class="text-gray-600">Letters + numbers</div>
+                            <div class="font-medium text-blue-700">Base Layer</div>
+                            <div class="text-gray-600">Letters + direct brackets</div>
                         </div>
                         <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-purple-700">Symbols</div>
-                            <div class="text-gray-600">All punctuation</div>
+                            <div class="font-medium text-green-700">Code Layer</div>
+                            <div class="text-gray-600">Strings & advanced symbols</div>
                         </div>
                         <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-green-700">Nav/Num</div>
-                            <div class="text-gray-600">Arrows + numpad</div>
+                            <div class="font-medium text-purple-700">Nav/IDE</div>
+                            <div class="text-gray-600">IDE shortcuts & debugging</div>
                         </div>
                         <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-red-700">Function</div>
-                            <div class="text-gray-600">F-keys only</div>
+                            <div class="font-medium text-orange-700">Numbers</div>
+                            <div class="text-gray-600">Numpad + F-keys</div>
                         </div>
                     </div>
                 </div>
@@ -332,53 +343,56 @@
                     <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm">
                         No HRM Dedicated
                     </a>
-                    <span class="px-3 py-2 bg-amber-500 text-white rounded text-sm">
-                        Current: 4-Layer Balanced
-                    </span>
-                    <a href="index-v5.html" class="px-3 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors text-sm">
-                        Coding Optimized
+                    <a href="index-v4.html" class="px-3 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition-colors text-sm">
+                        4-Layer Balanced
                     </a>
+                    <span class="px-3 py-2 bg-emerald-500 text-white rounded text-sm">
+                        Current: Coding Optimized
+                    </span>
                 </div>
             </div>
         </div>
 
         <!-- Quick Tips -->
         <div class="mt-4 text-center text-gray-600">
-            <p class="font-medium">Quick Reference:</p>
-            <p class="text-sm mt-1">Dedicated modifiers on outer keys | Hold Sym/Nav for layers</p>
+            <p class="font-medium">Coding Tips:</p>
+            <p class="text-sm mt-1">All brackets on base layer • IDE shortcuts on Nav/IDE • String manipulation optimized</p>
         </div>
     </div>
 
     <script>
-        // Tooltip explanations for 4-layer optimized layout
+        // Tooltip explanations for coding-optimized layout
         const tooltips = {
+            // Direct coding access
+            'L21': 'Direct brackets: [ and ] keys (no layer needed)',
+            'R21': 'Direct brackets: { and } keys (no layer needed)', 
             // Dedicated modifiers
             'L31': 'Dedicated Shift modifier (always Shift)',
             'R31': 'Dedicated Shift modifier (always Shift)', 
             'LT1': 'Dedicated Control modifier (always Ctrl)',
-            'RT1': 'Dedicated Enter key',
-            // Layer switching
+            'RT1': 'Dedicated Alt modifier (always Alt)',
+            // Layer switching with coding focus
             'LT3': {
-                base: 'Hold: Symbols layer',
-                sym: 'Current layer: Symbols (holding this key)',
-                nav: 'Hold: Symbols layer',
-                fun: 'Hold: Symbols layer'
+                base: 'Hold: Code layer (strings, advanced symbols)',
+                code: 'Current layer: Code (holding this key)',
+                nav: 'Hold: Code layer',
+                num: 'Hold: Code layer'
             },
             'RT3': {
-                base: 'Hold: Nav/Num layer',
-                sym: 'Hold: Nav/Num layer',
-                nav: 'Current layer: Nav/Num (holding this key)',
-                fun: 'Hold: Nav/Num layer'
+                base: 'Hold: Nav/IDE layer (shortcuts, debugging)',
+                code: 'Hold: Nav/IDE layer',
+                nav: 'Current layer: Nav/IDE (holding this key)',
+                num: 'Hold: Nav/IDE layer'
             },
-            // Space key
+            // Space/backspace
             'LT2': 'Space key (tap for space)',
             'RT2': 'Backspace key'
         };
 
-        // Simplified layer definitions
+        // Coding-optimized layer definitions
         const layers = {
             base: {
-                // Left side - Number row
+                // Left side - Number row with coding symbols
                 L01: { main: 'Esc', sub: '`' },
                 L02: { main: '1', sub: '!' },
                 L03: { main: '2', sub: '@' },
@@ -386,7 +400,7 @@
                 L05: { main: '4', sub: '$' },
                 L06: { main: '5', sub: '%' },
                 
-                // Left side - Main keys (Colemak-DH)
+                // Left side - Main keys with direct coding access
                 L11: { main: 'Tab' },
                 L12: { main: 'Q' },
                 L13: { main: 'W' },
@@ -394,7 +408,7 @@
                 L15: { main: 'P' },
                 L16: { main: 'B' },
                 
-                L21: { main: 'Caps' },
+                L21: { main: '[', sub: ']' }, // Direct bracket access
                 L22: { main: 'A' },
                 L23: { main: 'R' },
                 L24: { main: 'S' },
@@ -411,9 +425,9 @@
                 // Left thumb cluster
                 LT1: { main: 'Ctrl' },
                 LT2: { main: 'Space' },
-                LT3: { main: 'Sym', sub: 'Hold' },
+                LT3: { main: 'Code', sub: 'Hold' },
                 
-                // Right side - Number row
+                // Right side - Number row with coding symbols
                 R06: { main: '6', sub: '^' },
                 R05: { main: '7', sub: '&' },
                 R04: { main: '8', sub: '*' },
@@ -421,20 +435,20 @@
                 R02: { main: '0', sub: ')' },
                 R01: { main: '-', sub: '_' },
                 
-                // Right side - Main keys (Colemak-DH)
+                // Right side - Main keys with coding optimization
                 R16: { main: 'J' },
                 R15: { main: 'L' },
                 R14: { main: 'U' },
                 R13: { main: 'Y' },
                 R12: { main: ';', sub: ':' },
-                R11: { main: '=', sub: '+' },
+                R11: { main: '=', sub: '+' }, // Direct = and + access
                 
                 R26: { main: 'M' },
                 R25: { main: 'N' },
                 R24: { main: 'E' },
                 R23: { main: 'I' },
                 R22: { main: 'O' },
-                R21: { main: "'", sub: '"' },
+                R21: { main: '{', sub: '}' }, // Direct brace access
                 
                 R36: { main: 'K' },
                 R35: { main: 'H' },
@@ -446,10 +460,10 @@
                 // Right thumb cluster
                 RT3: { main: 'Nav', sub: 'Hold' },
                 RT2: { main: 'Bksp' },
-                RT1: { main: 'Enter' }
+                RT1: { main: 'Alt' }
             },
-            sym: {
-                // Left side - Symbols layer
+            code: {
+                // Left side - Advanced coding symbols
                 L01: { main: '~' },
                 L02: { main: '!' },
                 L03: { main: '@' },
@@ -458,51 +472,51 @@
                 L06: { main: '%' },
                 
                 L11: { main: '`' },
-                L12: { main: '{' },
-                L13: { main: '}' },
+                L12: { main: '"' }, // String quotes
+                L13: { main: "'" }, // String quotes
                 L14: { main: '(' },
                 L15: { main: ')' },
                 L16: { main: '|' },
                 
-                L21: { main: '~' },
-                L22: { main: '[' },
-                L23: { main: ']' },
-                L24: { main: '<' },
-                L25: { main: '>' },
-                L26: { main: '\\' },
+                L21: { main: '[' },
+                L22: { main: '\\' }, // Escape character
+                L23: { main: '&' }, // Logical AND
+                L24: { main: '*' }, // Pointer/multiply
+                L25: { main: '+' }, // Addition
+                L26: { main: ']' },
                 
                 L31: { main: '' },
-                L32: { main: '_' },
-                L33: { main: '-' },
-                L34: { main: '+' },
-                L35: { main: '=' },
-                L36: { main: '&' },
+                L32: { main: '_' }, // Snake_case
+                L33: { main: '-' }, // Kebab-case
+                L34: { main: '=' }, // Assignment
+                L35: { main: '!' }, // Negation
+                L36: { main: '?' }, // Ternary
                 
                 LT1: { main: '' },
                 LT2: { main: '' },
-                LT3: { main: 'Sym' },
+                LT3: { main: 'Code' },
                 
-                // Right side - Mostly unchanged
-                R06: { main: '^' },
+                // Right side - String and regex operations
+                R06: { main: '^' }, // Regex start
                 R05: { main: '&' },
                 R04: { main: '*' },
                 R03: { main: '(' },
                 R02: { main: ')' },
-                R01: { main: '' },
+                R01: { main: '$' }, // Regex end
                 
-                R16: { main: '' },
-                R15: { main: '' },
-                R14: { main: '' },
-                R13: { main: '' },
-                R12: { main: '' },
-                R11: { main: '' },
+                R16: { main: '%' }, // Modulo
+                R15: { main: '<' }, // Less than
+                R14: { main: '>' }, // Greater than
+                R13: { main: '|' }, // Pipe/OR
+                R12: { main: ':' }, // Type annotation
+                R11: { main: '=' },
                 
-                R26: { main: '' },
-                R25: { main: '' },
-                R24: { main: '' },
-                R23: { main: '' },
-                R22: { main: '' },
-                R21: { main: '' },
+                R26: { main: '.' }, // Method chaining
+                R25: { main: ',' }, // Parameter separator
+                R24: { main: ';' }, // Statement end
+                R23: { main: '"' }, // String delimiter
+                R22: { main: "'" }, // String delimiter
+                R21: { main: '{' },
                 
                 R36: { main: '' },
                 R35: { main: '' },
@@ -516,7 +530,74 @@
                 RT1: { main: '' }
             },
             nav: {
-                // Left side - Numpad
+                // Left side - IDE shortcuts and debugging
+                L01: { main: 'F12' }, // Go to definition
+                L02: { main: 'F1' }, // Help/Quick fix
+                L03: { main: 'F2' }, // Rename symbol
+                L04: { main: 'F3' }, // Find next
+                L05: { main: 'F4' }, // Close tab
+                L06: { main: 'F5' }, // Debug/Run
+                
+                L11: { main: 'Ctrl+T' }, // Quick open file
+                L12: { main: 'Ctrl+F' }, // Find in file
+                L13: { main: 'Ctrl+H' }, // Find & replace
+                L14: { main: 'Ctrl+G' }, // Go to line
+                L15: { main: 'Ctrl+P' }, // Command palette
+                L16: { main: 'Ctrl+B' }, // Toggle sidebar
+                
+                L21: { main: 'Ctrl+[' }, // Outdent
+                L22: { main: 'Ctrl+A' }, // Select all
+                L23: { main: 'Ctrl+D' }, // Duplicate line
+                L24: { main: 'Ctrl+L' }, // Select line
+                L25: { main: 'Ctrl+Shift+K' }, // Delete line
+                L26: { main: 'Ctrl+]' }, // Indent
+                
+                L31: { main: '' },
+                L32: { main: 'Ctrl+Z' }, // Undo
+                L33: { main: 'Ctrl+X' }, // Cut
+                L34: { main: 'Ctrl+C' }, // Copy
+                L35: { main: 'Ctrl+V' }, // Paste
+                L36: { main: 'Ctrl+Y' }, // Redo
+                
+                LT1: { main: '' },
+                LT2: { main: '' },
+                LT3: { main: '' },
+                
+                // Right side - Navigation and debugging
+                R06: { main: 'F6' }, // Step over
+                R05: { main: 'F7' }, // Step into
+                R04: { main: 'F8' }, // Step out
+                R03: { main: 'F9' }, // Toggle breakpoint
+                R02: { main: 'F10' }, // Step over (alt)
+                R01: { main: 'F11' }, // Step into (alt)
+                
+                R16: { main: 'Home' }, // Line start
+                R15: { main: 'PgUp' }, // Page up
+                R14: { main: '↑' }, // Up arrow
+                R13: { main: 'PgDn' }, // Page down
+                R12: { main: 'End' }, // Line end
+                R11: { main: 'Ctrl+Home' }, // File start
+                
+                R26: { main: '←' }, // Left arrow
+                R25: { main: '↓' }, // Down arrow
+                R24: { main: '→' }, // Right arrow
+                R23: { main: 'Ctrl+←' }, // Word left
+                R22: { main: 'Ctrl+→' }, // Word right
+                R21: { main: 'Ctrl+End' }, // File end
+                
+                R36: { main: 'Alt+←' }, // Back navigation
+                R35: { main: 'Alt+→' }, // Forward navigation
+                R34: { main: 'Alt+↑' }, // Move line up
+                R33: { main: 'Alt+↓' }, // Move line down
+                R32: { main: 'Ctrl+/' }, // Toggle comment
+                R31: { main: '' },
+                
+                RT3: { main: 'Nav' },
+                RT2: { main: '' },
+                RT1: { main: '' }
+            },
+            num: {
+                // Left side - Numpad for data entry
                 L01: { main: '' },
                 L02: { main: '' },
                 L03: { main: '' },
@@ -549,73 +630,7 @@
                 LT2: { main: '0' },
                 LT3: { main: '.' },
                 
-                // Right side - Navigation
-                R06: { main: '' },
-                R05: { main: '' },
-                R04: { main: '' },
-                R03: { main: '' },
-                R02: { main: '' },
-                R01: { main: '' },
-                
-                R16: { main: 'Home' },
-                R15: { main: 'PgDn' },
-                R14: { main: 'PgUp' },
-                R13: { main: 'End' },
-                R12: { main: '' },
-                R11: { main: '' },
-                
-                R26: { main: '←' },
-                R25: { main: '↓' },
-                R24: { main: '↑' },
-                R23: { main: '→' },
-                R22: { main: '' },
-                R21: { main: '' },
-                
-                R36: { main: 'Alt' },
-                R35: { main: 'GUI' },
-                R34: { main: '' },
-                R33: { main: '' },
-                R32: { main: '' },
-                R31: { main: '' },
-                
-                RT3: { main: 'Nav' },
-                RT2: { main: '' },
-                RT1: { main: '' }
-            },
-            fun: {
-                // Function keys across the top
-                L01: { main: '' },
-                L02: { main: 'F1' },
-                L03: { main: 'F2' },
-                L04: { main: 'F3' },
-                L05: { main: 'F4' },
-                L06: { main: 'F5' },
-                
-                L11: { main: '' },
-                L12: { main: '' },
-                L13: { main: '' },
-                L14: { main: '' },
-                L15: { main: '' },
-                L16: { main: '' },
-                
-                L21: { main: '' },
-                L22: { main: '' },
-                L23: { main: '' },
-                L24: { main: '' },
-                L25: { main: '' },
-                L26: { main: '' },
-                
-                L31: { main: '' },
-                L32: { main: '' },
-                L33: { main: '' },
-                L34: { main: '' },
-                L35: { main: '' },
-                L36: { main: '' },
-                
-                LT1: { main: '' },
-                LT2: { main: '' },
-                LT3: { main: '' },
-                
+                // Right side - Function keys for IDE
                 R06: { main: 'F6' },
                 R05: { main: 'F7' },
                 R04: { main: 'F8' },
@@ -693,7 +708,7 @@
                     } else if (!layerData[keyId] || !layerData[keyId].main) {
                         tooltipText = 'No function on this layer';
                     } else {
-                        // Generic tooltip for regular keys
+                        // Generic tooltip for coding keys
                         const keyDescriptions = {
                             '←': 'Left arrow key',
                             '→': 'Right arrow key', 
@@ -703,13 +718,19 @@
                             'End': 'End key - go to end',
                             'PgUp': 'Page Up key',
                             'PgDn': 'Page Down key',
-                            'Alt': 'Alt modifier key',
-                            'GUI': 'GUI/Super/Windows key',
-                            'Shift': 'Shift modifier key',
-                            'Ctrl': 'Control modifier key',
-                            'Sym': 'Layer key - hold for symbols',
-                            'Nav': 'Layer key - hold for navigation/numbers',
-                            'Hold': 'Hold this key to access layer'
+                            'Ctrl+D': 'Duplicate current line',
+                            'Ctrl+L': 'Select entire line',
+                            'Ctrl+F': 'Find in current file',
+                            'Ctrl+H': 'Find and replace',
+                            'Ctrl+/': 'Toggle line comment',
+                            'Alt+↑': 'Move line up',
+                            'Alt+↓': 'Move line down',
+                            'F5': 'Start debugging or run code',
+                            'F9': 'Toggle breakpoint',
+                            'F10': 'Step over in debugger',
+                            'F11': 'Step into in debugger',
+                            'Code': 'Layer key - hold for coding symbols',
+                            'Nav': 'Layer key - hold for navigation/IDE shortcuts'
                         };
                         const mainKey = layerData[keyId].main;
                         tooltipText = keyDescriptions[mainKey] || `${mainKey} key`;

@@ -13,11 +13,12 @@ The Silakka54 represents the ideal adaptation target - **54-60 key layouts hit a
 ## Features
 
 - **Interactive Keyboard Visualizer**: Visual representation of the 54-key layout with layer switching
-- **Multiple Layout Versions**: 4 different approaches to Miryoku implementation
+- **Multiple Layout Versions**: 5 different approaches to Miryoku implementation
   - Traditional HRM: 6-Layer with Home Row Modifiers
   - Optimized 3-Layer: Minimal layers with direct symbol access
   - No HRM Dedicated: 6-Layer with dedicated modifier keys
   - 4-Layer Balanced: Perfect balance of simplicity and efficiency
+  - Coding Optimized: V4 enhanced specifically for programming workflows
 - **Interactive Tooltips**: Hover over any key to see detailed explanations
 - **Educational Guide**: Comprehensive documentation of Miryoku principles and adaptation strategies
 - **Layer Switching Guide**: Step-by-step instructions for each version
@@ -147,12 +148,19 @@ All layout versions now include comprehensive tooltips that appear when you hove
 - **Layer states**: "Layer inactive (not being held)" for "---" keys
 - **Traditional feel**: Familiar modifier placement explanations
 
+#### Coding Optimized Version (index-v5.html)
+- **Direct bracket access**: "Direct brackets: [ and ] keys (no layer needed)"
+- **IDE shortcuts**: "F5: Start debugging or run code", "Ctrl+D: Duplicate current line"
+- **Code navigation**: "Alt+↑: Move line up", "Ctrl+/: Toggle line comment"
+- **Programming focus**: Optimized tooltips for coding workflows and IDE integration
+
 ### Version Navigation
 Each layout includes navigation buttons to easily compare between:
 - **Traditional HRM**: Full Miryoku experience with home row modifiers
 - **Optimized 3-Layer**: Reduced complexity with direct symbol access
 - **No HRM Dedicated**: Familiar modifier keys for easier transition
 - **4-Layer Balanced**: Perfect balance between simplicity and efficiency
+- **Coding Optimized**: Programming-focused with direct bracket access and IDE shortcuts
 
 ## File Structure
 

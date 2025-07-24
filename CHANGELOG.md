@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2025-01-24
+
+### Added
+- **Coding-Optimized Layout (V5)** (index-v5.html): Programming-focused enhancement of V4
+  - **Direct bracket access**: [], {} on base layer without layer switching
+  - **Immediate coding symbols**: =, +, -, * accessible without Shift
+  - **IDE shortcuts layer**: Debugging (F5, F9, F10, F11), refactoring, navigation
+  - **Code manipulation**: Line duplication (Ctrl+D), moving (Alt+↑/↓), commenting (Ctrl+/)
+  - **String handling**: Direct access to quotes, escape characters, regex symbols
+  - **Advanced tooltips**: Context-aware explanations for coding workflows
+  - **Emerald color theme**: Easy identification as coding-focused variant
+- **Enhanced Navigation**: All 5 layout versions now accessible from any page
+- **Programming Workflow Integration**: Common IDE shortcuts and debugging keys
+
+### Changed
+- **Improved Layout Ecosystem**: Now 5 complete layout options for different needs
+- **Better Developer Experience**: Specialized layout for programming workflows
+- **Enhanced Documentation**: README reflects all 5 layout options
+
 ## [1.3.0] - 2025-01-24
 
 ### Added
@@ -109,10 +128,12 @@ miryoku-silakka54-layout/
 ├── index-v2.html           # Optimized 3-layer layout  
 ├── index-v3.html           # No HRM dedicated layout (6 layers)
 ├── index-v4.html           # 4-layer balanced layout
+├── index-v5.html           # Coding-optimized layout (4 layers)
 ├── README.md               # Project documentation
 ├── CHANGELOG.md            # This file
 ├── CLAUDE.md               # Development guidance
 ├── Keyboard layout.md      # Detailed Miryoku guide
+├── v3-vs-v4-comparison.md  # Layout comparison guide
 └── .git/                   # Version control
 ```
 
