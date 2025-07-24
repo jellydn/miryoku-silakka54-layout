@@ -268,6 +268,13 @@
                                 <div class="text-gray-600 text-xs">Debugging, refactoring, code navigation</div>
                             </div>
                         </div>
+                        <div class="flex items-start gap-2">
+                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-medium">Both</span>
+                            <div>
+                                <strong>Numbers layer</strong> → Hold both Code + Nav keys
+                                <div class="text-gray-600 text-xs">Numpad layout + function keys for data entry</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -322,9 +329,28 @@
                         </div>
                         <div class="bg-white p-2 rounded">
                             <div class="font-medium text-orange-700">Numbers</div>
-                            <div class="text-gray-600">Numpad + F-keys</div>
+                            <div class="text-gray-600">Hold Code + Nav</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Important: Numbers Layer Access -->  
+        <div class="mt-8 bg-orange-50 p-4 rounded-lg border border-orange-200">
+            <h3 class="font-semibold text-orange-900 mb-3 text-center">📋 How to Access the Numbers Layer</h3>
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="text-center">
+                    <p class="text-sm text-orange-800 font-medium mb-2">Numbers Layer Combo Access</p>
+                    <div class="flex justify-center items-center gap-3 text-sm">
+                        <span class="px-3 py-2 bg-purple-100 text-purple-800 rounded font-medium">Hold Code</span>
+                        <span class="text-gray-500">+</span>
+                        <span class="px-3 py-2 bg-blue-100 text-blue-800 rounded font-medium">Hold Nav</span>
+                        <span class="text-gray-500">=</span>
+                        <span class="px-3 py-2 bg-orange-100 text-orange-800 rounded font-medium">Numbers Layer</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-3">Hold both thumb keys simultaneously: Left thumb (Code) + Right thumb (Nav/IDE)</p>
+                    <p class="text-xs text-orange-700 mt-2"><strong>Firmware Setup:</strong> Configure as a combo in QMK/ZMK, or momentary layer toggle when both keys pressed</p>
                 </div>
             </div>
         </div>
@@ -356,7 +382,8 @@
         <!-- Quick Tips -->
         <div class="mt-4 text-center text-gray-600">
             <p class="font-medium">Coding Tips:</p>
-            <p class="text-sm mt-1">All brackets on base layer • IDE shortcuts on Nav/IDE • String manipulation optimized</p>
+            <p class="text-sm mt-1">All brackets on base layer • IDE shortcuts on Nav/IDE • Numbers via Code+Nav combo</p>
+            <p class="text-xs mt-2 text-orange-600"><strong>Remember:</strong> Hold both thumbs (Code+Nav) for numpad access!</p>
         </div>
     </div>
 
@@ -371,6 +398,13 @@
             'R31': 'Dedicated Shift modifier (always Shift)', 
             'LT1': 'Dedicated Control modifier (always Ctrl)',
             'RT1': 'Dedicated Alt modifier (always Alt)',
+            // Numbers layer access
+            'L11': {
+                base: 'Tab key',
+                code: 'Backtick (`) for code blocks',
+                nav: 'Quick file open (Ctrl+T)',
+                num: 'Hold both Code + Nav keys to access Numbers layer'
+            },
             // Layer switching with coding focus
             'LT3': {
                 base: 'Hold: Code layer (strings, advanced symbols)',

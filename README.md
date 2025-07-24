@@ -152,6 +152,7 @@ All layout versions now include comprehensive tooltips that appear when you hove
 - **Direct bracket access**: "Direct brackets: [ and ] keys (no layer needed)"
 - **IDE shortcuts**: "F5: Start debugging or run code", "Ctrl+D: Duplicate current line"
 - **Code navigation**: "Alt+↑: Move line up", "Ctrl+/: Toggle line comment"
+- **Numbers layer combo**: "Hold both Code + Nav keys simultaneously for numpad access"
 - **Programming focus**: Optimized tooltips for coding workflows and IDE integration
 
 ### Version Navigation
