@@ -89,16 +89,17 @@
 <body class="bg-gray-100 p-8">
     <div class="max-w-7xl mx-auto">
         <h1 class="text-3xl font-bold text-center mb-4">Miryoku Layout for Silakka54</h1>
-        <p class="text-center text-gray-600 mb-8">54-key split keyboard with Colemak-DH and home row modifiers</p>
+        <p class="text-center text-gray-600 mb-8">54-key split keyboard with Colemak-DH, home row modifiers, and 6 orthogonal layers</p>
         
         <!-- Layer Selector -->
         <div class="flex justify-center gap-2 mb-8">
             <button onclick="showLayer('base')" id="base-btn" class="layer-btn px-4 py-2 rounded bg-blue-500 text-white">Base</button>
+            <button onclick="showLayer('media')" id="media-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Media</button>
             <button onclick="showLayer('nav')" id="nav-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Navigation</button>
+            <button onclick="showLayer('mouse')" id="mouse-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Mouse</button>
             <button onclick="showLayer('sym')" id="sym-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Symbols</button>
             <button onclick="showLayer('num')" id="num-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Numbers</button>
             <button onclick="showLayer('fun')" id="fun-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Function</button>
-            <button onclick="showLayer('media')" id="media-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Media</button>
         </div>
 
         <!-- Keyboard Layout -->
@@ -247,22 +248,43 @@
                         <div class="flex items-start gap-2">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Space key</strong> → Navigation layer (arrows, clipboard)
+                                <strong>Esc key (left thumb)</strong> → Media layer (volume, RGB controls)
+                                <div class="text-gray-600 text-xs">Right hand becomes media controls</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
+                            <div>
+                                <strong>Space key (left thumb)</strong> → Navigation layer (arrows, clipboard)
                                 <div class="text-gray-600 text-xs">Right hand becomes navigation controls</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Enter key</strong> → Symbols layer (punctuation)
+                                <strong>Tab key (left thumb)</strong> → Mouse layer (mouse movement and clicks)
+                                <div class="text-gray-600 text-xs">Right hand becomes mouse controls</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
+                            <div>
+                                <strong>Enter key (right thumb)</strong> → Symbols layer (punctuation)
                                 <div class="text-gray-600 text-xs">Left hand becomes symbol controls</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Tab/Del keys</strong> → Numbers/Function layers
-                                <div class="text-gray-600 text-xs">Access remaining layers as configured</div>
+                                <strong>Backspace key (right thumb)</strong> → Numbers layer (numpad)
+                                <div class="text-gray-600 text-xs">Left hand becomes number controls</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
+                            <div>
+                                <strong>Delete key (right thumb)</strong> → Function layer (F-keys)
+                                <div class="text-gray-600 text-xs">Left hand becomes function key controls</div>
                             </div>
                         </div>
                     </div>
@@ -334,6 +356,16 @@
             <p class="font-medium">Quick Reference:</p>
             <p class="text-sm mt-1">Home row modifiers: GUI (pinky) | Alt (ring) | Ctrl (middle) | Shift (index)</p>
         </div>
+
+        <!-- Footer -->
+        <div class="mt-8 pt-8 border-t border-gray-300 text-center">
+            <p class="text-xs text-gray-500">
+                <a href="https://github.com/manna-harbour/miryoku" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Miryoku Layout</a> by manna-harbour • 
+                <a href="https://github.com/Squalius-cephalus/silakka54" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Silakka54</a> keyboard • 
+                <a href="https://getreuer.info/posts/keyboards/alt-layouts/index.html#which-alt-keyboard-layout-should-i-learn" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Alt Layout Guide</a><br>
+                Built with <a href="https://claude.ai/code" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Claude Code</a> by <a href="http://itman.fyi/" class="text-blue-500 hover:underline" target="_blank" rel="noopener">itman.fyi</a>
+            </p>
+        </div>
     </div>
 
     <script>
@@ -349,10 +381,12 @@
             'R23': 'I key | Hold: Alt modifier',
             'R22': 'O key | Hold: GUI/Super modifier',
             // Thumb keys with layer switching
+            'LT1': 'Escape key | Hold: Media layer',
             'LT2': 'Space key | Hold: Navigation layer',
-            'LT3': 'Tab key | Hold: Numbers layer',
-            'RT3': 'Enter key | Hold: Symbols layer',
-            'RT1': 'Delete key | Hold: Function layer'
+            'LT3': 'Tab key | Hold: Mouse layer', 
+            'RT1': 'Enter key | Hold: Symbols layer',
+            'RT2': 'Backspace key | Hold: Numbers layer',
+            'RT3': 'Delete key | Hold: Function layer'
         };
 
         // Layer definitions
@@ -364,8 +398,8 @@
                 L11: 'Tab', L12: 'Q', L13: 'W', L14: 'F', L15: 'P', L16: 'B',
                 L21: '[', L22: '<div class="key-label">A<br><span class="mod-label">GUI</span></div>', L23: '<div class="key-label">R<br><span class="mod-label">Alt</span></div>', L24: '<div class="key-label">S<br><span class="mod-label">Ctrl</span></div>', L25: '<div class="key-label">T<br><span class="mod-label">Shift</span></div>', L26: 'G',
                 L31: ';', L32: 'Z', L33: 'X', L34: 'C', L35: 'D', L36: 'V',
-                // Left thumb cluster
-                LT1: 'Esc', LT2: '<div class="key-label">Space<br><span class="mod-label">Nav</span></div>', LT3: '<div class="key-label">Tab<br><span class="mod-label">Num</span></div>',
+                // Left thumb cluster  
+                LT1: '<div class="key-label">Esc<br><span class="mod-label">Media</span></div>', LT2: '<div class="key-label">Space<br><span class="mod-label">Nav</span></div>', LT3: '<div class="key-label">Tab<br><span class="mod-label">Mouse</span></div>',
                 
                 // Right side - Number row
                 R06: '<div class="key-label">6<br><span class="mod-label">^</span></div>', R05: '<div class="key-label">7<br><span class="mod-label">&</span></div>', R04: '<div class="key-label">8<br><span class="mod-label">*</span></div>', R03: '<div class="key-label">9<br><span class="mod-label">(</span></div>', R02: '<div class="key-label">0<br><span class="mod-label">)</span></div>', R01: '<div class="key-label">-<br><span class="mod-label">_</span></div>',
@@ -374,82 +408,97 @@
                 R26: 'M', R25: '<div class="key-label">N<br><span class="mod-label">Shift</span></div>', R24: '<div class="key-label">E<br><span class="mod-label">Ctrl</span></div>', R23: '<div class="key-label">I<br><span class="mod-label">Alt</span></div>', R22: '<div class="key-label">O<br><span class="mod-label">GUI</span></div>', R21: ']',
                 R36: 'K', R35: 'H', R34: ',', R33: '.', R32: '/', R31: '\\',
                 // Right thumb cluster
-                RT3: '<div class="key-label">Enter<br><span class="mod-label">Sym</span></div>', RT2: 'Bksp', RT1: '<div class="key-label">Del<br><span class="mod-label">Fun</span></div>'
+                RT1: '<div class="key-label">Del<br><span class="mod-label">Fun</span></div>', RT2: '<div class="key-label">Bksp<br><span class="mod-label">Num</span></div>', RT3: '<div class="key-label">Enter<br><span class="mod-label">Sym</span></div>'
             },
             nav: {
-                // Left side remains mostly empty on nav layer
+                // Left side - mostly empty (holding layer on this hand)
                 L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
                 L11: '', L12: '', L13: '', L14: '', L15: '', L16: '',
                 L21: '', L22: 'GUI', L23: 'Alt', L24: 'Ctrl', L25: 'Shift', L26: '',
                 L31: '', L32: '', L33: '', L34: '', L35: '', L36: '',
-                LT1: '', LT2: '', LT3: '',
+                LT1: '', LT2: '___', LT3: '',
                 
                 // Right side - Navigation
                 R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
                 R16: 'Redo', R15: 'Paste', R14: 'Copy', R13: 'Cut', R12: 'Undo', R11: '',
                 R26: 'Caps', R25: '←', R24: '↓', R23: '↑', R22: '→', R21: '',
                 R36: 'Ins', R35: 'Home', R34: 'PgDn', R33: 'PgUp', R32: 'End', R31: '',
-                RT3: '', RT2: '', RT1: ''
+                RT1: 'Del', RT2: 'Bksp', RT3: 'Enter'
             },
-            sym: {
-                // Left side - Symbols
-                L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
-                L11: '', L12: '{', L13: '&', L14: '*', L15: '(', L16: '}',
-                L21: '', L22: ':', L23: '$', L24: '%', L25: '^', L26: '+',
-                L31: '', L32: '~', L33: '!', L34: '@', L35: '#', L36: '|',
-                LT1: '', LT2: '', LT3: '',
-                
-                // Right side - mostly empty
-                R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
-                R16: '', R15: '', R14: '', R13: '', R12: '', R11: '',
-                R26: '', R25: 'Shift', R24: 'Ctrl', R23: 'Alt', R22: 'GUI', R21: '',
-                R36: '', R35: '', R34: '', R33: '', R32: '', R31: '',
-                RT3: '', RT2: '', RT1: ''
-            },
-            num: {
-                // Left side - mostly empty
+            mouse: {
+                // Left side - Mouse functionality (exception: mirrors nav layout)
                 L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
                 L11: '', L12: '', L13: '', L14: '', L15: '', L16: '',
                 L21: '', L22: 'GUI', L23: 'Alt', L24: 'Ctrl', L25: 'Shift', L26: '',
                 L31: '', L32: '', L33: '', L34: '', L35: '', L36: '',
-                LT1: '', LT2: '', LT3: '',
+                LT1: '', LT2: '', LT3: '___',
                 
-                // Right side - Numpad
+                // Right side - Mouse movement (mirrors navigation)
                 R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
-                R16: '[', R15: '7', R14: '8', R13: '9', R12: ']', R11: '',
-                R26: "'", R25: '4', R24: '5', R23: '6', R22: '=', R21: '',
-                R36: '`', R35: '1', R34: '2', R33: '3', R32: '\\', R31: '',
-                RT3: '.', RT2: '0', RT1: '-'
+                R16: 'Redo', R15: 'Paste', R14: 'Copy', R13: 'Cut', R12: 'Undo', R11: '',
+                R26: 'Caps', R25: 'M←', R24: 'M↓', R23: 'M↑', R22: 'M→', R21: '',
+                R36: 'Ins', R35: 'WhlL', R34: 'WhlD', R33: 'WhlU', R32: 'WhlR', R31: '',
+                RT1: 'MClick', RT2: 'RClick', RT3: 'LClick'
+            },
+            sym: {
+                // Left side - Symbols (holding layer on right hand)
+                L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
+                L11: '', L12: '{', L13: '&', L14: '*', L15: '(', L16: '}',
+                L21: '', L22: ':', L23: '$', L24: '%', L25: '^', L26: '+',
+                L31: '', L32: '~', L33: '!', L34: '@', L35: '#', L36: '|',
+                LT1: '(', LT2: ')', LT3: '_',
+                
+                // Right side - Modifiers only (holding layer on this hand)
+                R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
+                R16: '', R15: '', R14: '', R13: '', R12: '', R11: '',
+                R26: '', R25: 'Shift', R24: 'Ctrl', R23: 'Alt', R22: 'GUI', R21: '',
+                R36: '', R35: '', R34: '', R33: '', R32: '', R31: '',
+                RT1: '', RT2: '', RT3: '___'
+            },
+            num: {
+                // Left side - Numbers with symbols (holding layer on right hand)
+                L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
+                L11: '', L12: '[', L13: '<div class="key-label">7<br><span class="mod-label">&</span></div>', L14: '<div class="key-label">8<br><span class="mod-label">*</span></div>', L15: '<div class="key-label">9<br><span class="mod-label">(</span></div>', L16: ']',
+                L21: '', L22: '<div class="key-label">;<br><span class="mod-label">:</span></div>', L23: '<div class="key-label">4<br><span class="mod-label">$</span></div>', L24: '<div class="key-label">5<br><span class="mod-label">%</span></div>', L25: '<div class="key-label">6<br><span class="mod-label">^</span></div>', L26: '<div class="key-label">=<br><span class="mod-label">+</span></div>',
+                L31: '', L32: '<div class="key-label">`<br><span class="mod-label">~</span></div>', L33: '<div class="key-label">1<br><span class="mod-label">!</span></div>', L34: '<div class="key-label">2<br><span class="mod-label">@</span></div>', L35: '<div class="key-label">3<br><span class="mod-label">#</span></div>', L36: '<div class="key-label">\\<br><span class="mod-label">|</span></div>',
+                LT1: '<div class="key-label">.<br><span class="mod-label">></span></div>', LT2: '<div class="key-label">0<br><span class="mod-label">)</span></div>', LT3: '<div class="key-label">-<br><span class="mod-label">_</span></div>',
+                
+                // Right side - Modifiers only (holding layer on this hand)
+                R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
+                R16: '', R15: '', R14: '', R13: '', R12: '', R11: '',
+                R26: '', R25: 'Shift', R24: 'Ctrl', R23: 'Alt', R22: 'GUI', R21: '',
+                R36: '', R35: '', R34: '', R33: '', R32: '', R31: '',
+                RT1: '', RT2: '___', RT3: ''
             },
             fun: {
-                // Left side - mostly empty
+                // Left side - Function keys (right hand holding layer)
                 L01: '', L02: 'F1', L03: 'F2', L04: 'F3', L05: 'F4', L06: '',
                 L11: '', L12: 'F12', L13: 'F7', L14: 'F8', L15: 'F9', L16: 'PrtSc',
                 L21: '', L22: 'F11', L23: 'F4', L24: 'F5', L25: 'F6', L26: 'ScrLk',
                 L31: '', L32: 'F10', L33: 'F1', L34: 'F2', L35: 'F3', L36: 'Pause',
                 LT1: '', LT2: '', LT3: '',
                 
-                // Right side - mostly empty
-                R06: '', R05: 'F5', R04: 'F6', R03: 'F7', R02: 'F8', R01: '',
+                // Right side - mostly empty (holding layer on this hand)
+                R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
                 R16: '', R15: '', R14: '', R13: '', R12: '', R11: '',
                 R26: '', R25: 'Shift', R24: 'Ctrl', R23: 'Alt', R22: 'GUI', R21: '',
                 R36: '', R35: '', R34: '', R33: '', R32: '', R31: '',
-                RT3: '', RT2: '', RT1: ''
+                RT1: '___', RT2: '', RT3: ''
             },
             media: {
-                // Left side - mostly empty
+                // Left side - mostly empty (holding layer on this hand)
                 L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
                 L11: '', L12: '', L13: '', L14: '', L15: '', L16: '',
                 L21: '', L22: 'GUI', L23: 'Alt', L24: 'Ctrl', L25: 'Shift', L26: '',
                 L31: '', L32: '', L33: '', L34: '', L35: '', L36: '',
-                LT1: '', LT2: '', LT3: '',
+                LT1: '___', LT2: '', LT3: '',
                 
-                // Right side - Media controls
+                // Right side - Media controls (official Miryoku)
                 R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
                 R16: 'RGB+', R15: 'RGB-', R14: 'HUE+', R13: 'HUE-', R12: 'SAT+', R11: 'SAT-',
                 R26: 'TOG', R25: 'Prev', R24: 'Vol-', R23: 'Vol+', R22: 'Next', R21: '',
                 R36: '', R35: '', R34: 'Bright-', R33: 'Bright+', R32: '', R31: '',
-                RT3: 'Stop', RT2: 'Pause', RT1: 'Mute'
+                RT1: '', RT2: '', RT3: ''
             }
         };
 
@@ -505,7 +554,20 @@
                             'N/Shft': 'N key | Hold: Shift modifier',
                             'E/Ctrl': 'E key | Hold: Control modifier',
                             'I/Alt': 'I key | Hold: Alt modifier',
-                            'O/GUI': 'O key | Hold: GUI modifier'
+                            'O/GUI': 'O key | Hold: GUI modifier',
+                            // Mouse functionality
+                            'M↖': 'Mouse movement: Up-Left diagonal',
+                            'M↑': 'Mouse movement: Up', 
+                            'M↗': 'Mouse movement: Up-Right diagonal',
+                            'M←': 'Mouse movement: Left',
+                            'M↓': 'Mouse movement: Down',
+                            'M→': 'Mouse movement: Right',
+                            'Scroll↑': 'Mouse scroll: Up',
+                            'Scroll↓': 'Mouse scroll: Down',
+                            'LClick': 'Mouse: Left click',
+                            'MClick': 'Mouse: Middle click (wheel)',
+                            'RClick': 'Mouse: Right click',
+                            '2xClick': 'Mouse: Double click'
                         };
                         tooltipText = keyDescriptions[keyValue] || `${keyValue} key`;
                     }
