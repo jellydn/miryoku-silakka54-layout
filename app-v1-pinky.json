@@ -1,7 +1,7 @@
 {
-  "title": "Miryoku Layout for Silakka54 - Pinky Relief",
-  "subtitle": "Weak finger friendly: reduced pinky load with strategic key placement",
-  "description": "Traditional 7-layer Miryoku with redistributed outer columns for pinky comfort",
+  "title": "Miryoku Layout for Silakka54 - Pinky Relief (Mac Optimized)",
+  "subtitle": "Weak finger friendly: reduced pinky load with Mac-optimized Cmd access",
+  "description": "Traditional 7-layer Miryoku with thumb Cmd and redistributed outer columns",
   "layers": [
     {"id": "base", "name": "Base", "active": true},
     {"id": "media", "name": "Media", "active": false},
@@ -84,7 +84,7 @@
     "R24": "E key | Hold: Control modifier",
     "R23": "I key | Hold: Alt modifier",
     "R22": "O key | No modifier for pinky comfort",
-    "LT1": "Escape key | Hold: Media layer",
+    "LT1": "Cmd key | Hold: Media layer (Mac-optimized dual function)",
     "LT2": "Space key | Hold: Navigation layer",
     "LT3": "Tab key | Hold: Mouse layer", 
     "RT1": "Enter key | Hold: Symbols layer",
@@ -97,6 +97,7 @@
   "pinkyOptimizations": {
     "changes": [
       "Removed GUI modifiers from A and O keys",
+      "Added Mac-optimized Cmd on left thumb (LT1: tap=Cmd, hold=Media)",
       "Moved = from outer column to inner column (R11)",
       "Moved ] to Symbol layer for less reaching",
       "Moved \\ to Navigation layer",
@@ -106,9 +107,17 @@
     "benefits": [
       "50% reduction in right pinky load",
       "No hold-timing on weakest fingers",
+      "Mac-friendly Cmd access via strong thumb",
+      "Perfect for Cmd+Space, Cmd+Tab, Cmd+C/V workflows",
       "Common symbols moved to stronger positions",
       "Symmetric workload between hands"
-    ]
+    ],
+    "macWorkflows": {
+      "cmdSpace": "Thumb roll: Cmd+Space for Spotlight",
+      "cmdTab": "Comfortable: Cmd+Tab for app switching", 
+      "cmdCopyPaste": "Ergonomic: Cmd+C/V using thumb+home row",
+      "cmdQuit": "Easy: Cmd+Q/W for quit/close without pinky strain"
+    }
   },
   "layerData": {
     "base": {
@@ -126,7 +135,7 @@
       "L25": "<div class=\"key-label\">T<br><span class=\"mod-label\">Shift</span></div>", 
       "L26": "G",
       "L31": "[", "L32": "Z", "L33": "X", "L34": "C", "L35": "D", "L36": "V",
-      "LT1": "<div class=\"key-label\">Esc<br><span class=\"mod-label\">Media</span></div>", 
+      "LT1": "<div class=\"key-label\">Cmd<br><span class=\"mod-label\">Media</span></div>", 
       "LT2": "<div class=\"key-label\">Space<br><span class=\"mod-label\">Nav</span></div>", 
       "LT3": "<div class=\"key-label\">Tab<br><span class=\"mod-label\">Mouse</span></div>",
       "R06": "<div class=\"key-label\">6<br><span class=\"mod-label\">^</span></div>", 
