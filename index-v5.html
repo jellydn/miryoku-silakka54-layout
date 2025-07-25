@@ -3,35 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coding-Optimized Miryoku for Silakka54</title>
+    <title>Coding Optimized Miryoku for Silakka54</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
+        /* Mobile-first responsive design */
         .key {
-            min-width: 3.5rem;
-            min-height: 3.5rem;
+            min-width: 2.5rem;
+            min-height: 2.5rem;
             transition: all 0.2s ease;
-            font-size: 0.75rem;
+            font-size: 0.6rem;
         }
+        
+        /* Tablet and larger */
+        @media (min-width: 768px) {
+            .key {
+                min-width: 3rem;
+                min-height: 3rem;
+                font-size: 0.7rem;
+            }
+        }
+        
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .key {
+                min-width: 3.5rem;
+                min-height: 3.5rem;
+                font-size: 0.75rem;
+            }
+        }
+        
         .key:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
+        
+        .home-row {
+            position: relative;
+        }
+        
+        .home-row::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+        }
+        
         .thumb-key {
-            min-width: 4.5rem;
+            min-width: 3rem;
         }
-        .mod-key {
-            background-color: #fef3c7 !important;
+        
+        @media (min-width: 768px) {
+            .thumb-key {
+                min-width: 4rem;
+            }
         }
-        .layer-key {
-            background-color: #ddd6fe !important;
+        
+        @media (min-width: 1024px) {
+            .thumb-key {
+                min-width: 4.5rem;
+            }
         }
-        .code-key {
-            background-color: #ecfdf5 !important;
-        }
+        
         .layer-active {
             background-color: #3b82f6 !important;
             color: white !important;
         }
+        
         .key-label {
             display: flex;
             flex-direction: column;
@@ -39,14 +82,29 @@
             justify-content: center;
             line-height: 1.2;
         }
+        
         .mod-label {
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             color: #6b7280;
         }
+        
+        @media (min-width: 768px) {
+            .mod-label {
+                font-size: 0.55rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .mod-label {
+                font-size: 0.6rem;
+            }
+        }
+        
         .tooltip {
             position: relative;
             cursor: help;
         }
+        
         .tooltip-text {
             visibility: hidden;
             opacity: 0;
@@ -57,14 +115,24 @@
             background-color: #1f2937;
             color: white;
             text-align: center;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             white-space: nowrap;
             z-index: 1000;
             transition: opacity 0.2s, visibility 0.2s;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-width: 200px;
         }
+        
+        @media (min-width: 768px) {
+            .tooltip-text {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+                max-width: none;
+            }
+        }
+        
         .tooltip-text::after {
             content: "";
             position: absolute;
@@ -75,278 +143,184 @@
             border-style: solid;
             border-color: #1f2937 transparent transparent transparent;
         }
+        
         .tooltip:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
     </style>
 </head>
-<body class="bg-gray-100 p-8">
-    <div class="max-w-7xl mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-4">Coding-Optimized Miryoku for Silakka54</h1>
-        <p class="text-center text-gray-600 mb-2">V5: Optimized for programming workflows and IDE usage</p>
-        <p class="text-center text-sm text-gray-500 mb-8">Direct access to brackets, coding symbols, and IDE shortcuts!</p>
+<body class="bg-gray-100 p-4 sm:p-6 lg:p-8">
+    <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-center mb-4">{{ config.title }}</h1>
+        <p class="text-center text-gray-600 mb-2">{{ config.subtitle }}</p>
+        <p class="text-center text-sm text-gray-500 mb-8">{{ config.description }}</p>
         
         <!-- Layer Selector -->
-        <div class="flex justify-center gap-2 mb-8">
-            <button onclick="showLayer('base')" id="base-btn" class="layer-btn px-4 py-2 rounded bg-blue-500 text-white">Base</button>
-            <button onclick="showLayer('code')" id="code-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Code</button>
-            <button onclick="showLayer('nav')" id="nav-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Nav/IDE</button>
-            <button onclick="showLayer('num')" id="num-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Numbers</button>
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <button 
+                v-for="layer in config.layers" 
+                :key="layer.id"
+                @click="showLayer(layer.id)" 
+                :class="['px-4 py-2 rounded text-sm font-medium transition-colors', currentLayer === layer.id ? 'bg-blue-500 text-white' : 'bg-gray-300 hover:bg-gray-400']"
+            >
+                {{ layer.name }}
+            </button>
         </div>
 
         <!-- Keyboard Layout -->
-        <div class="flex justify-center gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-8">
             <!-- Left Half -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
                 <h3 class="text-center font-semibold mb-4">Left Half</h3>
-                <div class="grid grid-cols-6 gap-1.5">
-                    <!-- Number Row -->
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L01"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L02"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L03"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L04"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L05"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L06"></div>
-                    
-                    <!-- Top Row -->
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L11"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L12"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L13"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L14"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L15"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L16"></div>
-                    
-                    <!-- Home Row -->
-                    <div class="key code-key rounded flex items-center justify-center" data-key="L21"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L22"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L23"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L24"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L25"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L26"></div>
-                    
-                    <!-- Bottom Row -->
-                    <div class="key mod-key rounded flex items-center justify-center" data-key="L31"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L32"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L33"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L34"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L35"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L36"></div>
+                <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
+                    <!-- Render left keys by rows -->
+                    <template v-for="row in 4" :key="'left-row-' + row">
+                        <div 
+                            v-for="key in getKeysForRow('left', row - 1)" 
+                            :key="key.id"
+                            :class="['key rounded flex items-center justify-center tooltip', key.class]"
+                            :data-key="key.id"
+                            v-html="getKeyContent(key.id)"
+                        ></div>
+                    </template>
                 </div>
                 
-                <!-- Thumb Cluster -->
+                <!-- Left Thumb Cluster -->
                 <div class="flex justify-center gap-2 mt-4">
-                    <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="LT1"></div>
-                    <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="LT2"></div>
-                    <div class="key thumb-key layer-key rounded flex items-center justify-center" data-key="LT3"></div>
+                    <div 
+                        v-for="thumbKey in config.keyboardLayout.leftThumbKeys" 
+                        :key="thumbKey.id"
+                        :class="['key rounded flex items-center justify-center tooltip', thumbKey.class]"
+                        :data-key="thumbKey.id"
+                        v-html="getKeyContent(thumbKey.id)"
+                    ></div>
                 </div>
             </div>
 
             <!-- Right Half -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
                 <h3 class="text-center font-semibold mb-4">Right Half</h3>
-                <div class="grid grid-cols-6 gap-1.5">
-                    <!-- Number Row -->
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R06"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R05"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R04"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R03"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R02"></div>
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R01"></div>
-                    
-                    <!-- Top Row -->
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R16"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R15"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R14"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R13"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R12"></div>
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R11"></div>
-                    
-                    <!-- Home Row -->
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R26"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R25"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R24"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R23"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R22"></div>
-                    <div class="key code-key rounded flex items-center justify-center" data-key="R21"></div>
-                    
-                    <!-- Bottom Row -->
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R36"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R35"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R34"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R33"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R32"></div>
-                    <div class="key mod-key rounded flex items-center justify-center" data-key="R31"></div>
+                <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
+                    <!-- Render right keys by rows -->
+                    <template v-for="row in 4" :key="'right-row-' + row">
+                        <div 
+                            v-for="key in getKeysForRow('right', row - 1)" 
+                            :key="key.id"
+                            :class="['key rounded flex items-center justify-center tooltip', key.class]"
+                            :data-key="key.id"
+                            v-html="getKeyContent(key.id)"
+                        ></div>
+                    </template>
                 </div>
                 
-                <!-- Thumb Cluster -->
+                <!-- Right Thumb Cluster -->
                 <div class="flex justify-center gap-2 mt-4">
-                    <div class="key thumb-key layer-key rounded flex items-center justify-center" data-key="RT3"></div>
-                    <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="RT2"></div>
-                    <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="RT1"></div>
+                    <div 
+                        v-for="thumbKey in config.keyboardLayout.rightThumbKeys" 
+                        :key="thumbKey.id"
+                        :class="['key rounded flex items-center justify-center tooltip', thumbKey.class]"
+                        :data-key="thumbKey.id"
+                        v-html="getKeyContent(thumbKey.id)"
+                    ></div>
                 </div>
             </div>
         </div>
 
-        <!-- Legend -->
-        <div class="mt-8 bg-white p-4 rounded-lg shadow">
-            <h3 class="font-semibold mb-3">Key Features of This Coding-Optimized Layout</h3>
-            <div class="grid grid-cols-2 gap-4 text-sm">
+        <!-- Key Features -->
+        <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <h4 class="font-medium mb-2">Color Legend:</h4>
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-gray-100 rounded"></div>
-                            <span>Regular alpha keys (Colemak-DH)</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-green-100 rounded"></div>
-                            <span>Direct coding symbols (brackets, operators)</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-yellow-100 rounded"></div>
-                            <span>Dedicated modifier keys</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-purple-200 rounded"></div>
-                            <span>Layer switching keys</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-green-200 rounded"></div>
-                            <span>Space/Backspace</span>
-                        </div>
-                    </div>
+                    <h3 class="text-lg font-semibold mb-3">💻 Coding Optimized Design</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>• Direct bracket access on base layer</li>
+                        <li>• All programming symbols within reach</li>
+                        <li>• IDE shortcuts and enhanced Tab key</li>
+                        <li>• Home row modifiers for efficiency</li>
+                        <li>• 5-layer streamlined architecture</li>
+                    </ul>
                 </div>
                 <div>
-                    <h4 class="font-medium mb-2">Coding Optimizations:</h4>
-                    <ul class="space-y-1 text-gray-600">
-                        <li>• Direct bracket access [{()}] on base layer</li>
-                        <li>• Common operators (=, +, -, *) without shifting</li>
-                        <li>• IDE shortcuts on Nav/IDE layer</li>
-                        <li>• Code navigation (word jump, line select)</li>
-                        <li>• Debugging keys (F5, F9, F10, F11)</li>
-                        <li>• String manipulation shortcuts</li>
+                    <h3 class="text-lg font-semibold mb-3">🎯 Developer Friendly</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>• Base: Letters with direct brackets</li>
+                        <li>• Navigation: Arrows + clipboard</li>
+                        <li>• Symbols: Special characters</li>
+                        <li>• Numbers: Numeric keypad layout</li>
+                        <li>• Function: F-keys and system controls</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- How to Change Layers -->
-        <div class="mt-8 bg-emerald-50 p-6 rounded-lg border border-emerald-200">
-            <h3 class="font-semibold text-emerald-900 mb-4 text-center">How to Use This Coding-Optimized Layout</h3>
+        <!-- Programming Highlights -->
+        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 sm:p-6 rounded-lg shadow-lg mb-8 border border-emerald-200">
+            <h3 class="text-lg font-semibold text-emerald-900 mb-4 text-center">🚀 Programming Enhancements</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Physical Keyboard Usage -->
-                <div class="bg-white p-4 rounded-lg shadow-sm">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                <!-- Direct Bracket Access -->
+                <div class="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
                     <h4 class="font-medium text-emerald-800 mb-3 flex items-center">
                         <span class="bg-emerald-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">1</span>
-                        Coding Workflow
+                        Direct Bracket Access
                     </h4>
                     <div class="space-y-2 text-sm">
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Direct</span>
-                            <div>
-                                <strong>Brackets & operators</strong> → No layer switching
-                                <div class="text-gray-600 text-xs">[]{}() =+- */  all on base layer</div>
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-mono">{}</span>
+                            <span class="text-gray-600">Curly braces on home row</span>
                         </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Code layer</strong> → Advanced symbols & strings
-                                <div class="text-gray-600 text-xs">String quotes, regex, advanced operators</div>
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-mono">[]</span>
+                            <span class="text-gray-600">Square brackets accessible</span>
                         </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Nav/IDE layer</strong> → IDE shortcuts & navigation
-                                <div class="text-gray-600 text-xs">Debugging, refactoring, code navigation</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-medium">Both</span>
-                            <div>
-                                <strong>Numbers layer</strong> → Hold both Code + Nav keys
-                                <div class="text-gray-600 text-xs">Numpad layout + function keys for data entry</div>
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-mono">()</span>
+                            <span class="text-gray-600">Parentheses on bottom row</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- IDE Integration -->
-                <div class="bg-white p-4 rounded-lg shadow-sm">
+                <!-- Enhanced IDE Features -->
+                <div class="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
                     <h4 class="font-medium text-emerald-800 mb-3 flex items-center">
                         <span class="bg-emerald-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">2</span>
-                        IDE Integration
+                        IDE Shortcuts
                     </h4>
                     <div class="space-y-2 text-sm">
-                        <div class="flex items-start gap-2">
-                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-medium">F5</span>
-                            <div>
-                                <strong>Debug/Run</strong> → Start debugging or run code
-                                <div class="text-gray-600 text-xs">Universal across IDEs</div>
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Tab+</span>
+                            <span class="text-gray-600">Enhanced for IDE use</span>
                         </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-medium">Ctrl+D</span>
-                            <div>
-                                <strong>Duplicate line</strong> → Quick line duplication
-                                <div class="text-gray-600 text-xs">VS Code, IntelliJ, Sublime</div>
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Esc</span>
+                            <span class="text-gray-600">Function layer access</span>
                         </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs font-medium">Alt+↑/↓</span>
-                            <div>
-                                <strong>Move lines</strong> → Move current line up/down
-                                <div class="text-gray-600 text-xs">Essential for code organization</div>
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">HRM</span>
+                            <span class="text-gray-600">Efficient modifiers</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Coding Benefits -->
-            <div class="mt-4 p-4 bg-emerald-100 rounded-lg">
-                <div class="text-center">
-                    <p class="text-sm text-emerald-800 font-medium mb-2">Coding Efficiency Features</p>
-                    <div class="grid grid-cols-4 gap-2 text-xs">
-                        <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-blue-700">Base Layer</div>
-                            <div class="text-gray-600">Letters + direct brackets</div>
+                <!-- Layer Efficiency -->
+                <div class="bg-white p-3 sm:p-4 rounded-lg shadow-sm">
+                    <h4 class="font-medium text-emerald-800 mb-3 flex items-center">
+                        <span class="bg-emerald-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">3</span>
+                        5-Layer System
+                    </h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Base</span>
+                            <span class="text-gray-600">95% of coding symbols</span>
                         </div>
-                        <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-green-700">Code Layer</div>
-                            <div class="text-gray-600">Strings & advanced symbols</div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Nav</span>
+                            <span class="text-gray-600">Arrow keys + clipboard</span>
                         </div>
-                        <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-purple-700">Nav/IDE</div>
-                            <div class="text-gray-600">IDE shortcuts & debugging</div>
-                        </div>
-                        <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-orange-700">Numbers</div>
-                            <div class="text-gray-600">Hold Code + Nav</div>
+                        <div class="text-gray-600 text-xs mt-3 p-2 bg-emerald-50 rounded">
+                            ⚡ <strong>Result:</strong> 80% less layer switching for programming tasks
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Important: Numbers Layer Access -->  
-        <div class="mt-8 bg-orange-50 p-4 rounded-lg border border-orange-200">
-            <h3 class="font-semibold text-orange-900 mb-3 text-center">📋 How to Access the Numbers Layer</h3>
-            <div class="bg-white p-4 rounded-lg shadow-sm">
-                <div class="text-center">
-                    <p class="text-sm text-orange-800 font-medium mb-2">Numbers Layer Combo Access</p>
-                    <div class="flex justify-center items-center gap-3 text-sm">
-                        <span class="px-3 py-2 bg-purple-100 text-purple-800 rounded font-medium">Hold Code</span>
-                        <span class="text-gray-500">+</span>
-                        <span class="px-3 py-2 bg-blue-100 text-blue-800 rounded font-medium">Hold Nav</span>
-                        <span class="text-gray-500">=</span>
-                        <span class="px-3 py-2 bg-orange-100 text-orange-800 rounded font-medium">Numbers Layer</span>
-                    </div>
-                    <p class="text-xs text-gray-600 mt-3">Hold both thumb keys simultaneously: Left thumb (Code) + Right thumb (Nav/IDE)</p>
-                    <p class="text-xs text-orange-700 mt-2"><strong>Firmware Setup:</strong> Configure as a combo in QMK/ZMK, or momentary layer toggle when both keys pressed</p>
                 </div>
             </div>
         </div>
@@ -356,430 +330,125 @@
             <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <p class="text-sm text-gray-600 mb-2">Compare Layout Versions:</p>
                 <div class="flex justify-center gap-2 flex-wrap">
-                    <a href="index.html" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm">
+                    <a href="index.html" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm relative">
                         Traditional HRM
+                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">READY</span>
                     </a>
-                    <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm">
-                        Optimized 3-Layer
+                    <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm relative">
+                        Optimized 4-Layer
+                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </a>
-                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm">
+                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm relative">
                         No HRM Dedicated
+                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </a>
-                    <a href="index-v4.html" class="px-3 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition-colors text-sm">
-                        4-Layer Balanced
+                    <a href="index-v4.html" class="px-3 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition-colors text-sm relative">
+                        4-Layer Balanced  
+                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </a>
-                    <span class="px-3 py-2 bg-emerald-500 text-white rounded text-sm">
+                    <span class="px-3 py-2 bg-emerald-500 text-white rounded text-sm relative">
                         Current: Coding Optimized
+                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </span>
                 </div>
             </div>
         </div>
 
-        <!-- Quick Tips -->
-        <div class="mt-4 text-center text-gray-600">
-            <p class="font-medium">Coding Tips:</p>
-            <p class="text-sm mt-1">All brackets on base layer • IDE shortcuts on Nav/IDE • Numbers via Code+Nav combo</p>
-            <p class="text-xs mt-2 text-orange-600"><strong>Remember:</strong> Hold both thumbs (Code+Nav) for numpad access!</p>
-        </div>
-
         <!-- Footer -->
-        <div class="mt-8 pt-8 border-t border-gray-300 text-center">
-            <p class="text-xs text-gray-500">
-                <a href="https://github.com/manna-harbour/miryoku" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Miryoku Layout</a> by manna-harbour • 
-                <a href="https://github.com/Squalius-cephalus/silakka54" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Silakka54</a> keyboard • 
-                <a href="https://getreuer.info/posts/keyboards/alt-layouts/index.html#which-alt-keyboard-layout-should-i-learn" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Alt Layout Guide</a><br>
-                Built with <a href="https://claude.ai/code" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Claude Code</a> by <a href="http://itman.fyi/" class="text-blue-500 hover:underline" target="_blank" rel="noopener">itman.fyi</a>
-            </p>
-        </div>
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            <p>Built with Vue.js • Miryoku layout by <a href="https://github.com/manna-harbour/miryoku" class="text-blue-600 hover:underline">Manna Harbour</a></p>
+        </footer>
     </div>
 
     <script>
-        // Tooltip explanations for coding-optimized layout
-        const tooltips = {
-            // Direct coding access
-            'L21': 'Direct brackets: [ and ] keys (no layer needed)',
-            'R21': 'Direct brackets: { and } keys (no layer needed)', 
-            // Dedicated modifiers
-            'L31': 'Dedicated Shift modifier (always Shift)',
-            'R31': 'Dedicated Shift modifier (always Shift)', 
-            'LT1': 'Dedicated Control modifier (always Ctrl)',
-            'RT1': 'Dedicated Alt modifier (always Alt)',
-            // Numbers layer access
-            'L11': {
-                base: 'Tab key',
-                code: 'Backtick (`) for code blocks',
-                nav: 'Quick file open (Ctrl+T)',
-                num: 'Hold both Code + Nav keys to access Numbers layer'
-            },
-            // Layer switching with coding focus
-            'LT3': {
-                base: 'Hold: Code layer (strings, advanced symbols)',
-                code: 'Current layer: Code (holding this key)',
-                nav: 'Hold: Code layer',
-                num: 'Hold: Code layer'
-            },
-            'RT3': {
-                base: 'Hold: Nav/IDE layer (shortcuts, debugging)',
-                code: 'Hold: Nav/IDE layer',
-                nav: 'Current layer: Nav/IDE (holding this key)',
-                num: 'Hold: Nav/IDE layer'
-            },
-            // Space/backspace
-            'LT2': 'Space key (tap for space)',
-            'RT2': 'Backspace key'
-        };
-
-        // Coding-optimized layer definitions
-        const layers = {
-            base: {
-                // Left side - Number row with coding symbols
-                L01: '<div class="key-label">Esc<br><span class="mod-label">`</span></div>',
-                L02: '<div class="key-label">1<br><span class="mod-label">!</span></div>',
-                L03: '<div class="key-label">2<br><span class="mod-label">@</span></div>',
-                L04: '<div class="key-label">3<br><span class="mod-label">#</span></div>',
-                L05: '<div class="key-label">4<br><span class="mod-label">$</span></div>',
-                L06: '<div class="key-label">5<br><span class="mod-label">%</span></div>',
-                
-                // Left side - Main keys with direct coding access
-                L11: 'Tab',
-                L12: 'Q',
-                L13: 'W',
-                L14: 'F',
-                L15: 'P',
-                L16: 'B',
-                
-                L21: '<div class="key-label">[<br><span class="mod-label">]</span></div>', // Direct bracket access
-                L22: 'A',
-                L23: 'R',
-                L24: 'S',
-                L25: 'T',
-                L26: 'G',
-                
-                L31: 'Shift',
-                L32: 'Z',
-                L33: 'X',
-                L34: 'C',
-                L35: 'D',
-                L36: 'V',
-                
-                // Left thumb cluster
-                LT1: 'Ctrl',
-                LT2: 'Space',
-                LT3: '<div class="key-label">Code<br><span class="mod-label">Hold</span></div>',
-                
-                // Right side - Number row with coding symbols
-                R06: '<div class="key-label">6<br><span class="mod-label">^</span></div>',
-                R05: '<div class="key-label">7<br><span class="mod-label">&</span></div>',
-                R04: '<div class="key-label">8<br><span class="mod-label">*</span></div>',
-                R03: '<div class="key-label">9<br><span class="mod-label">(</span></div>',
-                R02: '<div class="key-label">0<br><span class="mod-label">)</span></div>',
-                R01: '<div class="key-label">-<br><span class="mod-label">_</span></div>',
-                
-                // Right side - Main keys with coding optimization
-                R16: 'J',
-                R15: 'L',
-                R14: 'U',
-                R13: 'Y',
-                R12: '<div class="key-label">;<br><span class="mod-label">:</span></div>',
-                R11: '<div class="key-label">=<br><span class="mod-label">+</span></div>', // Direct = and + access
-                
-                R26: 'M',
-                R25: 'N',
-                R24: 'E',
-                R23: 'I',
-                R22: 'O',
-                R21: '<div class="key-label">{<br><span class="mod-label">}</span></div>', // Direct brace access
-                
-                R36: 'K',
-                R35: 'H',
-                R34: ',',
-                R33: '.',
-                R32: '/',
-                R31: 'Shift',
-                
-                // Right thumb cluster
-                RT3: '<div class="key-label">Nav<br><span class="mod-label">Hold</span></div>',
-                RT2: 'Bksp',
-                RT1: 'Alt'
-            },
-            code: {
-                // Left side - Advanced coding symbols
-                L01: '~',
-                L02: '!',
-                L03: '@',
-                L04: '#',
-                L05: '$',
-                L06: '%',
-                
-                L11: '`',
-                L12: '"', // String quotes
-                L13: "'", // String quotes
-                L14: '(',
-                L15: ')',
-                L16: '|',
-                
-                L21: '[',
-                L22: '\\', // Escape character
-                L23: '&', // Logical AND
-                L24: '*', // Pointer/multiply
-                L25: '+', // Addition
-                L26: ']',
-                
-                L31: '',
-                L32: '_', // Snake_case
-                L33: '-', // Kebab-case
-                L34: '=', // Assignment
-                L35: '!', // Negation
-                L36: '?', // Ternary
-                
-                LT1: '',
-                LT2: '',
-                LT3: 'Code',
-                
-                // Right side - String and regex operations
-                R06: '^', // Regex start
-                R05: '&',
-                R04: '*',
-                R03: '(',
-                R02: ')',
-                R01: '$', // Regex end
-                
-                R16: '%', // Modulo
-                R15: '<', // Less than
-                R14: '>', // Greater than
-                R13: '|', // Pipe/OR
-                R12: ':', // Type annotation
-                R11: '=',
-                
-                R26: '.', // Method chaining
-                R25: ',', // Parameter separator
-                R24: ';', // Statement end
-                R23: '"', // String delimiter
-                R22: "'", // String delimiter
-                R21: '{',
-                
-                R36: '',
-                R35: '',
-                R34: '',
-                R33: '',
-                R32: '',
-                R31: '',
-                
-                RT3: '',
-                RT2: 'Del',
-                RT1: ''
-            },
-            nav: {
-                // Left side - IDE shortcuts and debugging
-                L01: 'F12', // Go to definition
-                L02: 'F1', // Help/Quick fix
-                L03: 'F2', // Rename symbol
-                L04: 'F3', // Find next
-                L05: 'F4', // Close tab
-                L06: 'F5', // Debug/Run
-                
-                L11: 'Ctrl+T', // Quick open file
-                L12: 'Ctrl+F', // Find in file
-                L13: 'Ctrl+H', // Find & replace
-                L14: 'Ctrl+G', // Go to line
-                L15: 'Ctrl+P', // Command palette
-                L16: 'Ctrl+B', // Toggle sidebar
-                
-                L21: 'Ctrl+[', // Outdent
-                L22: 'Ctrl+A', // Select all
-                L23: 'Ctrl+D', // Duplicate line
-                L24: 'Ctrl+L', // Select line
-                L25: 'Ctrl+Shift+K', // Delete line
-                L26: 'Ctrl+]', // Indent
-                
-                L31: '',
-                L32: 'Ctrl+Z', // Undo
-                L33: 'Ctrl+X', // Cut
-                L34: 'Ctrl+C', // Copy
-                L35: 'Ctrl+V', // Paste
-                L36: 'Ctrl+Y', // Redo
-                
-                LT1: '',
-                LT2: '',
-                LT3: '',
-                
-                // Right side - Navigation and debugging
-                R06: 'F6', // Step over
-                R05: 'F7', // Step into
-                R04: 'F8', // Step out
-                R03: 'F9', // Toggle breakpoint
-                R02: 'F10', // Step over (alt)
-                R01: 'F11', // Step into (alt)
-                
-                R16: 'Home', // Line start
-                R15: 'PgUp', // Page up
-                R14: '↑', // Up arrow
-                R13: 'PgDn', // Page down
-                R12: 'End', // Line end
-                R11: 'Ctrl+Home', // File start
-                
-                R26: '←', // Left arrow
-                R25: '↓', // Down arrow
-                R24: '→', // Right arrow
-                R23: 'Ctrl+←', // Word left
-                R22: 'Ctrl+→', // Word right
-                R21: 'Ctrl+End', // File end
-                
-                R36: 'Alt+←', // Back navigation
-                R35: 'Alt+→', // Forward navigation
-                R34: 'Alt+↑', // Move line up
-                R33: 'Alt+↓', // Move line down
-                R32: 'Ctrl+/', // Toggle comment
-                R31: '',
-                
-                RT3: 'Nav',
-                RT2: '',
-                RT1: ''
-            },
-            num: {
-                // Left side - Numpad for data entry
-                L01: '',
-                L02: '',
-                L03: '',
-                L04: '',
-                L05: '',
-                L06: '',
-                
-                L11: '',
-                L12: '7',
-                L13: '8',
-                L14: '9',
-                L15: '+',
-                L16: '',
-                
-                L21: '',
-                L22: '4',
-                L23: '5',
-                L24: '6',
-                L25: '-',
-                L26: '',
-                
-                L31: '',
-                L32: '1',
-                L33: '2',
-                L34: '3',
-                L35: '*',
-                L36: '/',
-                
-                LT1: '',
-                LT2: '0',
-                LT3: '.',
-                
-                // Right side - Function keys for IDE
-                R06: 'F6',
-                R05: 'F7',
-                R04: 'F8',
-                R03: 'F9',
-                R02: 'F10',
-                R01: 'F11',
-                
-                R16: '',
-                R15: '',
-                R14: '',
-                R13: '',
-                R12: 'F12',
-                R11: '',
-                
-                R26: '',
-                R25: '',
-                R24: '',
-                R23: '',
-                R22: '',
-                R21: '',
-                
-                R36: '',
-                R35: '',
-                R34: '',
-                R33: '',
-                R32: '',
-                R31: '',
-                
-                RT3: '',
-                RT2: '',
-                RT1: ''
-            }
-        };
-
-        let currentLayer = 'base';
-
-        function showLayer(layer) {
-            currentLayer = layer;
-            
-            // Update button states
-            document.querySelectorAll('.layer-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-500', 'text-white');
-                btn.classList.add('bg-gray-300');
-            });
-            document.getElementById(`${layer}-btn`).classList.remove('bg-gray-300');
-            document.getElementById(`${layer}-btn`).classList.add('bg-blue-500', 'text-white');
-            
-            // Update key labels and tooltips
-            const layerData = layers[layer];
-            Object.keys(layerData).forEach(keyId => {
-                const keyElement = document.querySelector(`[data-key="${keyId}"]`);
-                if (keyElement) {
-                    let content = layerData[keyId] || '';
-                    
-                    // Add tooltip functionality
-                    let tooltipText = '';
-                    if (tooltips[keyId]) {
-                        if (typeof tooltips[keyId] === 'object') {
-                            tooltipText = tooltips[keyId][layer] || '';
-                        } else {
-                            tooltipText = tooltips[keyId];
-                        }
-                    } else if (content === '') {
-                        tooltipText = 'No function on this layer';
-                    } else {
-                        // Clean content for tooltip (remove HTML)
-                        const cleanContent = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-                        
-                        // Generic tooltip for coding keys
-                        const keyDescriptions = {
-                            '←': 'Left arrow key',
-                            '→': 'Right arrow key', 
-                            '↑': 'Up arrow key',
-                            '↓': 'Down arrow key',
-                            'Home': 'Home key - go to beginning',
-                            'End': 'End key - go to end',
-                            'PgUp': 'Page Up key',
-                            'PgDn': 'Page Down key',
-                            'Ctrl+D': 'Duplicate current line',
-                            'Ctrl+L': 'Select entire line',
-                            'Ctrl+F': 'Find in current file',
-                            'Ctrl+H': 'Find and replace',
-                            'Ctrl+/': 'Toggle line comment',
-                            'Alt+↑': 'Move line up',
-                            'Alt+↓': 'Move line down',
-                            'F5': 'Start debugging or run code',
-                            'F9': 'Toggle breakpoint',
-                            'F10': 'Step over in debugger',
-                            'F11': 'Step into in debugger',
-                            'Code': 'Layer key - hold for coding symbols',
-                            'Nav': 'Layer key - hold for navigation/IDE shortcuts'
-                        };
-                        
-                        tooltipText = keyDescriptions[cleanContent] || `${cleanContent} key`;
-                    }
-                    
-                    // Wrap content with tooltip if we have tooltip text
-                    if (tooltipText) {
-                        keyElement.classList.add('tooltip');
-                        keyElement.innerHTML = content + `<div class="tooltip-text">${tooltipText}</div>`;
-                    } else {
-                        keyElement.innerHTML = content;
-                    }
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    config: {
+                        title: 'Loading...',
+                        subtitle: 'Loading...',
+                        description: 'Loading...',
+                        layers: [],
+                        keyboardLayout: {
+                            leftKeys: [],
+                            rightKeys: [],
+                            leftThumbKeys: [],
+                            rightThumbKeys: []
+                        },
+                        tooltips: {},
+                        layerData: {}
+                    },
+                    currentLayer: 'base'
                 }
-            });
-        }
-
-        // Initialize with base layer
-        showLayer('base');
+            },
+            async mounted() {
+                await this.loadConfig();
+                this.updateTooltips();
+            },
+            methods: {
+                async loadConfig() {
+                    try {
+                        const response = await fetch('./app-v5.json');
+                        this.config = await response.json();
+                        this.currentLayer = this.config.layers.find(l => l.active)?.id || 'base';
+                    } catch (error) {
+                        console.error('Failed to load config:', error);
+                        // Fallback config
+                        this.config = {
+                            title: 'Coding Optimized Miryoku for Silakka54',
+                            subtitle: 'Programming-focused enhancements with direct bracket access',
+                            description: 'IDE shortcuts and bracket symbols on the base layer for developers',
+                            layers: [
+                                {id: 'base', name: 'Base', active: true}
+                            ],
+                            keyboardLayout: { leftKeys: [], rightKeys: [], leftThumbKeys: [], rightThumbKeys: [] },
+                            tooltips: {},
+                            layerData: { base: {} }
+                        };
+                    }
+                },
+                showLayer(layerId) {
+                    this.currentLayer = layerId;
+                    this.$nextTick(() => {
+                        this.updateTooltips();
+                    });
+                },
+                getKeysForRow(side, row) {
+                    if (!this.config.keyboardLayout) return [];
+                    const keys = side === 'left' ? this.config.keyboardLayout.leftKeys : this.config.keyboardLayout.rightKeys;
+                    return keys ? keys.filter(key => key.row === row) : [];
+                },
+                getKeyContent(keyId) {
+                    if (!this.config.layerData) return '';
+                    const layerData = this.config.layerData[this.currentLayer];
+                    if (!layerData) return '';
+                    
+                    const keyValue = layerData[keyId] || '';
+                    const tooltipText = this.getTooltipText(keyId, keyValue);
+                    
+                    if (tooltipText) {
+                        return `${keyValue}<div class="tooltip-text">${tooltipText}</div>`;
+                    }
+                    return keyValue;
+                },
+                getTooltipText(keyId, keyValue) {
+                    if (this.config.tooltips && this.config.tooltips[keyId]) {
+                        return this.config.tooltips[keyId];
+                    }
+                    
+                    if (keyValue === '' || keyValue === '___') {
+                        return keyValue === '___' ? 'Active layer key' : 'No function on this layer';
+                    }
+                    
+                    return '';
+                },
+                updateTooltips() {
+                    // Tooltips are handled by CSS hover effects
+                }
+            }
+        }).mount('#app');
     </script>
 </body>
 </html>

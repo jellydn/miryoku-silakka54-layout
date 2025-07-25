@@ -3,23 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config.title || 'Optimized 54-Key Miryoku Layout' }}</title>
+    <title>Optimized 54-Key Miryoku Layout</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
+        /* Mobile-first responsive design */
         .key {
-            min-width: 3.5rem;
-            min-height: 3.5rem;
+            min-width: 2.5rem;
+            min-height: 2.5rem;
             transition: all 0.2s ease;
-            font-size: 0.75rem;
+            font-size: 0.6rem;
         }
+        
+        /* Tablet and larger */
+        @media (min-width: 768px) {
+            .key {
+                min-width: 3rem;
+                min-height: 3rem;
+                font-size: 0.7rem;
+            }
+        }
+        
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .key {
+                min-width: 3.5rem;
+                min-height: 3.5rem;
+                font-size: 0.75rem;
+            }
+        }
+        
         .key:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
+        
         .home-row {
             position: relative;
         }
+        
         .home-row::before {
             content: '';
             position: absolute;
@@ -31,8 +53,21 @@
             background-color: #3b82f6;
             border-radius: 50%;
         }
+        
         .thumb-key {
-            min-width: 4.5rem;
+            min-width: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .thumb-key {
+                min-width: 4rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .thumb-key {
+                min-width: 4.5rem;
+            }
         }
         .layer-active {
             background-color: #3b82f6 !important;
@@ -46,8 +81,20 @@
             line-height: 1.2;
         }
         .mod-label {
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             color: #6b7280;
+        }
+        
+        @media (min-width: 768px) {
+            .mod-label {
+                font-size: 0.55rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .mod-label {
+                font-size: 0.6rem;
+            }
         }
         .tooltip {
             position: relative;
@@ -87,8 +134,8 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 p-8">
-    <div id="app" class="max-w-7xl mx-auto">
+<body class="bg-gray-100 p-4 sm:p-6 lg:p-8">
+    <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold text-center mb-4">{{ config.title }}</h1>
         <p class="text-center text-gray-600 mb-2">{{ config.subtitle }}</p>
         <p class="text-center text-sm text-gray-500 mb-8">{{ config.description }}</p>
@@ -108,9 +155,9 @@
         <!-- Keyboard Layout -->
         <div class="flex justify-center gap-8">
             <!-- Left Half -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
                 <h3 class="text-center font-semibold mb-4">Left Half</h3>
-                <div class="grid grid-cols-6 gap-1.5">
+                <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
                     <!-- Render left keys by rows -->
                     <template v-for="row in 4" :key="'left-row-' + row">
                         <div 
@@ -136,9 +183,9 @@
             </div>
 
             <!-- Right Half -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
                 <h3 class="text-center font-semibold mb-4">Right Half</h3>
-                <div class="grid grid-cols-6 gap-1.5">
+                <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
                     <!-- Render right keys by rows -->
                     <template v-for="row in 4" :key="'right-row-' + row">
                         <div 

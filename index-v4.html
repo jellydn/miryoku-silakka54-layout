@@ -3,32 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimized 4-Layer Miryoku for Silakka54</title>
+    <title>4-Layer Balanced Miryoku for Silakka54</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
+        /* Mobile-first responsive design */
         .key {
-            min-width: 3.5rem;
-            min-height: 3.5rem;
+            min-width: 2.5rem;
+            min-height: 2.5rem;
             transition: all 0.2s ease;
-            font-size: 0.75rem;
+            font-size: 0.6rem;
         }
+        
+        /* Tablet and larger */
+        @media (min-width: 768px) {
+            .key {
+                min-width: 3rem;
+                min-height: 3rem;
+                font-size: 0.7rem;
+            }
+        }
+        
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .key {
+                min-width: 3.5rem;
+                min-height: 3.5rem;
+                font-size: 0.75rem;
+            }
+        }
+        
         .key:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
+        
+        .home-row {
+            position: relative;
+        }
+        
+        .home-row::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+        }
+        
         .thumb-key {
-            min-width: 4.5rem;
+            min-width: 3rem;
         }
-        .mod-key {
-            background-color: #fef3c7 !important;
+        
+        @media (min-width: 768px) {
+            .thumb-key {
+                min-width: 4rem;
+            }
         }
-        .layer-key {
-            background-color: #ddd6fe !important;
+        
+        @media (min-width: 1024px) {
+            .thumb-key {
+                min-width: 4.5rem;
+            }
         }
+        
         .layer-active {
             background-color: #3b82f6 !important;
             color: white !important;
         }
+        
         .key-label {
             display: flex;
             flex-direction: column;
@@ -36,18 +82,29 @@
             justify-content: center;
             line-height: 1.2;
         }
-        .key-main {
-            font-weight: 600;
-        }
-        .key-sub {
-            font-size: 0.625rem;
+        
+        .mod-label {
+            font-size: 0.5rem;
             color: #6b7280;
-            margin-top: 2px;
         }
+        
+        @media (min-width: 768px) {
+            .mod-label {
+                font-size: 0.55rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .mod-label {
+                font-size: 0.6rem;
+            }
+        }
+        
         .tooltip {
             position: relative;
             cursor: help;
         }
+        
         .tooltip-text {
             visibility: hidden;
             opacity: 0;
@@ -58,14 +115,24 @@
             background-color: #1f2937;
             color: white;
             text-align: center;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             white-space: nowrap;
             z-index: 1000;
             transition: opacity 0.2s, visibility 0.2s;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-width: 200px;
         }
+        
+        @media (min-width: 768px) {
+            .tooltip-text {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+                max-width: none;
+            }
+        }
+        
         .tooltip-text::after {
             content: "";
             position: absolute;
@@ -76,244 +143,112 @@
             border-style: solid;
             border-color: #1f2937 transparent transparent transparent;
         }
+        
         .tooltip:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
         }
     </style>
 </head>
-<body class="bg-gray-100 p-8">
-    <div class="max-w-7xl mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-4">Optimized 4-Layer Miryoku for Silakka54</h1>
-        <p class="text-center text-gray-600 mb-2">Balanced approach: Direct access + minimal layers</p>
-        <p class="text-center text-sm text-gray-500 mb-8">Perfect balance between simplicity and efficiency!</p>
+<body class="bg-gray-100 p-4 sm:p-6 lg:p-8">
+    <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-center mb-4">{{ config.title }}</h1>
+        <p class="text-center text-gray-600 mb-2">{{ config.subtitle }}</p>
+        <p class="text-center text-sm text-gray-500 mb-8">{{ config.description }}</p>
         
         <!-- Layer Selector -->
-        <div class="flex justify-center gap-2 mb-8">
-            <button onclick="showLayer('base')" id="base-btn" class="layer-btn px-4 py-2 rounded bg-blue-500 text-white">Base</button>
-            <button onclick="showLayer('sym')" id="sym-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Symbols</button>
-            <button onclick="showLayer('nav')" id="nav-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Nav/Num</button>
-            <button onclick="showLayer('fun')" id="fun-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Function</button>
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <button 
+                v-for="layer in config.layers" 
+                :key="layer.id"
+                @click="showLayer(layer.id)" 
+                :class="['px-4 py-2 rounded text-sm font-medium transition-colors', currentLayer === layer.id ? 'bg-blue-500 text-white' : 'bg-gray-300 hover:bg-gray-400']"
+            >
+                {{ layer.name }}
+            </button>
         </div>
 
         <!-- Keyboard Layout -->
-        <div class="flex justify-center gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-8">
             <!-- Left Half -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
                 <h3 class="text-center font-semibold mb-4">Left Half</h3>
-                <div class="grid grid-cols-6 gap-1.5">
-                    <!-- Number Row -->
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L01"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L02"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L03"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L04"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L05"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L06"></div>
-                    
-                    <!-- Top Row -->
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L11"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L12"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L13"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L14"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L15"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L16"></div>
-                    
-                    <!-- Home Row -->
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="L21"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L22"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L23"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L24"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L25"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L26"></div>
-                    
-                    <!-- Bottom Row -->
-                    <div class="key mod-key rounded flex items-center justify-center" data-key="L31"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L32"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L33"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L34"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L35"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L36"></div>
+                <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
+                    <!-- Render left keys by rows -->
+                    <template v-for="row in 4" :key="'left-row-' + row">
+                        <div 
+                            v-for="key in getKeysForRow('left', row - 1)" 
+                            :key="key.id"
+                            :class="['key rounded flex items-center justify-center tooltip', key.class]"
+                            :data-key="key.id"
+                            v-html="getKeyContent(key.id)"
+                        ></div>
+                    </template>
                 </div>
                 
-                <!-- Thumb Cluster -->
+                <!-- Left Thumb Cluster -->
                 <div class="flex justify-center gap-2 mt-4">
-                    <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="LT1"></div>
-                    <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="LT2"></div>
-                    <div class="key thumb-key layer-key rounded flex items-center justify-center" data-key="LT3"></div>
+                    <div 
+                        v-for="thumbKey in config.keyboardLayout.leftThumbKeys" 
+                        :key="thumbKey.id"
+                        :class="['key rounded flex items-center justify-center tooltip', thumbKey.class]"
+                        :data-key="thumbKey.id"
+                        v-html="getKeyContent(thumbKey.id)"
+                    ></div>
                 </div>
             </div>
 
             <!-- Right Half -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
                 <h3 class="text-center font-semibold mb-4">Right Half</h3>
-                <div class="grid grid-cols-6 gap-1.5">
-                    <!-- Number Row -->
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R06"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R05"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R04"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R03"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R02"></div>
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R01"></div>
-                    
-                    <!-- Top Row -->
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R16"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R15"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R14"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R13"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R12"></div>
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R11"></div>
-                    
-                    <!-- Home Row -->
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R26"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R25"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R24"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R23"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R22"></div>
-                    <div class="key bg-gray-200 rounded flex items-center justify-center" data-key="R21"></div>
-                    
-                    <!-- Bottom Row -->
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R36"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R35"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R34"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R33"></div>
-                    <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R32"></div>
-                    <div class="key mod-key rounded flex items-center justify-center" data-key="R31"></div>
+                <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
+                    <!-- Render right keys by rows -->
+                    <template v-for="row in 4" :key="'right-row-' + row">
+                        <div 
+                            v-for="key in getKeysForRow('right', row - 1)" 
+                            :key="key.id"
+                            :class="['key rounded flex items-center justify-center tooltip', key.class]"
+                            :data-key="key.id"
+                            v-html="getKeyContent(key.id)"
+                        ></div>
+                    </template>
                 </div>
                 
-                <!-- Thumb Cluster -->
+                <!-- Right Thumb Cluster -->
                 <div class="flex justify-center gap-2 mt-4">
-                    <div class="key thumb-key layer-key rounded flex items-center justify-center" data-key="RT3"></div>
-                    <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="RT2"></div>
-                    <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="RT1"></div>
+                    <div 
+                        v-for="thumbKey in config.keyboardLayout.rightThumbKeys" 
+                        :key="thumbKey.id"
+                        :class="['key rounded flex items-center justify-center tooltip', thumbKey.class]"
+                        :data-key="thumbKey.id"
+                        v-html="getKeyContent(thumbKey.id)"
+                    ></div>
                 </div>
             </div>
         </div>
 
-        <!-- Legend -->
-        <div class="mt-8 bg-white p-4 rounded-lg shadow">
-            <h3 class="font-semibold mb-3">Key Features of This 4-Layer Layout</h3>
-            <div class="grid grid-cols-2 gap-4 text-sm">
+        <!-- Key Features -->
+        <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <h4 class="font-medium mb-2">Color Legend:</h4>
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-gray-100 rounded"></div>
-                            <span>Regular alpha keys (Colemak-DH)</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-yellow-100 rounded"></div>
-                            <span>Dedicated modifier keys (Shift, Ctrl)</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-purple-200 rounded"></div>
-                            <span>Layer switching keys</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-green-200 rounded"></div>
-                            <span>Space/Backspace</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-gray-200 rounded"></div>
-                            <span>Extra keys and numbers</span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-medium mb-2">Perfect Balance Achieved:</h4>
-                    <ul class="space-y-1 text-gray-600">
-                        <li>• Only 4 layers needed (vs 6 in traditional)</li>
-                        <li>• Dedicated modifiers (no dual-function)</li>
-                        <li>• Direct number row access</li>
-                        <li>• Combined Nav/Num layer for efficiency</li>
-                        <li>• Easier than full Miryoku, more efficient than standard</li>
+                    <h3 class="text-lg font-semibold mb-3">⚖️ Balanced 4-Layer Design</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>• Perfect balance of simplicity and efficiency</li>
+                        <li>• Traditional HRM with reduced layer count</li>
+                        <li>• Combined functions for streamlined access</li>
+                        <li>• Optimized thumb key assignments</li>
+                        <li>• Maintains Miryoku ergonomic principles</li>
                     </ul>
                 </div>
-            </div>
-        </div>
-
-        <!-- How to Change Layers -->
-        <div class="mt-8 bg-amber-50 p-6 rounded-lg border border-amber-200">
-            <h3 class="font-semibold text-amber-900 mb-4 text-center">How to Change Between Layers (4-Layer Optimized)</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Physical Keyboard Usage -->
-                <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h4 class="font-medium text-amber-800 mb-3 flex items-center">
-                        <span class="bg-amber-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">1</span>
-                        On Your Physical Keyboard
-                    </h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex items-start gap-2">
-                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Sym key (left thumb)</strong> → Symbols layer
-                                <div class="text-gray-600 text-xs">Access all punctuation and operators</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Nav key (right thumb)</strong> → Nav/Num layer
-                                <div class="text-gray-600 text-xs">Navigation arrows + numpad combined</div>
-                            </div>
-                        </div>
-                        <div class="bg-amber-50 p-3 rounded-lg mt-3">
-                            <div class="text-amber-800 text-xs font-medium mb-1">⚖️ Balanced Approach</div>
-                            <div class="text-amber-700 text-xs">Best of both worlds: dedicated modifiers + minimal layers!</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Visualizer Usage -->
-                <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h4 class="font-medium text-amber-800 mb-3 flex items-center">
-                        <span class="bg-amber-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">2</span>
-                        In This Visualizer
-                    </h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex items-start gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Click</span>
-                            <div>
-                                <strong>4 layer buttons above</strong> → Switch views
-                                <div class="text-gray-600 text-xs">Base, Symbols, Nav/Num, Function</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hover</span>
-                            <div>
-                                <strong>Any key</strong> → See detailed tooltips
-                                <div class="text-gray-600 text-xs">Explains dedicated vs layer functions</div>
-                            </div>
-                        </div>
-                        <div class="text-gray-600 text-xs mt-3 p-2 bg-gray-50 rounded">
-                            🎯 <strong>Sweet Spot:</strong> This layout balances simplicity and efficiency - perfect for users who want Miryoku benefits without the complexity
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Key Benefits -->
-            <div class="mt-4 p-4 bg-amber-100 rounded-lg">
-                <div class="text-center">
-                    <p class="text-sm text-amber-800 font-medium mb-2">4-Layer Optimization Strategy</p>
-                    <div class="grid grid-cols-4 gap-2 text-xs">
-                        <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-blue-700">Base</div>
-                            <div class="text-gray-600">Letters + numbers</div>
-                        </div>
-                        <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-purple-700">Symbols</div>
-                            <div class="text-gray-600">All punctuation</div>
-                        </div>
-                        <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-green-700">Nav/Num</div>
-                            <div class="text-gray-600">Arrows + numpad</div>
-                        </div>
-                        <div class="bg-white p-2 rounded">
-                            <div class="font-medium text-red-700">Function</div>
-                            <div class="text-gray-600">F-keys only</div>
-                        </div>
-                    </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3">🎯 Smart Layer Strategy</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>• Base: Letters with HRM modifiers</li>
+                        <li>• Navigation: Arrows + F-keys combined</li>
+                        <li>• Symbols: All special characters</li>
+                        <li>• Media: Volume, playback, system</li>
+                        <li>• Efficient 4-layer access pattern</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -323,414 +258,125 @@
             <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <p class="text-sm text-gray-600 mb-2">Compare Layout Versions:</p>
                 <div class="flex justify-center gap-2 flex-wrap">
-                    <a href="index.html" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm">
+                    <a href="index.html" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm relative">
                         Traditional HRM
+                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">READY</span>
                     </a>
-                    <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm">
-                        Optimized 3-Layer
+                    <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm relative">
+                        Optimized 4-Layer
+                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </a>
-                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm">
+                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm relative">
                         No HRM Dedicated
+                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </a>
-                    <span class="px-3 py-2 bg-amber-500 text-white rounded text-sm">
+                    <span class="px-3 py-2 bg-amber-500 text-white rounded text-sm relative">
                         Current: 4-Layer Balanced
+                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </span>
-                    <a href="index-v5.html" class="px-3 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors text-sm">
+                    <a href="index-v5.html" class="px-3 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors text-sm relative">
                         Coding Optimized
+                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Quick Tips -->
-        <div class="mt-4 text-center text-gray-600">
-            <p class="font-medium">Quick Reference:</p>
-            <p class="text-sm mt-1">Dedicated modifiers on outer keys | Hold Sym/Nav for layers</p>
-        </div>
-
         <!-- Footer -->
-        <div class="mt-8 pt-8 border-t border-gray-300 text-center">
-            <p class="text-xs text-gray-500">
-                <a href="https://github.com/manna-harbour/miryoku" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Miryoku Layout</a> by manna-harbour • 
-                <a href="https://github.com/Squalius-cephalus/silakka54" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Silakka54</a> keyboard • 
-                <a href="https://getreuer.info/posts/keyboards/alt-layouts/index.html#which-alt-keyboard-layout-should-i-learn" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Alt Layout Guide</a><br>
-                Built with <a href="https://claude.ai/code" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Claude Code</a> by <a href="http://itman.fyi/" class="text-blue-500 hover:underline" target="_blank" rel="noopener">itman.fyi</a>
-            </p>
-        </div>
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            <p>Built with Vue.js • Miryoku layout by <a href="https://github.com/manna-harbour/miryoku" class="text-blue-600 hover:underline">Manna Harbour</a></p>
+        </footer>
     </div>
 
     <script>
-        // Tooltip explanations for 4-layer optimized layout
-        const tooltips = {
-            // Dedicated modifiers
-            'L31': 'Dedicated Shift modifier (always Shift)',
-            'R31': 'Dedicated Shift modifier (always Shift)', 
-            'LT1': 'Dedicated Control modifier (always Ctrl)',
-            'RT1': 'Dedicated Enter key',
-            // Layer switching
-            'LT3': {
-                base: 'Hold: Symbols layer',
-                sym: 'Current layer: Symbols (holding this key)',
-                nav: 'Hold: Symbols layer',
-                fun: 'Hold: Symbols layer'
-            },
-            'RT3': {
-                base: 'Hold: Nav/Num layer',
-                sym: 'Hold: Nav/Num layer',
-                nav: 'Current layer: Nav/Num (holding this key)',
-                fun: 'Hold: Nav/Num layer'
-            },
-            // Space key
-            'LT2': 'Space key (tap for space)',
-            'RT2': 'Backspace key'
-        };
-
-        // V2-style layer definitions (clean and consistent)
-        const layers = {
-            base: {
-                // Left side - Number row
-                L01: '<div class="key-label">Esc<br><span class="mod-label">`</span></div>',
-                L02: '<div class="key-label">1<br><span class="mod-label">!</span></div>',
-                L03: '<div class="key-label">2<br><span class="mod-label">@</span></div>',
-                L04: '<div class="key-label">3<br><span class="mod-label">#</span></div>',
-                L05: '<div class="key-label">4<br><span class="mod-label">$</span></div>',
-                L06: '<div class="key-label">5<br><span class="mod-label">%</span></div>',
-                
-                // Left side - Main keys (Colemak-DH)
-                L11: 'Tab',
-                L12: 'Q',
-                L13: 'W',
-                L14: 'F',
-                L15: 'P',
-                L16: 'B',
-                
-                L21: 'Caps',
-                L22: 'A',
-                L23: 'R',
-                L24: 'S',
-                L25: 'T',
-                L26: 'G',
-                
-                L31: 'Shift',
-                L32: 'Z',
-                L33: 'X',
-                L34: 'C',
-                L35: 'D',
-                L36: 'V',
-                
-                // Left thumb cluster
-                LT1: 'Ctrl',
-                LT2: 'Space',
-                LT3: '<div class="key-label">Sym<br><span class="mod-label">Hold</span></div>',
-                
-                // Right side - Number row
-                R06: '<div class="key-label">6<br><span class="mod-label">^</span></div>',
-                R05: '<div class="key-label">7<br><span class="mod-label">&</span></div>',
-                R04: '<div class="key-label">8<br><span class="mod-label">*</span></div>',
-                R03: '<div class="key-label">9<br><span class="mod-label">(</span></div>',
-                R02: '<div class="key-label">0<br><span class="mod-label">)</span></div>',
-                R01: '<div class="key-label">-<br><span class="mod-label">_</span></div>',
-                
-                // Right side - Main keys (Colemak-DH)
-                R16: 'J',
-                R15: 'L',
-                R14: 'U',
-                R13: 'Y',
-                R12: '<div class="key-label">;<br><span class="mod-label">:</span></div>',
-                R11: '<div class="key-label">=<br><span class="mod-label">+</span></div>',
-                
-                R26: 'M',
-                R25: 'N',
-                R24: 'E',
-                R23: 'I',
-                R22: 'O',
-                R21: "'",
-                
-                R36: 'K',
-                R35: 'H',
-                R34: ',',
-                R33: '.',
-                R32: '/',
-                R31: 'Shift',
-                
-                // Right thumb cluster
-                RT3: '<div class="key-label">Nav<br><span class="mod-label">Hold</span></div>',
-                RT2: 'Bksp',
-                RT1: 'Enter'
-            },
-            sym: {
-                // Left side - Symbols layer
-                L01: '~',
-                L02: '!',
-                L03: '@',
-                L04: '#',
-                L05: '$',
-                L06: '%',
-                
-                L11: '`',
-                L12: '{',
-                L13: '}',
-                L14: '(',
-                L15: ')',
-                L16: '|',
-                
-                L21: '~',
-                L22: '[',
-                L23: ']',
-                L24: '<',
-                L25: '>',
-                L26: '\\',
-                
-                L31: '',
-                L32: '_',
-                L33: '-',
-                L34: '+',
-                L35: '=',
-                L36: '&',
-                
-                LT1: '',
-                LT2: '',
-                LT3: 'Sym',
-                
-                // Right side - Mostly unchanged
-                R06: '^',
-                R05: '&',
-                R04: '*',
-                R03: '(',
-                R02: ')',
-                R01: '',
-                
-                R16: '',
-                R15: '',
-                R14: '',
-                R13: '',
-                R12: '',
-                R11: '',
-                
-                R26: '',
-                R25: '',
-                R24: '',
-                R23: '',
-                R22: '',
-                R21: '',
-                
-                R36: '',
-                R35: '',
-                R34: '',
-                R33: '',
-                R32: '',
-                R31: '',
-                
-                RT3: '',
-                RT2: 'Del',
-                RT1: ''
-            },
-            nav: {
-                // Left side - Numpad
-                L01: '',
-                L02: '',
-                L03: '',
-                L04: '',
-                L05: '',
-                L06: '',
-                
-                L11: '',
-                L12: '7',
-                L13: '8',
-                L14: '9',
-                L15: '+',
-                L16: '',
-                
-                L21: '',
-                L22: '4',
-                L23: '5',
-                L24: '6',
-                L25: '-',
-                L26: '',
-                
-                L31: '',
-                L32: '1',
-                L33: '2',
-                L34: '3',
-                L35: '*',
-                L36: '/',
-                
-                LT1: '',
-                LT2: '0',
-                LT3: '.',
-                
-                // Right side - Navigation
-                R06: '',
-                R05: '',
-                R04: '',
-                R03: '',
-                R02: '',
-                R01: '',
-                
-                R16: 'Home',
-                R15: 'PgDn',
-                R14: 'PgUp',
-                R13: 'End',
-                R12: '',
-                R11: '',
-                
-                R26: '←',
-                R25: '↓',
-                R24: '↑',
-                R23: '→',
-                R22: '',
-                R21: '',
-                
-                R36: 'Alt',
-                R35: 'GUI',
-                R34: '',
-                R33: '',
-                R32: '',
-                R31: '',
-                
-                RT3: 'Nav',
-                RT2: '',
-                RT1: ''
-            },
-            fun: {
-                // Function keys across the top
-                L01: '',
-                L02: 'F1',
-                L03: 'F2',
-                L04: 'F3',
-                L05: 'F4',
-                L06: 'F5',
-                
-                L11: '',
-                L12: '',
-                L13: '',
-                L14: '',
-                L15: '',
-                L16: '',
-                
-                L21: '',
-                L22: '',
-                L23: '',
-                L24: '',
-                L25: '',
-                L26: '',
-                
-                L31: '',
-                L32: '',
-                L33: '',
-                L34: '',
-                L35: '',
-                L36: '',
-                
-                LT1: '',
-                LT2: '',
-                LT3: '',
-                
-                R06: 'F6',
-                R05: 'F7',
-                R04: 'F8',
-                R03: 'F9',
-                R02: 'F10',
-                R01: 'F11',
-                
-                R16: '',
-                R15: '',
-                R14: '',
-                R13: '',
-                R12: 'F12',
-                R11: '',
-                
-                R26: '',
-                R25: '',
-                R24: '',
-                R23: '',
-                R22: '',
-                R21: '',
-                
-                R36: '',
-                R35: '',
-                R34: '',
-                R33: '',
-                R32: '',
-                R31: '',
-                
-                RT3: '',
-                RT2: '',
-                RT1: ''
-            }
-        };
-
-        let currentLayer = 'base';
-
-        // No renderKey function needed - using V2's direct HTML approach
-
-        function showLayer(layer) {
-            currentLayer = layer;
-            
-            // Update button states
-            document.querySelectorAll('.layer-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-500', 'text-white');
-                btn.classList.add('bg-gray-300');
-            });
-            document.getElementById(`${layer}-btn`).classList.remove('bg-gray-300');
-            document.getElementById(`${layer}-btn`).classList.add('bg-blue-500', 'text-white');
-            
-            // Update key labels and tooltips - V2's simple approach
-            const layerData = layers[layer];
-            Object.keys(layerData).forEach(keyId => {
-                const keyElement = document.querySelector(`[data-key="${keyId}"]`);
-                if (keyElement) {
-                    let content = layerData[keyId] || '';
-                    
-                    // Add tooltip functionality
-                    let tooltipText = '';
-                    if (tooltips[keyId]) {
-                        if (typeof tooltips[keyId] === 'object') {
-                            tooltipText = tooltips[keyId][layer] || '';
-                        } else {
-                            tooltipText = tooltips[keyId];
-                        }
-                    } else if (content === '') {
-                        tooltipText = 'No function on this layer';
-                    } else {
-                        // Clean content for tooltip (remove HTML)
-                        const cleanContent = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-                        
-                        // Generic tooltip descriptions for special keys
-                        const keyDescriptions = {
-                            '←': 'Left arrow key',
-                            '→': 'Right arrow key', 
-                            '↑': 'Up arrow key',
-                            '↓': 'Down arrow key',
-                            'Home': 'Home key - go to beginning',
-                            'End': 'End key - go to end',
-                            'PgUp': 'Page Up key',
-                            'PgDn': 'Page Down key',
-                            'Alt': 'Alt modifier key',
-                            'GUI': 'GUI/Super/Windows key',
-                            'Shift': 'Shift modifier key',
-                            'Ctrl': 'Control modifier key',
-                            'Sym': 'Layer key - hold for symbols',
-                            'Nav': 'Layer key - hold for navigation/numbers',
-                            'Hold': 'Hold this key to access layer'
-                        };
-                        
-                        tooltipText = keyDescriptions[cleanContent] || `${cleanContent} key`;
-                    }
-                    
-                    // Wrap content with tooltip if we have tooltip text
-                    if (tooltipText) {
-                        keyElement.classList.add('tooltip');
-                        keyElement.innerHTML = content + `<div class="tooltip-text">${tooltipText}</div>`;
-                    } else {
-                        keyElement.innerHTML = content;
-                    }
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    config: {
+                        title: 'Loading...',
+                        subtitle: 'Loading...',
+                        description: 'Loading...',
+                        layers: [],
+                        keyboardLayout: {
+                            leftKeys: [],
+                            rightKeys: [],
+                            leftThumbKeys: [],
+                            rightThumbKeys: []
+                        },
+                        tooltips: {},
+                        layerData: {}
+                    },
+                    currentLayer: 'base'
                 }
-            });
-        }
-
-        // Initialize with base layer
-        showLayer('base');
+            },
+            async mounted() {
+                await this.loadConfig();
+                this.updateTooltips();
+            },
+            methods: {
+                async loadConfig() {
+                    try {
+                        const response = await fetch('./app-v4.json');
+                        this.config = await response.json();
+                        this.currentLayer = this.config.layers.find(l => l.active)?.id || 'base';
+                    } catch (error) {
+                        console.error('Failed to load config:', error);
+                        // Fallback config
+                        this.config = {
+                            title: '4-Layer Balanced Miryoku for Silakka54',
+                            subtitle: 'Perfect balance between simplicity and efficiency',
+                            description: 'Optimized layer distribution with intuitive access patterns',
+                            layers: [
+                                {id: 'base', name: 'Base', active: true}
+                            ],
+                            keyboardLayout: { leftKeys: [], rightKeys: [], leftThumbKeys: [], rightThumbKeys: [] },
+                            tooltips: {},
+                            layerData: { base: {} }
+                        };
+                    }
+                },
+                showLayer(layerId) {
+                    this.currentLayer = layerId;
+                    this.$nextTick(() => {
+                        this.updateTooltips();
+                    });
+                },
+                getKeysForRow(side, row) {
+                    if (!this.config.keyboardLayout) return [];
+                    const keys = side === 'left' ? this.config.keyboardLayout.leftKeys : this.config.keyboardLayout.rightKeys;
+                    return keys ? keys.filter(key => key.row === row) : [];
+                },
+                getKeyContent(keyId) {
+                    if (!this.config.layerData) return '';
+                    const layerData = this.config.layerData[this.currentLayer];
+                    if (!layerData) return '';
+                    
+                    const keyValue = layerData[keyId] || '';
+                    const tooltipText = this.getTooltipText(keyId, keyValue);
+                    
+                    if (tooltipText) {
+                        return `${keyValue}<div class="tooltip-text">${tooltipText}</div>`;
+                    }
+                    return keyValue;
+                },
+                getTooltipText(keyId, keyValue) {
+                    if (this.config.tooltips && this.config.tooltips[keyId]) {
+                        return this.config.tooltips[keyId];
+                    }
+                    
+                    if (keyValue === '' || keyValue === '___') {
+                        return keyValue === '___' ? 'Active layer key' : 'No function on this layer';
+                    }
+                    
+                    return '';
+                },
+                updateTooltips() {
+                    // Tooltips are handled by CSS hover effects
+                }
+            }
+        }).mount('#app');
     </script>
 </body>
 </html>
