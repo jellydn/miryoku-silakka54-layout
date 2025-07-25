@@ -131,7 +131,7 @@
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="L16"></div>
                     
                     <!-- Home Row -->
-                    <div class="key mod-key rounded flex items-center justify-center" data-key="L21"></div>
+                    <div class="key bg-purple-100 rounded flex items-center justify-center" data-key="L21"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="L22"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="L23"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="L24"></div>
@@ -149,7 +149,7 @@
                 
                 <!-- Thumb Cluster -->
                 <div class="flex justify-center gap-2 mt-4">
-                    <div class="key thumb-key layer-key rounded flex items-center justify-center" data-key="LT1"></div>
+                    <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="LT1"></div>
                     <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="LT2"></div>
                     <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="LT3"></div>
                 </div>
@@ -181,7 +181,7 @@
                     <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="R24"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="R23"></div>
                     <div class="key bg-gray-100 rounded flex items-center justify-center home-row" data-key="R22"></div>
-                    <div class="key mod-key rounded flex items-center justify-center" data-key="R21"></div>
+                    <div class="key bg-purple-100 rounded flex items-center justify-center" data-key="R21"></div>
                     
                     <!-- Bottom Row -->
                     <div class="key bg-gray-100 rounded flex items-center justify-center" data-key="R36"></div>
@@ -196,7 +196,7 @@
                 <div class="flex justify-center gap-2 mt-4">
                     <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="RT3"></div>
                     <div class="key thumb-key bg-green-200 rounded flex items-center justify-center" data-key="RT2"></div>
-                    <div class="key thumb-key layer-key rounded flex items-center justify-center" data-key="RT1"></div>
+                    <div class="key thumb-key mod-key rounded flex items-center justify-center" data-key="RT1"></div>
                 </div>
             </div>
         </div>
@@ -256,22 +256,22 @@
                     </h4>
                     <div class="space-y-2 text-sm">
                         <div class="flex items-start gap-2">
-                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Tap</span>
                             <div>
-                                <strong>Nav key (left thumb)</strong> → Navigation layer
-                                <div class="text-gray-600 text-xs">Arrows, clipboard, page controls on right hand</div>
+                                <strong>Ctrl key (left thumb)</strong> → Control modifier
+                                <div class="text-gray-600 text-xs">Hold: Navigation layer (arrows, clipboard, page controls)</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Tap</span>
                             <div>
-                                <strong>Sym key (right thumb)</strong> → Symbols layer
-                                <div class="text-gray-600 text-xs">Punctuation and operators on left hand</div>
+                                <strong>Alt key (right thumb)</strong> → Alt modifier
+                                <div class="text-gray-600 text-xs">Hold: Symbols layer (punctuation and operators)</div>
                             </div>
                         </div>
                         <div class="bg-yellow-50 p-3 rounded-lg mt-3">
-                            <div class="text-yellow-800 text-xs font-medium mb-1">🎯 Dedicated Modifiers</div>
-                            <div class="text-yellow-700 text-xs">Shift/Ctrl/Alt/GUI are on dedicated keys - no dual-function confusion!</div>
+                            <div class="text-yellow-800 text-xs font-medium mb-1">🎯 Smart Dual-Function</div>
+                            <div class="text-yellow-700 text-xs">Ctrl/Alt thumb keys: Tap for modifier, Hold for layer access!</div>
                         </div>
                     </div>
                 </div>
@@ -372,26 +372,26 @@
         const tooltips = {
             // Layer switching explanations
             'LT1': {
-                base: 'Hold: Navigation layer | Current layer inactive (---)',
+                base: 'Tap: Ctrl modifier | Hold: Navigation layer',
                 nav: 'Current layer: Navigation (holding this key)',
-                sym: 'Hold: Function layer',
-                num: 'Hold: Media layer', 
-                fun: 'Current layer: Function (---)', 
-                media: 'Current layer: Media (---)'
+                sym: 'Tap: Ctrl modifier | Hold: Function layer',
+                num: 'Tap: Ctrl modifier | Hold: Media layer', 
+                fun: 'Tap: Ctrl modifier | Function layer active', 
+                media: 'Tap: Ctrl modifier | Media layer active'
             },
             'RT1': {
-                base: 'Hold: Symbols layer',
-                nav: 'Hold: Delete key',
+                base: 'Tap: Alt modifier | Hold: Symbols layer',
+                nav: 'Tap: Alt modifier | Hold: Delete key',
                 sym: 'Current layer: Symbols (holding this key)',
-                num: 'Tap: Period (.) key',
-                fun: 'Hold: Numbers layer',
-                media: 'Tap: Mute key'
+                num: 'Tap: Alt modifier | Period (.) key',
+                fun: 'Tap: Alt modifier | Hold: Numbers layer',
+                media: 'Tap: Alt modifier | Mute key'
             },
             // Modifier keys explanations
-            'L21': 'Dedicated Control modifier (always Ctrl)',
+            'L21': 'Left bracket [ key',
             'L31': 'Dedicated Shift modifier (always Shift)', 
             'LT3': 'Dedicated GUI/Super modifier (always GUI)',
-            'R21': 'Dedicated Alt modifier (always Alt)',
+            'R21': 'Right bracket ] key',
             'R31': 'Dedicated Shift modifier (always Shift)',
             'RT3': 'Dedicated GUI/Super modifier (always GUI)',
             // Space/Enter keys
@@ -411,32 +411,32 @@
                 L01: '<div class="key-label">Esc<br><span class="mod-label">`</span></div>', L02: '<div class="key-label">1<br><span class="mod-label">!</span></div>', L03: '<div class="key-label">2<br><span class="mod-label">@</span></div>', L04: '<div class="key-label">3<br><span class="mod-label">#</span></div>', L05: '<div class="key-label">4<br><span class="mod-label">$</span></div>', L06: '<div class="key-label">5<br><span class="mod-label">%</span></div>',
                 // Left side - Main keys (Colemak-DH)
                 L11: 'Tab', L12: 'Q', L13: 'W', L14: 'F', L15: 'P', L16: 'B',
-                L21: 'Ctrl', L22: 'A', L23: 'R', L24: 'S', L25: 'T', L26: 'G',
+                L21: '[', L22: 'A', L23: 'R', L24: 'S', L25: 'T', L26: 'G',
                 L31: 'Shift', L32: 'Z', L33: 'X', L34: 'C', L35: 'D', L36: 'V',
                 // Left thumb cluster
-                LT1: '<div class="key-label">Nav<br><span class="mod-label">Hold</span></div>', LT2: 'Space', LT3: 'GUI',
+                LT1: '<div class="key-label">Ctrl<br><span class="mod-label">Nav</span></div>', LT2: 'Space', LT3: 'GUI',
                 
                 // Right side - Number row
                 R06: '<div class="key-label">6<br><span class="mod-label">^</span></div>', R05: '<div class="key-label">7<br><span class="mod-label">&</span></div>', R04: '<div class="key-label">8<br><span class="mod-label">*</span></div>', R03: '<div class="key-label">9<br><span class="mod-label">(</span></div>', R02: '<div class="key-label">0<br><span class="mod-label">)</span></div>', R01: '<div class="key-label">-<br><span class="mod-label">_</span></div>',
                 // Right side - Main keys (Colemak-DH)
                 R16: 'J', R15: 'L', R14: 'U', R13: 'Y', R12: "'", R11: '=',
-                R26: 'M', R25: 'N', R24: 'E', R23: 'I', R22: 'O', R21: 'Alt',
+                R26: 'M', R25: 'N', R24: 'E', R23: 'I', R22: 'O', R21: ']',
                 R36: 'K', R35: 'H', R34: ',', R33: '.', R32: '/', R31: 'Shift',
                 // Right thumb cluster
-                RT3: 'GUI', RT2: 'Enter', RT1: '<div class="key-label">Sym<br><span class="mod-label">Hold</span></div>'
+                RT3: 'GUI', RT2: 'Enter', RT1: '<div class="key-label">Alt<br><span class="mod-label">Sym</span></div>'
             },
             nav: {
                 // Left side - mostly modifiers on nav layer
                 L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
                 L11: '', L12: '', L13: '', L14: '', L15: '', L16: '',
-                L21: 'Ctrl', L22: '', L23: '', L24: '', L25: '', L26: '',
+                L21: '', L22: '', L23: '', L24: '', L25: '', L26: '',
                 L31: 'Shift', L32: '', L33: '', L34: '', L35: '', L36: '',
                 LT1: '---', LT2: '', LT3: 'GUI',
                 
                 // Right side - Navigation
                 R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
                 R16: 'Redo', R15: 'Paste', R14: 'Copy', R13: 'Cut', R12: 'Undo', R11: '',
-                R26: 'Caps', R25: '←', R24: '↓', R23: '↑', R22: '→', R21: 'Alt',
+                R26: 'Caps', R25: '←', R24: '↓', R23: '↑', R22: '→', R21: '',
                 R36: 'Ins', R35: 'Home', R34: 'PgDn', R33: 'PgUp', R32: 'End', R31: 'Shift',
                 RT3: 'GUI', RT2: 'Bksp', RT1: 'Del'
             },
@@ -444,14 +444,14 @@
                 // Left side - mostly modifiers on mouse layer
                 L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
                 L11: '', L12: '', L13: '', L14: '', L15: '', L16: '',
-                L21: 'Ctrl', L22: '', L23: '', L24: '', L25: '', L26: '',
+                L21: '', L22: '', L23: '', L24: '', L25: '', L26: '',
                 L31: 'Shift', L32: '', L33: '', L34: '', L35: '', L36: '',
                 LT1: 'Mouse', LT2: '', LT3: 'GUI',
                 
                 // Right side - Mouse controls
                 R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
                 R16: 'Redo', R15: 'Paste', R14: 'Copy', R13: 'Cut', R12: 'Undo', R11: '',
-                R26: 'Caps', R25: 'M←', R24: 'M↓', R23: 'M↑', R22: 'M→', R21: 'Alt',
+                R26: 'Caps', R25: 'M←', R24: 'M↓', R23: 'M↑', R22: 'M→', R21: '',
                 R36: 'Ins', R35: 'WhlL', R34: 'WhlD', R33: 'WhlU', R32: 'WhlR', R31: 'Shift',
                 RT3: 'GUI', RT2: 'RClick', RT1: 'LClick'
             },
