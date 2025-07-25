@@ -1,6 +1,6 @@
 {
   "title": "Miryoku Layout for Silakka54",
-  "subtitle": "54-key split keyboard with Colemak-DH, home row modifiers, and 6 orthogonal layers",
+  "subtitle": "54-key split keyboard with Colemak-DH, home row modifiers, and 7 orthogonal layers",
   "layers": [
     {"id": "base", "name": "Base", "active": true},
     {"id": "media", "name": "Media", "active": false},

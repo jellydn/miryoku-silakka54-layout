@@ -17,9 +17,9 @@ The Silakka54 represents the ideal adaptation target - **54-60 key layouts hit a
 - **Interactive Vue.js Visualizer**: Modern reactive interface with dynamic layer switching
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
 - **Multiple Layout Versions**: 5 different approaches to Miryoku implementation
-  - 🟢 **Traditional HRM** (V1): 6-Layer with Home Row Modifiers - **READY**
+  - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
   - 🟡 **Optimized 4-Layer** (V2): Reduced layers with direct symbol access - **WIP**
-  - 🟡 **No HRM Dedicated** (V3): 6-Layer with dedicated modifier keys - **WIP**
+  - 🟡 **No HRM Dedicated** (V3): 7-Layer with dedicated modifier keys - **WIP**
   - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
   - 🟡 **Coding Optimized** (V5): Programming-focused enhancements - **WIP**
 - **Interactive Tooltips**: Hover over any key to see detailed explanations
@@ -72,7 +72,7 @@ You can also open `index.html` directly in your web browser, though some feature
 
 ### Understanding the Layer System
 
-The Miryoku layout uses **6 layers with orthogonal functionality** - each layer serves a single purpose per hand and is accessed through thumb-key holds on the opposite hand:
+The Miryoku layout uses **multiple layers with orthogonal functionality** - each layer serves a single purpose per hand and is accessed through thumb-key holds on the opposite hand:
 
 - **Base layer**: Colemak-DH alpha layout with essential punctuation
 - **Navigation layer** (right hand): Inverted-T arrow arrangement, clipboard functions, page controls
@@ -172,7 +172,7 @@ All layout versions now include comprehensive tooltips that appear when you hove
 ### Version Navigation
 Each layout includes navigation buttons to easily compare between:
 - **Traditional HRM**: Full Miryoku experience with home row modifiers
-- **Optimized 3-Layer**: Reduced complexity with direct symbol access
+- **Optimized 4-Layer**: Reduced complexity with direct symbol access
 - **No HRM Dedicated**: Familiar modifier keys for easier transition
 - **4-Layer Balanced**: Perfect balance between simplicity and efficiency
 - **Coding Optimized**: Programming-focused with direct bracket access and IDE shortcuts
@@ -213,7 +213,7 @@ Each layout includes navigation buttons to easily compare between:
 ## Development Status
 
 ### ✅ V1 - Traditional HRM (Production Ready)
-- Full 6-layer Miryoku implementation
+- Full 7-layer Miryoku implementation
 - Home row modifiers (GACS pattern)
 - Complete Vue.js refactoring
 - JSON configuration system
