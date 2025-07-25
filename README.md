@@ -1,5 +1,7 @@
 # Miryoku Silakka54 Layout
 
+⚠️ **Work in Progress** - This website is currently under development and subject to change.
+
 An interactive visualization and educational resource for adapting the Miryoku keyboard layout system to the Silakka54 split keyboard.
 
 ## Overview
@@ -36,6 +38,16 @@ npx serve
 ```
 
 Then open your browser to the displayed URL (typically `http://localhost:3000`).
+
+### Get Official Miryoku Layer Specifications
+
+To check against official Miryoku layer specifications:
+
+```bash
+npx degit manna-harbour/miryoku/data/layers#master miryoku-layers
+```
+
+This downloads the official Miryoku layer JSON files for reference and validation.
 
 ### Alternative Servers
 
