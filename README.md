@@ -177,9 +177,20 @@ Each layout includes navigation buttons to easily compare between:
 - **4-Layer Balanced**: Perfect balance between simplicity and efficiency
 - **Coding Optimized**: Programming-focused with direct bracket access and IDE shortcuts
 
-## File Structure
+## Architecture
 
-- `index.html` - Interactive keyboard layout visualizer
+### Modern Vue.js Implementation
+- **Frontend**: Vue.js 3 with CDN import (no build system)
+- **Styling**: Tailwind CSS for responsive design
+- **Data**: JSON configuration files for each layout version
+- **Deployment**: Static files, works with any web server
+
+### File Structure
+
+- `index.html` - V1 Traditional HRM layout (Vue.js app)
+- `app.json` - V1 configuration data
+- `index-v2.html` - V2 Optimized 4-Layer layout (Vue.js app)
+- `app-v2.json` - V2 configuration data
 - `Keyboard layout.md` - **Comprehensive Miryoku adaptation guide** with detailed research on successful implementations, community feedback, and specific Silakka54 recommendations
 - `CLAUDE.md` - Development guidance for Claude Code
 
@@ -199,14 +210,44 @@ Each layout includes navigation buttons to easily compare between:
 - **Ergonomic Design**: Minimize finger movement and maximize comfort
 - **3×5+3 Core**: Preserve Miryoku's 36-key essence within the 54-key layout
 
+## Development Status
+
+### ✅ V1 - Traditional HRM (Production Ready)
+- Full 6-layer Miryoku implementation
+- Home row modifiers (GACS pattern)
+- Complete Vue.js refactoring
+- JSON configuration system
+- Interactive tooltips and layer switching
+
+### 🚧 V2 - Optimized 4-Layer (Work in Progress)
+- Reduced to 4 layers for efficiency
+- Direct symbol access on base layer
+- Separated Navigation and Function layers
+- Vue.js implementation complete
+- UI refinements ongoing
+
+### 🚧 V3-V5 (Planned)
+- V3: No HRM Dedicated modifiers
+- V4: 4-Layer Balanced approach  
+- V5: Coding-optimized version
+- Vue.js refactoring pending
+
 ## Contributing
 
-This is a static website built with vanilla HTML, CSS, and JavaScript. To contribute:
+This project uses Vue.js 3 with a configuration-driven architecture:
 
-1. Fork the repository
-2. Make your changes
-3. Test locally with `npx serve`
-4. Submit a pull request
+1. **Fork the repository**
+2. **Edit configuration**: Modify `app.json` or `app-v2.json` for layout changes
+3. **Test locally**: Use `npx serve` to run development server
+4. **Add new versions**: Create new `index-vX.html` and `app-vX.json` files
+5. **Submit pull request**
+
+### Adding New Layout Versions
+1. Copy `index.html` → `index-vX.html`
+2. Copy `app.json` → `app-vX.json`
+3. Update configuration in JSON file
+4. Update version navigation in HTML
+5. Test with local server
 
 ## Firmware Implementation
 
