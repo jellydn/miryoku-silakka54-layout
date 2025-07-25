@@ -276,6 +276,7 @@ Following successful community implementations and the documented **56-key Sofle
 - [Miryoku Official Repository](https://github.com/manna-harbour/miryoku) - Original layout and documentation
 - [Miryoku QMK Reference](https://github.com/manna-harbour/miryoku_qmk) - QMK implementation
 - [Colemak-DH Layout](https://colemakmods.github.io/mod-dh/) - Optimized alpha layout
+- [Alternative Keyboard Layouts Guide](https://getreuer.info/posts/keyboards/alt-layouts/index.html#which-alt-keyboard-layout-should-i-learn) - Comprehensive comparison and selection guide
 - [QMK Firmware](https://qmk.fm/) - Customizable keyboard firmware
 - [ZMK Firmware](https://zmk.dev/) - Wireless keyboard firmware
 - [Vial](https://vial.rocks/) - GUI for QMK configuration
