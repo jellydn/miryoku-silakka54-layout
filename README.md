@@ -314,6 +314,145 @@ Following successful community implementations and the documented **56-key Sofle
 
 **Key principle**: Extra keys should provide convenient access to additional functions without compromising the ergonomic benefits of the core layout. The goal is enhancing Miryoku's philosophy rather than replacing it.
 
+## Home Row Modifiers Configuration
+
+Home row modifiers are often the most challenging aspect of Miryoku but provide significant ergonomic benefits once mastered. Proper configuration is crucial for a smooth experience.
+
+### Common Issues and Solutions
+
+**Problem**: Slow response, accidental modifier activation, or typing errors with home row mods  
+**Solution**: Optimize your tap-hold settings based on your typing style and keyboard firmware
+
+### Vial Configuration (GUI Method)
+
+If you're using Vial to configure your keyboard, navigate to **Settings → Tap-Hold Settings** and optimize these parameters:
+
+#### Core Settings
+
+| Setting | Recommended Value | Purpose |
+|---------|------------------|---------|
+| **Tapping Term** | 160-175ms (fast typists)<br>175-190ms (normal speed) | How long to hold before registering as modifier |
+| **Permissive Hold** | ✅ Enabled | Makes firmware more lenient about registering holds |
+| **Ignore Mod Tap Interrupt** | ✅ Enabled | Prevents accidental modifier activation during fast typing |
+| **Tapping Force Hold** | ❌ Disabled | Would require holding for full term (less responsive) |
+| **Retro Tapping** | ❌ Disabled | Not useful for home row mods |
+
+#### Advanced Settings
+
+| Setting | Value | Notes |
+|---------|-------|-------|
+| **Tap Code Delay** | 0ms | Fine as default |
+| **Tap Hold Caps Delay** | 80ms | Fine as default |
+| **Tapping Toggle** | 5 | Not relevant for HRM |
+
+### QMK Advanced Configuration
+
+For more precise control, implement per-key timing based on finger strength and usage patterns:
+
+```c
+// In your keymap.c
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        // Index fingers - strongest, fastest
+        case LSFT_T(KC_T):  // Left index
+        case RSFT_T(KC_N):  // Right index
+            return 150;
+            
+        // Middle fingers - strong, reliable
+        case LCTL_T(KC_S):  // Left middle
+        case RCTL_T(KC_E):  // Right middle
+            return 160;
+            
+        // Ring fingers - weaker, need more time
+        case LALT_T(KC_R):  // Left ring
+        case RALT_T(KC_I):  // Right ring
+            return 180;
+            
+        // Pinkies - weakest, slowest
+        case LGUI_T(KC_A):  // Left pinky
+        case RGUI_T(KC_O):  // Right pinky
+            return 200;
+            
+        default:
+            return TAPPING_TERM;
+    }
+}
+```
+
+### Troubleshooting Guide
+
+#### Issue: Accidental Modifier Activation
+**Symptoms**: Letters turn into modifier shortcuts (e.g., typing "the" triggers window switching)
+**Solutions**:
+1. ✅ Enable **Ignore Mod Tap Interrupt**
+2. ✅ Enable **Permissive Hold**
+3. 📉 Reduce **Tapping Term** by 10ms increments
+4. 🎯 Practice deliberate tap vs hold motions
+
+#### Issue: Modifiers Not Activating
+**Symptoms**: Holding keys doesn't trigger modifiers when expected
+**Solutions**:
+1. 📈 Increase **Tapping Term** by 10ms increments
+2. ✅ Ensure **Permissive Hold** is enabled
+3. 🎯 Practice holding keys slightly longer
+4. 🔄 Test with deliberate, slower movements
+
+#### Issue: Inconsistent Behavior
+**Symptoms**: Sometimes works, sometimes doesn't
+**Solutions**:
+1. 🎯 Implement per-key timing (stronger fingers = shorter timing)
+2. 🎬 Record typing sessions to identify patterns
+3. 📊 Use QMK debugging to analyze timing
+4. 🔄 Gradual adaptation: start with longer timing, decrease over time
+
+### Adaptation Strategy
+
+#### Week 1: Foundation
+- Start with **longer tapping terms** (200-220ms)
+- Focus on **deliberate movements**
+- Practice **tap vs hold distinction**
+- Use **typing tests** to build muscle memory
+
+#### Week 2-3: Optimization
+- Gradually **reduce tapping terms** by 5-10ms
+- Implement **per-key timing** for different fingers
+- Focus on **common key combinations**
+- Monitor and **adjust based on error patterns**
+
+#### Week 4+: Mastery
+- Fine-tune timing to personal preferences
+- Develop **consistent finger pressure**
+- Achieve **seamless modifier usage**
+- Enjoy **ergonomic benefits** of reduced hand movement
+
+### Firmware-Specific Notes
+
+#### Vial/QMK
+- Use the GUI for **real-time adjustments**
+- **Save settings** after each change
+- **Test thoroughly** before committing
+- Consider **different profiles** for different typing contexts
+
+#### ZMK (Wireless)
+```devicetree
+&mt {
+    flavor = "balanced";
+    tapping-term-ms = <175>;
+    quick_tap_ms = <0>;
+};
+```
+
+### Success Metrics
+
+You'll know your configuration is optimal when:
+- ✅ **95%+ typing accuracy** maintained
+- ✅ **Modifiers activate reliably** when intended
+- ✅ **No accidental shortcuts** during normal typing
+- ✅ **Comfortable, natural feeling** key presses
+- ✅ **Consistent behavior** across different typing speeds
+
+Remember: **Perfect configuration is personal** - what works for others may need adjustment for your typing style, finger strength, and keyboard switch characteristics.
+
 ## Resources
 
 - [Miryoku Official Repository](https://github.com/manna-harbour/miryoku) - Original layout and documentation
