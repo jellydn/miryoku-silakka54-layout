@@ -1,8 +1,8 @@
 # Miryoku Silakka54 Layout
 
-⚠️ **Work in Progress** - This website is currently under development and subject to change.
+🚀 **V1 Ready** - Traditional HRM layout is production-ready! Other versions are work-in-progress.
 
-An interactive visualization and educational resource for adapting the Miryoku keyboard layout system to the Silakka54 split keyboard.
+An interactive Vue.js-based visualization and educational resource for adapting the Miryoku keyboard layout system to the Silakka54 split keyboard.
 
 ## Overview
 
@@ -14,18 +14,20 @@ The Silakka54 represents the ideal adaptation target - **54-60 key layouts hit a
 
 ## Features
 
-- **Interactive Keyboard Visualizer**: Visual representation of the 54-key layout with layer switching
+- **Interactive Vue.js Visualizer**: Modern reactive interface with dynamic layer switching
+- **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
 - **Multiple Layout Versions**: 5 different approaches to Miryoku implementation
-  - Traditional HRM: 6-Layer with Home Row Modifiers
-  - Optimized 3-Layer: Minimal layers with direct symbol access
-  - No HRM Dedicated: 6-Layer with dedicated modifier keys
-  - 4-Layer Balanced: Perfect balance of simplicity and efficiency
-  - Coding Optimized: V4 enhanced specifically for programming workflows
+  - 🟢 **Traditional HRM** (V1): 6-Layer with Home Row Modifiers - **READY**
+  - 🟡 **Optimized 4-Layer** (V2): Reduced layers with direct symbol access - **WIP**
+  - 🟡 **No HRM Dedicated** (V3): 6-Layer with dedicated modifier keys - **WIP**
+  - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
+  - 🟡 **Coding Optimized** (V5): Programming-focused enhancements - **WIP**
 - **Interactive Tooltips**: Hover over any key to see detailed explanations
 - **Educational Guide**: Comprehensive documentation of Miryoku principles and adaptation strategies
 - **Layer Switching Guide**: Step-by-step instructions for each version
-- **Version Navigation**: Easy comparison between different approaches
+- **Version Navigation**: Easy comparison with status indicators
 - **Color-coded Keys**: Visual distinction between home row, thumb keys, and extra keys
+- **No Build System**: Pure HTML/CSS/JS with CDN dependencies
 
 ## Quick Start
 
