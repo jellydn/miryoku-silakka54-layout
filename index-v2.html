@@ -110,13 +110,22 @@
             background-color: #1f2937;
             color: white;
             text-align: center;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             white-space: nowrap;
             z-index: 1000;
             transition: opacity 0.2s, visibility 0.2s;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-width: 200px;
+        }
+        
+        @media (min-width: 768px) {
+            .tooltip-text {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+                max-width: none;
+            }
         }
         .tooltip-text::after {
             content: "";
@@ -141,19 +150,19 @@
         <p class="text-center text-sm text-gray-500 mb-8">{{ config.description }}</p>
         
         <!-- Layer Selector (Only 4 layers needed!) -->
-        <div class="flex justify-center gap-2 mb-8">
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
             <button 
                 v-for="layer in config.layers" 
                 :key="layer.id"
                 @click="showLayer(layer.id)" 
-                :class="['layer-btn px-6 py-2 rounded', currentLayer === layer.id ? 'bg-blue-500 text-white' : 'bg-gray-300']"
+                :class="['px-4 py-2 rounded text-sm font-medium transition-colors', currentLayer === layer.id ? 'bg-blue-500 text-white' : 'bg-gray-300 hover:bg-gray-400']"
             >
                 {{ layer.name }}
             </button>
         </div>
 
         <!-- Keyboard Layout -->
-        <div class="flex justify-center gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-8">
             <!-- Left Half -->
             <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
                 <h3 class="text-center font-semibold mb-4">Left Half</h3>
