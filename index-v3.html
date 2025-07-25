@@ -95,16 +95,17 @@
 <body class="bg-gray-100 p-8">
     <div class="max-w-7xl mx-auto">
         <h1 class="text-3xl font-bold text-center mb-4">Miryoku Layout for Silakka54 (No Home Row Mods)</h1>
-        <p class="text-center text-gray-600 mb-8">54-key split keyboard with Colemak-DH and dedicated modifiers</p>
+        <p class="text-center text-gray-600 mb-8">54-key split keyboard with Colemak-DH, dedicated modifiers, and 7 orthogonal layers</p>
         
         <!-- Layer Selector -->
         <div class="flex justify-center gap-2 mb-8">
             <button onclick="showLayer('base')" id="base-btn" class="layer-btn px-4 py-2 rounded bg-blue-500 text-white">Base</button>
+            <button onclick="showLayer('media')" id="media-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Media</button>
             <button onclick="showLayer('nav')" id="nav-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Navigation</button>
+            <button onclick="showLayer('mouse')" id="mouse-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Mouse</button>
             <button onclick="showLayer('sym')" id="sym-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Symbols</button>
             <button onclick="showLayer('num')" id="num-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Numbers</button>
             <button onclick="showLayer('fun')" id="fun-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Function</button>
-            <button onclick="showLayer('media')" id="media-btn" class="layer-btn px-4 py-2 rounded bg-gray-300">Media</button>
         </div>
 
         <!-- Keyboard Layout -->
@@ -285,8 +286,8 @@
                         <div class="flex items-start gap-2">
                             <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Click</span>
                             <div>
-                                <strong>6 layer buttons above</strong> → Switch views
-                                <div class="text-gray-600 text-xs">Full traditional layers: Base, Nav, Sym, Num, Fun, Media</div>
+                                <strong>7 layer buttons above</strong> → Switch views
+                                <div class="text-gray-600 text-xs">All layers: Base, Media, Nav, Mouse, Sym, Num, Fun</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
@@ -438,6 +439,21 @@
                 R26: 'Caps', R25: '←', R24: '↓', R23: '↑', R22: '→', R21: 'Alt',
                 R36: 'Ins', R35: 'Home', R34: 'PgDn', R33: 'PgUp', R32: 'End', R31: 'Shift',
                 RT3: 'GUI', RT2: 'Bksp', RT1: 'Del'
+            },
+            mouse: {
+                // Left side - mostly modifiers on mouse layer
+                L01: '', L02: '', L03: '', L04: '', L05: '', L06: '',
+                L11: '', L12: '', L13: '', L14: '', L15: '', L16: '',
+                L21: 'Ctrl', L22: '', L23: '', L24: '', L25: '', L26: '',
+                L31: 'Shift', L32: '', L33: '', L34: '', L35: '', L36: '',
+                LT1: 'Mouse', LT2: '', LT3: 'GUI',
+                
+                // Right side - Mouse controls
+                R06: '', R05: '', R04: '', R03: '', R02: '', R01: '',
+                R16: 'Redo', R15: 'Paste', R14: 'Copy', R13: 'Cut', R12: 'Undo', R11: '',
+                R26: 'Caps', R25: 'M←', R24: 'M↓', R23: 'M↑', R22: 'M→', R21: 'Alt',
+                R36: 'Ins', R35: 'WhlL', R34: 'WhlD', R33: 'WhlU', R32: 'WhlR', R31: 'Shift',
+                RT3: 'GUI', RT2: 'RClick', RT1: 'LClick'
             },
             sym: {
                 // Left side - Symbols
