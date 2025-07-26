@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miryoku Layout V6 - OSM Optimized</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        /* Mobile-first responsive design */
+        .key {
+            min-width: 2.5rem;
+            min-height: 2.5rem;
+            transition: all 0.2s ease;
+            font-size: 0.6rem;
+        }
+        
+        /* Tablet and larger */
+        @media (min-width: 768px) {
+            .key {
+                min-width: 3rem;
+                min-height: 3rem;
+                font-size: 0.7rem;
+            }
+        }
+        
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .key {
+                min-width: 3.5rem;
+                min-height: 3.5rem;
+                font-size: 0.75rem;
+            }
+        }
+        
+        .key:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .home-row {
+            position: relative;
+        }
+        
+        .home-row::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+        }
+        
+        .thumb-key {
+            min-width: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .thumb-key {
+                min-width: 4rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .thumb-key {
+                min-width: 4.5rem;
+            }
+        }
+        .layer-active {
+            background-color: #3b82f6 !important;
+            color: white !important;
+        }
+        .key-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.2;
+        }
+        .mod-label {
+            font-size: 0.5rem;
+            color: #6b7280;
+        }
+        
+        @media (min-width: 768px) {
+            .mod-label {
+                font-size: 0.55rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .mod-label {
+                font-size: 0.6rem;
+            }
+        }
+        .tooltip {
+            position: relative;
+        }
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            white-space: nowrap;
+            z-index: 10;
+            font-size: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        @media (min-width: 768px) {
+            .tooltip:hover::after {
+                font-size: 0.65rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .tooltip:hover::after {
+                font-size: 0.75rem;
+            }
+        }
+        .keyboard-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .keyboard-container {
+                flex-direction: row;
+                justify-content: center;
+                gap: 4rem;
+            }
+        }
+        .keyboard-half {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .key-row {
+            display: flex;
+            gap: 0.25rem;
+        }
+        .thumb-cluster {
+            display: flex;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            justify-content: center;
+        }
+        .osm-layer {
+            background-color: #e0e7ff !important;
+            border: 2px solid #6366f1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-2 sm:p-4 md:p-8">
+    <div id="app">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-2">{{ title }}</h1>
+            <p class="text-sm sm:text-base md:text-lg text-gray-600 text-center mb-4 md:mb-6">{{ subtitle }}</p>
+            
+            <!-- Layer Selector -->
+            <div class="flex flex-wrap justify-center gap-2 mb-4 md:mb-6">
+                <button 
+                    v-for="layer in layers" 
+                    :key="layer.id"
+                    @click="setActiveLayer(layer.id)"
+                    :class="{'layer-active': layer.active}"
+                    class="px-3 py-1 sm:px-4 sm:py-2 rounded bg-white border border-gray-300 text-xs sm:text-sm font-medium hover:bg-gray-100 transition-colors"
+                >
+                    {{ layer.name }}
+                </button>
+            </div>
+
+            <!-- Keyboard Layout -->
+            <div class="keyboard-container">
+                <!-- Left Half -->
+                <div class="keyboard-half">
+                    <div v-for="row in 4" :key="'left-row-' + row" class="key-row">
+                        <div 
+                            v-for="key in getKeysForRow('left', row - 1)" 
+                            :key="key.id"
+                            :class="[key.class, {'osm-layer': activeLayerId === 'osm' && layerData[activeLayerId][key.id]}]"
+                            class="key border border-gray-300 rounded flex items-center justify-center font-mono text-gray-700 cursor-pointer tooltip"
+                            :data-tooltip="tooltips[key.id] || ''"
+                            v-html="layerData[activeLayerId][key.id] || ''"
+                        >
+                        </div>
+                    </div>
+                    <!-- Left Thumb Cluster -->
+                    <div class="thumb-cluster">
+                        <div 
+                            v-for="key in keyboardLayout.leftThumbKeys" 
+                            :key="key.id"
+                            :class="[key.class, {'osm-layer': activeLayerId === 'osm' && layerData[activeLayerId][key.id]}]"
+                            class="key border border-gray-300 rounded flex items-center justify-center font-mono text-gray-700 cursor-pointer tooltip"
+                            :data-tooltip="tooltips[key.id] || ''"
+                            v-html="layerData[activeLayerId][key.id] || ''"
+                        >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Half -->
+                <div class="keyboard-half">
+                    <div v-for="row in 4" :key="'right-row-' + row" class="key-row">
+                        <div 
+                            v-for="key in getKeysForRow('right', row - 1)" 
+                            :key="key.id"
+                            :class="[key.class, {'osm-layer': activeLayerId === 'osm' && layerData[activeLayerId][key.id]}]"
+                            class="key border border-gray-300 rounded flex items-center justify-center font-mono text-gray-700 cursor-pointer tooltip"
+                            :data-tooltip="tooltips[key.id] || ''"
+                            v-html="layerData[activeLayerId][key.id] || ''"
+                        >
+                        </div>
+                    </div>
+                    <!-- Right Thumb Cluster -->
+                    <div class="thumb-cluster">
+                        <div 
+                            v-for="key in keyboardLayout.rightThumbKeys" 
+                            :key="key.id"
+                            :class="[key.class, {'osm-layer': activeLayerId === 'osm' && layerData[activeLayerId][key.id]}]"
+                            class="key border border-gray-300 rounded flex items-center justify-center font-mono text-gray-700 cursor-pointer tooltip"
+                            :data-tooltip="tooltips[key.id] || ''"
+                            v-html="layerData[activeLayerId][key.id] || ''"
+                        >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Legend -->
+            <div class="mt-6 md:mt-8 p-3 md:p-4 bg-white rounded-lg shadow-sm">
+                <h3 class="font-semibold text-sm md:text-base mb-2">Key Color Legend</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs md:text-sm">
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-gray-100 border border-gray-300 rounded"></div>
+                        <span>Letters & Base Keys</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-blue-100 border border-gray-300 rounded"></div>
+                        <span>Home Row Modifiers</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-green-200 border border-gray-300 rounded"></div>
+                        <span>Thumb Keys</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-purple-100 border border-gray-300 rounded"></div>
+                        <span>System/Shortcuts</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-orange-100 border border-gray-300 rounded"></div>
+                        <span>Number Row</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 bg-indigo-100 border-2 border-indigo-500 rounded"></div>
+                        <span>OSM Layer (One-Shot Modifiers)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OSM Feature Description -->
+            <div class="mt-4 p-3 md:p-4 bg-yellow-50 rounded-lg shadow-sm border border-yellow-200">
+                <h3 class="font-semibold text-sm md:text-base mb-2">OSM Feature (One-Shot Modifiers)</h3>
+                <p class="text-xs md:text-sm text-gray-700 mb-2">This layout implements One-Shot Modifiers using an OSL (One-Shot Layer) workaround for Vial compatibility:</p>
+                <ul class="list-disc list-inside text-xs md:text-sm text-gray-700 space-y-1">
+                    <li>Press <strong>OSL</strong> (right thumb) to access the OSM layer temporarily</li>
+                    <li>Tap any modifier key on the OSM layer (home row positions)</li>
+                    <li>The modifier stays active for the next keypress only (sticky behavior)</li>
+                    <li>No need to hold multiple keys - reduces strain and improves typing flow</li>
+                </ul>
+            </div>
+
+            <!-- Layout Features -->
+            <div class="mt-4 p-3 md:p-4 bg-white rounded-lg shadow-sm">
+                <h3 class="font-semibold text-sm md:text-base mb-2">V6 OSM Layout Features</h3>
+                <ul class="list-disc list-inside text-xs md:text-sm text-gray-700 space-y-1">
+                    <li><strong>Ergonomic Thumb Usage:</strong> Shift on left thumb, common keys on thumbs to reduce pinky strain</li>
+                    <li><strong>Programming-Optimized Symbols:</strong> Brackets and operators arranged for inward rolls</li>
+                    <li><strong>Home Row Modifiers:</strong> GUI-Alt-Ctrl-Shift pattern (GACS) optimized for general use</li>
+                    <li><strong>True One-Shot Modifiers:</strong> Via OSL layer implementation for sticky modifier behavior</li>
+                    <li><strong>Reduced Pinky Load:</strong> Tab, Enter, Backspace moved to thumbs</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    title: '',
+                    subtitle: '',
+                    layers: [],
+                    activeLayerId: 'base',
+                    keyboardLayout: {
+                        leftKeys: [],
+                        rightKeys: [],
+                        leftThumbKeys: [],
+                        rightThumbKeys: []
+                    },
+                    tooltips: {},
+                    layerData: {}
+                };
+            },
+            methods: {
+                setActiveLayer(layerId) {
+                    this.layers.forEach(layer => {
+                        layer.active = layer.id === layerId;
+                    });
+                    this.activeLayerId = layerId;
+                },
+                getKeysForRow(side, row) {
+                    const keys = side === 'left' ? this.keyboardLayout.leftKeys : this.keyboardLayout.rightKeys;
+                    return keys.filter(key => key.row === row);
+                },
+                async loadConfiguration() {
+                    try {
+                        const response = await fetch('app-v6-osm.json');
+                        const config = await response.json();
+                        
+                        this.title = config.title;
+                        this.subtitle = config.subtitle;
+                        this.layers = config.layers;
+                        this.keyboardLayout = config.keyboardLayout;
+                        this.tooltips = config.tooltips;
+                        this.layerData = config.layerData;
+                    } catch (error) {
+                        console.error('Error loading configuration:', error);
+                    }
+                }
+            },
+            mounted() {
+                this.loadConfiguration();
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
