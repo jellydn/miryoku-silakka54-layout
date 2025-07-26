@@ -18,7 +18,7 @@ The Silakka54 represents the ideal adaptation target - **54-60 key layouts hit a
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
 - **Multiple Layout Versions**: 6 different approaches to Miryoku implementation
   - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
-  - 🟢 **Pinky Relief** (V1-P): Weak finger friendly with redistributed load - **READY**
+  - 🟢 **Pinky Relief** (V1-P): Weak finger friendly with redistributed load - **READY** ([See Pinky Strain Prevention Guide](pinky-strain-prevention-guide.md))
   - 🟡 **Optimized 4-Layer** (V2): Reduced layers with direct symbol access - **WIP**
   - 🟡 **No HRM Dedicated** (V3): 7-Layer with dedicated modifier keys - **WIP**
   - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
@@ -142,6 +142,25 @@ Research shows consistent patterns in successful adaptations:
 - **Days 43+**: Ergonomic benefits realized - potential speed increase
 
 **Critical insight**: The most effective approach treats the 36-key core as inviolate, using extra keys as functional enhancements rather than replacements. The Silakka54's extra keys should feel like natural extensions rather than departures from Miryoku's elegant design.
+
+## Pinky-Safe Configuration (V1-P)
+
+The Pinky Relief variant addresses the most common RSI concern with home row modifiers - pinky strain. Based on extensive research into biomechanics and community experiences, this configuration implements several key optimizations:
+
+### Key Features
+1. **No modifiers on pinky positions** - A and O keys have no hold functions
+2. **One-Shot Modifiers (OSM)** - Tap modifiers once instead of holding (marked with OSM badges in the visualizer)
+3. **Mac-optimized Cmd placement** - Moved to left thumb for comfortable access
+4. **Redistributed outer columns** - Common symbols moved to stronger finger positions
+5. **GACS pattern preserved** - GUI-Alt-Ctrl-Shift order on stronger fingers only
+
+### Implementation Tips
+- **Enable OSM in QMK**: Use `OSM(MOD_LALT)` instead of `LALT_T(KC_R)`
+- **Per-finger timing**: Set longer tapping terms for weaker fingers (250-300ms for pinkies)
+- **Karabiner-Elements**: Mac users can use "sticky keys" for software-level OSM
+- **Gradual adaptation**: Start with OSM on all modifiers, then customize as needed
+
+For detailed biomechanical research and advanced configurations, see the [Pinky Strain Prevention Guide](pinky-strain-prevention-guide.md).
 
 ## Interactive Features
 
