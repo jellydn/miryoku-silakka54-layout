@@ -1,0 +1,61 @@
+name: PR Preview Information
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  preview-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment PR with deployment options
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.issue.number;
+            const prBranch = context.payload.pull_request.head.ref;
+            const repo = context.repo.repo;
+            const owner = context.repo.owner;
+            
+            const comment = `## 🚀 Deploy Preview Options
+            
+            This static site can be previewed using several methods:
+            
+            ### Option 1: Netlify (Recommended)
+            1. Visit [app.netlify.com](https://app.netlify.com)
+            2. Drag and drop this PR's folder to deploy
+            3. Or use Netlify CLI: \`netlify deploy --dir=.\`
+            
+            ### Option 2: Vercel
+            1. Visit [vercel.com](https://vercel.com)
+            2. Import from GitHub: \`${owner}/${repo}\`
+            3. Select branch: \`${prBranch}\`
+            
+            ### Option 3: GitHub Pages (Fork)
+            1. Fork this repo
+            2. Enable GitHub Pages in Settings
+            3. Visit: \`https://[your-username].github.io/${repo}/\`
+            
+            ### Option 4: Local Preview
+            \`\`\`bash
+            git fetch origin pull/${prNumber}/head:pr-${prNumber}
+            git checkout pr-${prNumber}
+            npx serve
+            # Visit http://localhost:3000
+            \`\`\`
+            
+            ### Option 5: CodeSandbox
+            Open in CodeSandbox: [Open PR #${prNumber}](https://codesandbox.io/s/github/${owner}/${repo}/tree/${prBranch})
+            
+            ---
+            *For automatic PR previews, ask the maintainer to set up deployment tokens.*`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: comment
+            });
