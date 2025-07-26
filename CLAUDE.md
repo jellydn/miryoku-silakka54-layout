@@ -8,8 +8,9 @@ This is a Miryoku keyboard layout adaptation project for the Silakka54 split key
 
 ## Technology Stack
 
-- Pure HTML5 with vanilla JavaScript
+- HTML5 with Vue.js framework
 - Tailwind CSS (loaded via CDN)
+- JSON-based configuration system
 - Static website - no build system required
 
 ## Development Commands
@@ -25,19 +26,24 @@ python3 -m http.server 8000
 
 ## File Structure
 
-- `index.html` - Interactive keyboard layout visualizer with 6-layer switching
+- `index.html` - Interactive keyboard layout visualizer (V1 Traditional HRM)
+- `index-v1-pinky.html` - V1 Pinky Relief variant
+- `index-v2.html`, `index-v3.html`, `index-v4.html`, `index-v5.html` - Additional layout versions (WIP)
+- `app.json`, `app-v1-pinky.json`, `app-v2.json`, `app-v3.json`, `app-v4.json`, `app-v5.json` - JSON configuration files for each version
 - `Keyboard layout.md` - Comprehensive Miryoku adaptation guide and principles
 - `README.md` - Project documentation and setup instructions
+- `miryoku-layers/` - Reference layer images and JSON files from official Miryoku
 
 ## Key Architecture
 
-The visualizer implements a 6-layer keyboard system following Miryoku principles:
+The visualizer implements a 7-layer keyboard system following Miryoku principles (layer ordering intentionally differs from upstream Miryoku for Silakka54 ergonomics):
 1. **Base layer** - Colemak-DH layout
-2. **Navigation layer** - Arrow keys, page navigation
-3. **Symbols layer** - Special characters and punctuation
-4. **Numbers layer** - Numeric keypad layout
-5. **Function layer** - F-keys and system functions
-6. **Media layer** - Volume, playback controls
+2. **Media layer** - Volume, playback controls
+3. **Navigation layer** - Arrow keys, page navigation
+4. **Mouse layer** - Mouse movement and clicks
+5. **Symbols layer** - Special characters and punctuation
+6. **Numbers layer** - Numeric keypad layout
+7. **Function layer** - F-keys and system functions
 
 ## Layout Principles
 
