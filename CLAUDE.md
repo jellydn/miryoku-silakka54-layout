@@ -8,7 +8,7 @@ This is a Miryoku keyboard layout adaptation project for the Silakka54 split key
 
 ## Technology Stack
 
-- Pure HTML5 with Vue.js framework
+- HTML5 with Vue.js framework
 - Tailwind CSS (loaded via CDN)
 - JSON-based configuration system
 - Static website - no build system required
@@ -28,15 +28,15 @@ python3 -m http.server 8000
 
 - `index.html` - Interactive keyboard layout visualizer (V1 Traditional HRM)
 - `index-v1-pinky.html` - V1 Pinky Relief variant
-- `index-v2.html` through `index-v5.html` - Additional layout versions (WIP)
-- `app.json`, `app-v1-pinky.json`, etc. - JSON configuration files for each version
+- `index-v2.html`, `index-v3.html`, `index-v4.html`, `index-v5.html` - Additional layout versions (WIP)
+- `app.json`, `app-v1-pinky.json`, `app-v2.json`, `app-v3.json`, `app-v4.json`, `app-v5.json` - JSON configuration files for each version
 - `Keyboard layout.md` - Comprehensive Miryoku adaptation guide and principles
 - `README.md` - Project documentation and setup instructions
 - `miryoku-layers/` - Reference layer images and JSON files from official Miryoku
 
 ## Key Architecture
 
-The visualizer implements a 7-layer keyboard system following Miryoku principles:
+The visualizer implements a 7-layer keyboard system following Miryoku principles (layer ordering intentionally differs from upstream Miryoku for Silakka54 ergonomics):
 1. **Base layer** - Colemak-DH layout
 2. **Media layer** - Volume, playback controls
 3. **Navigation layer** - Arrow keys, page navigation
