@@ -119,6 +119,7 @@
       "cmdQuit": "Easy: Cmd+Q/W for quit/close without pinky strain"
     }
   },
+  "osmKeys": ["L23", "L24", "L25", "R25", "R24", "R23", "LT1"],
   "layerData": {
     "base": {
       "L01": "<div class=\"key-label\">`<br><span class=\"mod-label\">~</span></div>", 

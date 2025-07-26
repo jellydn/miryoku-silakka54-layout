@@ -522,10 +522,7 @@
                     const tooltipText = this.getTooltipText(keyId, keyValue);
                     
                     // Check if this is a home row modifier key with OSM support
-                    const isOSMKey = this.currentLayer === 'base' && 
-                        (keyId === 'L23' || keyId === 'L24' || keyId === 'L25' || // Left hand modifiers
-                         keyId === 'R25' || keyId === 'R24' || keyId === 'R23' || // Right hand modifiers
-                         keyId === 'LT1'); // Thumb Cmd key
+                    const isOSMKey = this.currentLayer === 'base' && this.config.osmKeys?.includes(keyId);
                     
                     let osmBadge = '';
                     if (isOSMKey) {
@@ -533,20 +530,17 @@
                     }
                     
                     if (tooltipText) {
-                        return `<span class="text-xs font-medium position-relative">${keyValue}${osmBadge}</span>
+                        return `<span class="text-xs font-medium relative">${keyValue}${osmBadge}</span>
                                 <div class="tooltip-text">${tooltipText}</div>`;
                     } else {
-                        return `<span class="text-xs font-medium position-relative">${keyValue}${osmBadge}</span>`;
+                        return `<span class="text-xs font-medium relative">${keyValue}${osmBadge}</span>`;
                     }
                 },
                 getTooltipText(keyId, keyValue) {
                     if (this.config.tooltips && this.config.tooltips[keyId]) {
                         let tooltip = this.config.tooltips[keyId];
                         // Add OSM info to modifier key tooltips
-                        if (this.currentLayer === 'base' && 
-                            (keyId === 'L23' || keyId === 'L24' || keyId === 'L25' || 
-                             keyId === 'R25' || keyId === 'R24' || keyId === 'R23' || 
-                             keyId === 'LT1')) {
+                        if (this.currentLayer === 'base' && this.config.osmKeys?.includes(keyId)) {
                             tooltip += ' | One-shot: Tap once to activate for next key';
                         }
                         return tooltip;

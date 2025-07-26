@@ -28,9 +28,9 @@ This single change has resolved pinky strain for numerous users who couldn't tol
 
 Treating all fingers equally ignores their vastly different capabilities. Successful implementations use longer tapping terms for weaker fingers: 
 
-- **Pinky positions**: 250-300ms tapping term
-- **Ring finger**: 220-250ms
-- **Middle finger**: 180-220ms
+- **Pinky positions**: 251-300ms tapping term
+- **Ring finger**: 221-250ms
+- **Middle finger**: 201-220ms
 - **Index finger**: 150-200ms
 
 QMK's per-key tapping term feature enables this crucial customization: 
@@ -38,10 +38,11 @@ QMK's per-key tapping term feature enables this crucial customization:
 ```c
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case LALT_T(KC_S):  // Pinky
-            return TAPPING_TERM + 100;
-        case LCTL_T(KC_F):  // Index
-            return TAPPING_TERM - 25;
+        // Example for Colemak-DH with GACS pattern
+        case LGUI_T(KC_A):  // Pinky (A is home row pinky in Colemak)
+            return TAPPING_TERM + 40; // e.g., 240ms if TAPPING_TERM is 200
+        case LSFT_T(KC_T):  // Index (T is home row index in Colemak-DH)
+            return TAPPING_TERM - 40; // e.g., 160ms if TAPPING_TERM is 200
         default:
             return TAPPING_TERM;
     }
@@ -65,8 +66,9 @@ For keyboards lacking thumb clusters, placing modifiers on inner index columns (
 Jason Carlos Cox's combo modifier approach has proven highly successful: "I can't remember the last time I accidentally triggered a modifier when I wanted to type letters instead." By using two-key combinations rather than hold-tap behavior, this method removes timing constraints entirely:  
 
 ```c
-const uint16_t PROGMEM ctrl_combo[] = {KC_F, KC_D, COMBO_END};
+const uint16_t PROGMEM ctrl_combo[] = {KC_R, KC_S, COMBO_END}; // R and S are adjacent on Colemak-DH home row
 combo_t key_combos[] = {
+    // CTRL_COMBO should be defined in an enum, e.g., enum combos { CTRL_COMBO };
     [CTRL_COMBO] = COMBO(ctrl_combo, OSM(MOD_LCTL)),
 };
 #define COMBO_TERM 25
@@ -81,7 +83,7 @@ The GUI-Alt-Ctrl-Shift (GACS) pattern, popularized by the Miryoku layout, places
 
 ### Bilateral combinations prevent false activations
 
-Sunaku's bilateral combinations implementation represents the most sophisticated solution for preventing accidental modifier activation during fast typing. The system detects typing streaks and temporarily disables same-hand modifiers: 
+Sunaku's bilateral combinations implementation represents the most sophisticated solution for preventing accidental modifier activation during fast typing. The system detects typing streaks and temporarily disables same-hand modifiers. Note that this is a userspace feature (not part of mainline QMK) available in Sunaku's qmk-bilateral-combinations repository:
 
 ```c
 #define BILATERAL_COMBINATIONS
@@ -125,27 +127,27 @@ The most successful Mac users employ hybrid strategies:
 Start with the highest-impact changes:
 
 1. Move Shift to primary thumb position
-1. Implement one-shot modifiers for all positions
-1. Increase tapping terms to 250-300ms for pinky positions 
-1. Enable cross-hand enforcement to prevent same-hand false activations
+2. Implement one-shot modifiers for all positions
+3. Increase tapping terms to 250-300ms for pinky positions 
+4. Enable cross-hand enforcement to prevent same-hand false activations
 
 ### Week 3-4: Optimization
 
 Fine-tune based on initial experience:
 
 1. Implement per-key tapping terms based on finger strength
-1. Add combo alternatives for remaining pinky positions
-1. Experiment with inner index or thumb cluster placements
-1. Adjust timing based on typing patterns
+2. Add combo alternatives for remaining pinky positions
+3. Experiment with inner index or thumb cluster placements
+4. Adjust timing based on typing patterns
 
 ### Week 5-6: Advanced features
 
 Deploy sophisticated solutions as needed:
 
 1. Implement bilateral combinations if false activations persist
-1. Create dedicated layers for specific workflows
-1. Add positional hold-tap for enhanced accuracy
-1. Develop muscle memory through consistent practice
+2. Create dedicated layers for specific workflows
+3. Add positional hold-tap for enhanced accuracy
+4. Develop muscle memory through consistent practice
 
 ## Key patterns from successful implementations
 
