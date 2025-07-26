@@ -1,46 +1,82 @@
 # PR Preview Deployment Setup
 
-This repository includes GitHub Actions for automatic PR preview deployments. Choose one of the following options:
-
-## Option 1: Surge.sh (Simplest)
-
-1. Sign up at [surge.sh](https://surge.sh)
-2. Install Surge CLI: `npm install -g surge`
-3. Get your token: `surge token`
-4. Add secret to GitHub repo:
-   - Go to Settings → Secrets → Actions
-   - Add `SURGE_TOKEN` with your token value
-5. Use `.github/workflows/preview-pr.yml`
-
-## Option 2: Netlify (No token needed)
-
-1. The repository includes `netlify.toml` configuration
-2. PRs can be manually deployed by:
-   - Visiting [app.netlify.com/drop](https://app.netlify.com/drop)
-   - Dragging the project folder
-3. For automatic deploys:
-   - Connect your GitHub repo at [app.netlify.com](https://app.netlify.com)
-   - Enable "Deploy Previews" in Site Settings → Build & Deploy
-
-## Option 3: Vercel (Automatic)
-
-1. Visit [vercel.com](https://vercel.com)
-2. Import your GitHub repository
-3. Vercel automatically creates preview deployments for all PRs
-4. No configuration needed!
-
-## Option 4: GitHub Pages (Manual)
-
-For contributors without repo access:
-1. Fork the repository
-2. Enable GitHub Pages in your fork's Settings
-3. Your preview will be at: `https://[username].github.io/miryoku-silakka54-layout/`
+This repository includes GitHub Actions for deployment. Here are the available options:
 
 ## Current Setup
 
-This repository currently uses the simple preview information workflow (`.github/workflows/preview-pr-simple.yml`) which provides deployment instructions in PR comments.
+The repository uses the **Simple PR Information Workflow** which automatically comments on PRs with deployment options.
 
-To enable automatic deployments, choose one of the options above and:
-1. Set up the required service
-2. Add any necessary secrets
-3. Enable the corresponding workflow
+## Manual Preview Options
+
+### Option 1: Vercel (Recommended - Automatic PR Previews)
+
+1. Visit [vercel.com](https://vercel.com)
+2. Click "Import Project"
+3. Import from GitHub: `jellydn/miryoku-silakka54-layout`
+4. Vercel will automatically:
+   - Deploy the main branch
+   - Create preview deployments for all PRs
+   - Post preview links as PR comments
+
+No configuration needed! The `vercel.json` file is already included.
+
+### Option 2: Netlify (Easy Manual Deploy)
+
+1. Visit [app.netlify.com/drop](https://app.netlify.com/drop)
+2. Download the PR branch locally:
+   ```bash
+   git fetch origin pull/[PR-NUMBER]/head:pr-[PR-NUMBER]
+   git checkout pr-[PR-NUMBER]
+   ```
+3. Drag the project folder to Netlify Drop
+4. Get instant preview URL
+
+The `netlify.toml` file is already configured.
+
+### Option 3: GitHub Pages (For Forks)
+
+1. Fork the repository
+2. Go to Settings → Pages
+3. Source: Deploy from a branch
+4. Branch: main / root
+5. Save
+
+Your preview will be at: `https://[username].github.io/miryoku-silakka54-layout/`
+
+The `static.yml` workflow will handle automatic deployments.
+
+### Option 4: Local Preview
+
+```bash
+# Clone and checkout PR
+git fetch origin pull/[PR-NUMBER]/head:pr-[PR-NUMBER]  
+git checkout pr-[PR-NUMBER]
+
+# Serve locally
+npx serve
+# or
+python3 -m http.server 8000
+```
+
+### Option 5: CodeSandbox (Instant)
+
+Open any PR directly in CodeSandbox:
+```
+https://codesandbox.io/s/github/jellydn/miryoku-silakka54-layout/tree/[BRANCH-NAME]
+```
+
+## For Repository Maintainers
+
+To enable automatic PR previews:
+
+1. **Vercel** (Easiest): Just connect the repo at vercel.com
+2. **Netlify**: Connect repo and enable "Deploy Previews" in settings
+3. **Surge.sh**: Add `SURGE_TOKEN` secret and enable `preview-pr.yml`
+
+## Files Included
+
+- `.github/workflows/static.yml` - GitHub Pages deployment for main branch
+- `.github/workflows/preview-pr-simple.yml` - PR comment with deployment options
+- `.github/workflows/preview-pr.yml.disabled` - Surge.sh deployment (requires token)
+- `vercel.json` - Vercel configuration
+- `netlify.toml` - Netlify configuration
