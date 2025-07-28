@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miryoku Layout for Silakka54</title>
+    <title>Miryoku V6 - Extreme Pinky Protection</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
@@ -33,7 +33,7 @@
             }
         }
         
-        .key:hover {
+        .key:hover:not(.disabled-key) {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
@@ -69,10 +69,12 @@
                 min-width: 4.5rem;
             }
         }
+        
         .layer-active {
             background-color: #3b82f6 !important;
             color: white !important;
         }
+        
         .key-label {
             display: flex;
             flex-direction: column;
@@ -80,6 +82,7 @@
             justify-content: center;
             line-height: 1.2;
         }
+        
         .mod-label {
             font-size: 0.5rem;
             color: #6b7280;
@@ -96,10 +99,38 @@
                 font-size: 0.6rem;
             }
         }
+        
+        .disabled-key {
+            opacity: 0.3 !important;
+            background-color: #f3f4f6 !important;
+            cursor: not-allowed !important;
+        }
+        
+        .disabled-key:hover {
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .pinky-column {
+            border: 2px dashed #ef4444 !important;
+            background: repeating-linear-gradient(
+                45deg,
+                #fee2e2,
+                #fee2e2 10px,
+                #fecaca 10px,
+                #fecaca 20px
+            ) !important;
+        }
+        
         .tooltip {
             position: relative;
             cursor: help;
         }
+        
+        .disabled-key.tooltip {
+            cursor: not-allowed;
+        }
+        
         .tooltip-text {
             visibility: hidden;
             opacity: 0;
@@ -127,6 +158,7 @@
                 max-width: none;
             }
         }
+        
         .tooltip-text::after {
             content: "";
             position: absolute;
@@ -137,16 +169,65 @@
             border-style: solid;
             border-color: #1f2937 transparent transparent transparent;
         }
+        
         .tooltip:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
+        }
+        
+        .disabled-key .tooltip-text {
+            background-color: #dc2626;
+        }
+        
+        .disabled-key .tooltip-text::after {
+            border-color: #dc2626 transparent transparent transparent;
         }
     </style>
 </head>
 <body class="bg-gray-100 p-4 sm:p-6 lg:p-8">
     <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold text-center mb-4">{{ config.title }}</h1>
-        <p class="text-center text-gray-600 mb-8">{{ config.subtitle }}</p>
+        <p class="text-center text-gray-600 mb-2">{{ config.subtitle }}</p>
+        <p class="text-center text-sm text-gray-500 mb-8">{{ config.description }}</p>
+        
+        <!-- Extreme Protection Warning -->
+        <div class="bg-gradient-to-r from-red-50 to-orange-50 p-4 rounded-lg border-2 border-red-300 mb-6">
+            <div class="flex items-center justify-center mb-3">
+                <div class="bg-red-100 p-2 rounded-full mr-3">
+                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-red-900">⚠️ Extreme Pinky Protection Mode</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <h4 class="font-medium text-red-800 mb-2">Disabled Keys (6 total):</h4>
+                    <ul class="space-y-1 text-red-700">
+                        <li>❌ All outer column keys disabled</li>
+                        <li>❌ No pinky home row modifiers</li>
+                        <li>❌ 48 → 42 active keys</li>
+                        <li>❌ Red striped zones indicate no-go areas</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-medium text-orange-800 mb-2">Key Relocations:</h4>
+                    <ul class="space-y-1 text-orange-700">
+                        <li>✅ GUI/Cmd on thumb keys (LT1, RT1)</li>
+                        <li>✅ Modifiers only on strong fingers</li>
+                        <li>✅ Symbols via layers or number row</li>
+                        <li>✅ Mac-optimized for CLI workflows</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-3 text-center">
+                <p class="text-xs text-red-600 font-medium">
+                    This is an experimental layout. Consider 
+                    <a href="index-v1-pinky.html" class="text-blue-600 underline hover:text-blue-800">V1-P Pinky Relief</a>
+                    for a more balanced approach.
+                </p>
+            </div>
+        </div>
         
         <!-- Layer Selector -->
         <div class="flex flex-wrap justify-center gap-2 mb-8">
@@ -154,7 +235,7 @@
                 v-for="layer in config.layers" 
                 :key="layer.id"
                 @click="showLayer(layer.id)" 
-                :class="['layer-btn px-4 py-2 rounded', currentLayer === layer.id ? 'bg-blue-500 text-white' : 'bg-gray-300']"
+                :class="['px-4 py-2 rounded text-sm font-medium transition-colors', currentLayer === layer.id ? 'bg-blue-500 text-white' : 'bg-gray-300 hover:bg-gray-400']"
             >
                 {{ layer.name }}
             </button>
@@ -219,135 +300,75 @@
             </div>
         </div>
 
-        <!-- Legend -->
-        <div class="mt-8 bg-white p-4 rounded-lg shadow">
-            <h3 class="font-semibold mb-3">Key Features of This Layout</h3>
-            <div class="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                    <h4 class="font-medium mb-2">Color Legend:</h4>
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-blue-100 rounded"></div>
-                            <span>Home row with modifiers (GUI/Alt/Ctrl/Shift)</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-orange-100 rounded"></div>
-                            <span>Number row with direct symbol access</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-purple-100 rounded"></div>
-                            <span>Common symbols and extra keys</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-green-200 rounded"></div>
-                            <span>Thumb keys (Space/Enter/Tab/Layer switches)</span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-medium mb-2">Layout Benefits:</h4>
-                    <ul class="space-y-1 text-gray-600">
-                        <li>• Direct access to numbers and symbols</li>
-                        <li>• Common punctuation readily available</li>
-                        <li>• Home row modifiers for ergonomics</li>
-                        <li>• Minimal layer switching needed</li>
-                        <li>• Preserves Miryoku core principles</li>
-                    </ul>
-                </div>
+        <!-- Comparison Table -->
+        <div class="mt-8 bg-white p-6 rounded-lg shadow">
+            <h3 class="font-semibold mb-4 text-center">Layout Comparison</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="text-left py-2 px-4">Feature</th>
+                            <th class="text-center py-2 px-4">V1 Traditional</th>
+                            <th class="text-center py-2 px-4">V1-P Pinky Relief</th>
+                            <th class="text-center py-2 px-4 bg-yellow-50">V6 Extreme (This)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="py-2 px-4">Pinky Strain Reduction</td>
+                            <td class="text-center">0%</td>
+                            <td class="text-center text-green-600">50%</td>
+                            <td class="text-center text-red-600 font-bold bg-yellow-50">100%</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 px-4">Active Keys</td>
+                            <td class="text-center">48</td>
+                            <td class="text-center">48</td>
+                            <td class="text-center bg-yellow-50">42</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 px-4">Outer Columns</td>
+                            <td class="text-center">Active</td>
+                            <td class="text-center">Optimized</td>
+                            <td class="text-center bg-yellow-50">Disabled</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 px-4">Learning Curve</td>
+                            <td class="text-center">Moderate</td>
+                            <td class="text-center">Low</td>
+                            <td class="text-center bg-yellow-50">High</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 px-4">Best For</td>
+                            <td class="text-center">General use</td>
+                            <td class="text-center">Weak fingers</td>
+                            <td class="text-center bg-yellow-50">Severe RSI</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- How to Change Layers -->
-        <div class="mt-8 bg-blue-50 p-6 rounded-lg border border-blue-200">
-            <h3 class="font-semibold text-blue-900 mb-4 text-center">How to Change Between Layers</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Physical Keyboard Usage -->
-                <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h4 class="font-medium text-blue-800 mb-3 flex items-center">
-                        <span class="bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">1</span>
-                        On Your Physical Keyboard
-                    </h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Esc key (left thumb)</strong> → Media layer (volume, RGB controls)
-                                <div class="text-gray-600 text-xs">Right hand becomes media controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Space key (left thumb)</strong> → Navigation layer (arrows, clipboard)
-                                <div class="text-gray-600 text-xs">Right hand becomes navigation controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Tab key (left thumb)</strong> → Mouse layer (mouse movement and clicks)
-                                <div class="text-gray-600 text-xs">Right hand becomes mouse controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Enter key (right thumb)</strong> → Symbols layer (punctuation)
-                                <div class="text-gray-600 text-xs">Left hand becomes symbol controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Backspace key (right thumb)</strong> → Numbers layer (numpad)
-                                <div class="text-gray-600 text-xs">Left hand becomes number controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Delete key (right thumb)</strong> → Function layer (F-keys)
-                                <div class="text-gray-600 text-xs">Left hand becomes function key controls</div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Legend -->
+        <div class="mt-6 bg-white p-4 rounded-lg shadow">
+            <h3 class="font-semibold mb-3">Color Legend</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-blue-100 rounded"></div>
+                    <span>Home row modifiers</span>
                 </div>
-
-                <!-- Visualizer Usage -->
-                <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h4 class="font-medium text-blue-800 mb-3 flex items-center">
-                        <span class="bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2">2</span>
-                        In This Visualizer
-                    </h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex items-start gap-2">
-                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Click</span>
-                            <div>
-                                <strong>Layer buttons above</strong> → Switch views
-                                <div class="text-gray-600 text-xs">See what each layer looks like</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Hover</span>
-                            <div>
-                                <strong>Over any key</strong> → See details
-                                <div class="text-gray-600 text-xs">Keys lift up to show they're interactive</div>
-                            </div>
-                        </div>
-                        <div class="text-gray-600 text-xs mt-3 p-2 bg-gray-50 rounded">
-                            💡 <strong>Tip:</strong> The visualizer shows the final result - on your keyboard, you hold thumb keys to temporarily access other layers while typing
-                        </div>
-                    </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-purple-200 rounded"></div>
+                    <span>GUI/Cmd (thumbs)</span>
                 </div>
-            </div>
-
-            <!-- Key Principle -->
-            <div class="mt-4 p-3 bg-blue-100 rounded-lg text-center">
-                <p class="text-sm text-blue-800">
-                    <strong>Key Principle:</strong> Tap thumb keys for their primary function (Space, Enter, etc.) • 
-                    Hold thumb keys to activate layers on the opposite hand
-                </p>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-green-200 rounded"></div>
+                    <span>Primary thumb keys</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 border-2 border-red-500 border-dashed rounded opacity-50" style="background: repeating-linear-gradient(45deg, #fee2e2, #fee2e2 5px, #fecaca 5px, #fecaca 10px);"></div>
+                    <span>Disabled zones</span>
+                </div>
             </div>
         </div>
 
@@ -356,42 +377,31 @@
             <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <p class="text-sm text-gray-600 mb-2">Compare Layout Versions:</p>
                 <div class="flex justify-center gap-2 flex-wrap">
-                    <span class="px-3 py-2 bg-blue-500 text-white rounded text-sm relative">
-                        Current: Traditional HRM
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">READY</span>
-                    </span>
+                    <a href="index.html" class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm">
+                        Traditional HRM
+                    </a>
                     <a href="index-v1-pinky.html" class="px-3 py-2 bg-teal-500 text-white rounded hover:bg-teal-600 transition-colors text-sm relative">
                         🤚 Pinky Relief
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
+                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">BALANCED</span>
                     </a>
-                    <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm relative">
+                    <span class="px-3 py-2 bg-red-500 text-white rounded text-sm relative">
+                        Current: Extreme Protection
+                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">EXPERIMENTAL</span>
+                    </span>
+                    <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm">
                         Optimized 4-Layer
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </a>
-                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm relative">
+                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm">
                         No HRM Dedicated
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </a>
-                    <a href="index-v4.html" class="px-3 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition-colors text-sm relative">
+                    <a href="index-v4.html" class="px-3 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition-colors text-sm">
                         4-Layer Balanced
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
                     </a>
-                    <a href="index-v5.html" class="px-3 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors text-sm relative">
+                    <a href="index-v5.html" class="px-3 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors text-sm">
                         Coding Optimized
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v6.html" class="px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors text-sm relative">
-                        Extreme Protection
-                        <span class="absolute -top-1 -right-1 bg-red-600 text-white text-xs px-1 rounded-full">EXPERIMENTAL</span>
                     </a>
                 </div>
             </div>
-        </div>
-
-        <!-- Quick Tips -->
-        <div class="mt-4 text-center text-gray-600">
-            <p class="font-medium">Quick Reference:</p>
-            <p class="text-sm mt-1">Home row modifiers: GUI (pinky) | Alt (ring) | Ctrl (middle) | Shift (index)</p>
         </div>
 
         <!-- Footer -->
@@ -399,7 +409,7 @@
             <p class="text-xs text-gray-500">
                 <a href="https://github.com/manna-harbour/miryoku" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Miryoku Layout</a> by manna-harbour • 
                 <a href="https://github.com/Squalius-cephalus/silakka54" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Silakka54</a> keyboard • 
-                <a href="https://getreuer.info/posts/keyboards/alt-layouts/index.html#which-alt-keyboard-layout-should-i-learn" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Alt Layout Guide</a><br>
+                Extreme pinky protection variant<br>
                 Built with <a href="https://claude.ai/code" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Claude Code</a> by <a href="http://itman.fyi/" class="text-blue-500 hover:underline" target="_blank" rel="noopener">itman.fyi</a>
             </p>
         </div>
@@ -413,7 +423,8 @@
                 return {
                     config: {
                         title: 'Loading...',
-                        subtitle: 'Loading keyboard layout...',
+                        subtitle: 'Loading...',
+                        description: 'Loading...',
                         layers: [],
                         keyboardLayout: {
                             leftKeys: [],
@@ -434,15 +445,16 @@
             methods: {
                 async loadConfig() {
                     try {
-                        const response = await fetch('./app.json');
+                        const response = await fetch('./app-v6.json');
                         this.config = await response.json();
                         this.currentLayer = this.config.layers.find(l => l.active)?.id || 'base';
                     } catch (error) {
                         console.error('Failed to load config:', error);
                         // Fallback config
                         this.config = {
-                            title: 'Miryoku Layout for Silakka54',
-                            subtitle: '54-key split keyboard with Colemak-DH, home row modifiers, and 6 orthogonal layers',
+                            title: 'Miryoku V6 - Extreme Pinky Protection',
+                            subtitle: 'Zero pinky strain: outer columns disabled',
+                            description: 'Experimental layout with disabled pinky columns',
                             layers: [
                                 {id: 'base', name: 'Base', active: true}
                             ],
@@ -481,40 +493,49 @@
                 getTooltipText(keyId, keyValue) {
                     if (this.config.tooltips && this.config.tooltips[keyId]) {
                         return this.config.tooltips[keyId];
+                    } else if (keyValue === '❌') {
+                        return 'DISABLED - Pinky protection zone';
                     } else if (keyValue === '' || keyValue === '___') {
                         return keyValue === '___' ? 'Layer key being held' : 'No function on this layer';
                     } else {
-                        // Generic tooltip for regular keys
+                        // Clean content for tooltip (remove HTML)
+                        const cleanContent = keyValue.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+                        
+                        // Generic tooltip descriptions for special keys
                         const keyDescriptions = {
                             '←': 'Left arrow key',
                             '→': 'Right arrow key', 
                             '↑': 'Up arrow key',
                             '↓': 'Down arrow key',
+                            'Home': 'Home key - go to beginning',
+                            'End': 'End key - go to end',
                             'PgUp': 'Page Up key',
                             'PgDn': 'Page Down key',
-                            'Bksp': 'Backspace key',
-                            'GUI': 'GUI/Super modifier',
-                            'Alt': 'Alt modifier',
-                            'Ctrl': 'Control modifier', 
-                            'Shift': 'Shift modifier',
+                            'Prev': 'Previous track',
+                            'Next': 'Next track',
+                            'Play': 'Play/Pause media',
+                            'Vol+': 'Volume up',
+                            'Vol-': 'Volume down',
+                            'Mute': 'Mute audio',
                             'Cut': 'Cut to clipboard (Ctrl+X)',
                             'Copy': 'Copy to clipboard (Ctrl+C)',
                             'Paste': 'Paste from clipboard (Ctrl+V)',
                             'Undo': 'Undo last action (Ctrl+Z)',
                             'Redo': 'Redo last action (Ctrl+Y)',
-                            'M←': 'Mouse movement: Left',
-                            'M↓': 'Mouse movement: Down',
-                            'M↑': 'Mouse movement: Up',
-                            'M→': 'Mouse movement: Right',
-                            'LClick': 'Mouse: Left click',
-                            'MClick': 'Mouse: Middle click (wheel)',
-                            'RClick': 'Mouse: Right click',
-                            'WhlL': 'Mouse wheel: Left',
-                            'WhlD': 'Mouse wheel: Down',
-                            'WhlU': 'Mouse wheel: Up',
-                            'WhlR': 'Mouse wheel: Right'
+                            'GUI': 'GUI/Super modifier',
+                            'Cmd': 'Command key (Mac)',
+                            'Alt': 'Alt modifier',
+                            'Ctrl': 'Control modifier', 
+                            'Shift': 'Shift modifier'
                         };
-                        return keyDescriptions[keyValue] || `${keyValue} key`;
+                        
+                        if (cleanContent.includes('~')) {
+                            return 'Backtick (`) key | Shift: Tilde (~)';
+                        } else if (cleanContent.includes('!')) {
+                            return 'Number key | Shift: Symbol above';
+                        } else {
+                            return keyDescriptions[cleanContent] || `${cleanContent} key`;
+                        }
                     }
                 },
                 updateTooltips() {
