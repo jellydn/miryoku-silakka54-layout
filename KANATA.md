@@ -1,5 +1,9 @@
 # Kanata Layout Implementation
 
+⚠️ **WARNING: UNTESTED/WORK IN PROGRESS** ⚠️
+
+> **Note**: These Kanata configurations have been created based on the tested Vial configuration but have NOT been tested on actual hardware. They may require adjustments to work correctly. Please report any issues you encounter.
+
 This document provides guidance for implementing the Miryoku layout using [Kanata](https://github.com/jtroo/kanata) keyboard remapping software on **both split keyboards and standard keyboards**.
 
 ## Overview

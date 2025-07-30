@@ -1,4 +1,7 @@
 ;; Miryoku Layout for Silakka54 - Version 1 (Traditional HRM)
+;; STATUS: UNTESTED/WORK IN PROGRESS
+;; WARNING: This configuration has NOT been tested on actual hardware.
+;;          It was created based on the tested Vial configuration but may need adjustments.
 ;; This configuration implements the Miryoku layout adaptation for the Silakka54 keyboard
 ;; with Colemak-DH base layer and home row modifiers using the GACS pattern.
 ;;

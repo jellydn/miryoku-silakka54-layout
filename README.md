@@ -2,7 +2,7 @@
 
 🚀 **V1 Ready** - Traditional HRM layout is production-ready! Other versions are work-in-progress.
 
-A comprehensive implementation suite for the Miryoku keyboard layout system adapted to the Silakka54 split keyboard, featuring **three synchronized approaches**: firmware-based (Vial), software-based (Kanata), and educational visualization (Web UI).
+A comprehensive implementation suite for the Miryoku keyboard layout system adapted to the Silakka54 split keyboard, featuring **three synchronized approaches**: firmware-based (Vial - ✅ Tested), software-based (Kanata - ⚠️ Untested/WIP), and educational visualization (Web UI - ✅ Ready).
 
 ## Overview
 
@@ -16,21 +16,24 @@ The Silakka54 represents the ideal adaptation target - **54-60 key layouts hit a
 
 Choose the approach that best fits your needs:
 
-### 🎛️ **Vial Configuration** (Firmware-based)
+### 🎛️ **Vial Configuration** (Firmware-based) ✅ TESTED & WORKING
 - **Best for**: Split keyboard owners who want real-time configuration
 - **Location**: `vial/` folder
+- **Status**: Production-ready, thoroughly tested
 - **Pros**: Real-time changes, visual interface, no software required
 - **Cons**: Requires Vial-compatible firmware
 
-### ⌨️ **Kanata Configuration** (Software-based)  
+### ⌨️ **Kanata Configuration** (Software-based) ⚠️ UNTESTED/WIP
 - **Best for**: Any keyboard (MacBook, Keychron K7, standard keyboards)
 - **Location**: `kanata-v1.kbd` (split) & `kanata-standard-keyboards.kbd` (standard)
+- **Status**: Work in progress - configuration created but not tested
 - **Pros**: Works with any keyboard, no firmware flashing required
-- **Cons**: Software must run in background
+- **Cons**: Software must run in background, needs testing
 
-### 🌐 **Web Visualizer** (Educational)
+### 🌐 **Web Visualizer** (Educational) ✅ READY
 - **Best for**: Learning the layout, reference, and planning
 - **Location**: `index.html` and related files
+- **Status**: Fully functional and tested
 - **Pros**: Interactive learning, no installation, works anywhere
 - **Cons**: Visualization only, not functional
 
@@ -66,17 +69,19 @@ Choose the approach that best fits your needs:
    # See vial/README.md for detailed instructions
    ```
 
-2. **Kanata (Software)**: Use `kanata-v1.kbd`
+2. **Kanata (Software)**: Use `kanata-v1.kbd` ⚠️ UNTESTED
    ```bash
    sudo kanata --cfg kanata-v1.kbd
-   # See KANATA.md for detailed instructions  
+   # See KANATA.md for detailed instructions
+   # WARNING: Configuration not yet tested - may need adjustments
    ```
 
 #### For Standard Keyboards (MacBook, Keychron K7)
-1. **Kanata (Software)**: Use `kanata-standard-keyboards.kbd`
+1. **Kanata (Software)**: Use `kanata-standard-keyboards.kbd` ⚠️ UNTESTED
    ```bash
    sudo kanata --cfg kanata-standard-keyboards.kbd
    # See KANATA.md for detailed instructions
+   # WARNING: Configuration not yet tested - may need adjustments
    ```
 
 #### For Learning & Reference
@@ -125,8 +130,9 @@ You can also open `index.html` directly in your web browser, though some feature
 
 ## Implementation Comparison
 
-| Feature | Vial | Kanata | Web Visualizer |
-|---------|------|--------|----------------|
+| Feature | Vial ✅ | Kanata ⚠️ | Web Visualizer ✅ |
+|---------|----------|------------|-------------------|
+| **Status** | **TESTED & WORKING** | **UNTESTED/WIP** | **READY** |
 | **Target Users** | Split keyboard owners | Any keyboard users | Everyone |
 | **Setup Complexity** | Medium (firmware flash) | Low (software install) | None (browser) |
 | **Real-time Changes** | ✅ Instant | ❌ Restart required | ❌ Reference only |

@@ -1,4 +1,7 @@
 ;; Miryoku Layout for Standard Keyboards (MacBook/Keychron K7/etc.)
+;; STATUS: UNTESTED/WORK IN PROGRESS
+;; WARNING: This configuration has NOT been tested on actual hardware.
+;;          It was created based on the tested Vial configuration but may need adjustments.
 ;; This configuration implements the Miryoku layout adaptation for standard keyboards
 ;; with Colemak-DH base layer and home row modifiers using the GACS pattern.
 ;;
