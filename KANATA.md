@@ -15,10 +15,11 @@ The `kanata-v1.kbd` file implements the **V1 Traditional HRM** layout with all 7
 ## Features
 
 ### Home Row Modifiers (GACS Pattern)
-- **Left hand**: A(GUI), R(Alt), S(Ctrl), T(Shift)
-- **Right hand**: N(Shift), E(Ctrl), I(Alt), O(GUI)
-- **Smart timing**: Uses `key-timing` logic with 250ms threshold to prevent accidental activation during fast typing
-- **Configurable timeouts**: 200ms tap-hold-release with 500ms timeout for modifier repeat
+- **Left hand**: A(GUI via tap-dance), R(Alt), S(Ctrl), T(Shift)
+- **Right hand**: N(Shift), E(Ctrl), I(Alt), O(GUI via tap-dance)
+- **Smart timing**: Uses `key-timing` logic with 220ms threshold to prevent accidental activation during fast typing
+- **Vial-aligned timing**: 175ms base tap-hold-release, 190ms for A, 200ms for O (matching Vial configuration)
+- **Tap-dance for GUI keys**: A and O use tap-dance behavior exactly like the Vial setup
 
 ### Layer System
 1. **Base Layer**: Colemak-DH layout with home row modifiers
@@ -29,12 +30,16 @@ The `kanata-v1.kbd` file implements the **V1 Traditional HRM** layout with all 7
 6. **Numbers Layer**: Numpad layout with shifted number access
 7. **Function Layer**: F1-F12 keys and system functions
 
-### Chord Combinations
-Implements strategic chord combinations for common actions:
-- **W + F**: Escape (top-left combo)
-- **L + U**: Backspace (top-right combo)
-- **X + C**: Tab (bottom-left combo)
-- **H + ,**: Enter (bottom-right combo)
+### Chord Combinations (Vial-Aligned)
+Implements chord combinations matching your Vial configuration:
+- **Q + W**: Escape
+- **Q + W + F**: Cmd+Q (quit application)
+- **L + U**: Escape 
+- **W + F**: GUI modifier (Super/Cmd key)
+- **U + Y**: Quote character (')
+- **X + C**: Cmd+X (cut)
+- **C + D**: Cmd+C (copy)
+- **, + .**: MEH modifier (Alt+Ctrl+Shift+GUI)
 
 ### Thumb Key Layer Access
 - **Left thumb**: Esc(Media), Space(Nav), Tab(Mouse)

@@ -26,51 +26,79 @@
 )
 
 ;; Template for home row modifiers with key-timing logic
+;; Updated timing to match Vial settings (175ms base tapping term)
 (deftemplate charmod (char mod)
   (switch 
-    ((key-timing 3 less-than 250)) $char break
-    () (tap-hold-release-timeout 200 500 $char $mod $char) break
+    ((key-timing 3 less-than 220)) $char break
+    () (tap-hold-release-timeout 175 500 $char $mod $char) break
   )
 )
 
-;; Chord definitions for combos
-;; Top row combos (mirrored on both sides)
-(defchords top-left 50
-  (w  ) w
-  (  f) f
-  (w f) esc
+;; Chord definitions matching Vial configuration
+(defchords qw-combo 50
+  (q  ) q
+  (  w) w
+  (q w) esc
 )
 
-(defchords top-right 50
+(defchords qwf-combo 50
+  (q  ) q
+  (  w) w
+  (    f) f
+  (q w f) G-q
+)
+
+(defchords lu-combo 50
   (l  ) l
   (  u) u
-  (l u) bspc
+  (l u) esc
 )
 
-;; Bottom row combos (mirrored on both sides)
-(defchords bottom-left 50
+(defchords comdot-combo 50
+  (,  ) ,
+  (  .) .
+  (, .) A-C-S-lmet
+)
+
+(defchords uy-combo 50
+  (u  ) u
+  (  y) y
+  (u y) '
+)
+
+(defchords wf-combo 50
+  (w  ) w
+  (  f) f
+  (w f) lmet
+)
+
+(defchords cd-combo 50
+  (c  ) c
+  (  d) d
+  (c d) G-c
+)
+
+(defchords xc-combo 50
   (x  ) x
   (  c) c
-  (x c) tab
-)
-
-(defchords bottom-right 50
-  (h  ) h
-  (  ,) ,
-  (h ,) ret
+  (x c) G-x
 )
 
 ;; Layer aliases for clarity
 (defalias
-  ;; Home row modifiers
-  a_gui (t! charmod a lmet)
+  ;; Home row modifiers - using tap dance for A and O to match Vial config
+  a_td (multi
+    (tap-hold-release 190 a lmet a)
+  )
   r_alt (t! charmod r lalt)
   s_ctl (t! charmod s lctl)
   t_sft (t! charmod t lsft)
   n_sft (t! charmod n rsft)
   e_ctl (t! charmod e rctl)
   i_alt (t! charmod i ralt)
-  o_gui (t! charmod o rmet)
+  o_td (multi
+    (tap-hold-release 200 o rmet o)
+  )
   
   ;; Layer tap-holds for thumb keys
   esc_media (tap-hold-release 200 esc (layer-toggle media))
@@ -84,9 +112,9 @@
 ;; Base layer (Colemak-DH with home row modifiers)
 (deflayer base
   grv  1    2    3    4    5    6    7    8    9    0    -
-  tab  q    @top-left-w @top-left-f p    b    j    @top-right-l @top-right-u y    '    =
-  [    @a_gui @r_alt @s_ctl @t_sft g    m    @n_sft @e_ctl @i_alt @o_gui ]
-  ;    z    @bottom-left-x @bottom-left-c d    v    k    @bottom-right-h @bottom-right-, .    /    \
+  tab  (chord qw-combo q) (chord qw-combo w) (chord qwf-combo f) p    b    j    (chord lu-combo l) (chord uy-combo u) (chord uy-combo y) '    =
+  [    @a_td @r_alt @s_ctl @t_sft g    m    @n_sft @e_ctl @i_alt @o_td ]
+  ;    z    (chord xc-combo x) (chord cd-combo c) (chord cd-combo d) v    k    h    (chord comdot-combo ,) (chord comdot-combo .) /    \
               @esc_media @spc_nav @tab_mouse @del_fun @bsp_num @ent_sym
 )
 
@@ -102,7 +130,7 @@
 ;; Navigation layer
 (deflayer nav
   _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    C-y  C-v  C-c  C-x  C-z  _
+  _    _    _    _    _    _    G-z  G-v  G-c  G-x  G-s  _
   _    lmet lalt lctl lsft _    caps left down up   rght _
   _    _    _    _    _    _    ins  home pgdn pgup end  _
               _    _    _    del  bspc ret
@@ -111,7 +139,7 @@
 ;; Mouse layer
 (deflayer mouse
   _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    C-y  C-v  C-c  C-x  C-z  _
+  _    _    _    _    _    _    G-z  G-v  G-c  G-x  G-s  _
   _    lmet lalt lctl lsft _    caps mlft mdown mup  mrgt _
   _    _    _    _    _    _    ins  whll whld whlu whlr _
               _    _    _    mmid mrgt mlft
@@ -144,23 +172,7 @@
               f13  spc  tab  _    _    _
 )
 
-;; Chord implementations
-(deflayermap (top-left)
-  w (chord top-left w)
-  f (chord top-left f)
-)
-
-(deflayermap (top-right)
-  l (chord top-right l)
-  u (chord top-right u)
-)
-
-(deflayermap (bottom-left)
-  x (chord bottom-left x)
-  c (chord bottom-left c)
-)
-
-(deflayermap (bottom-right)
-  h (chord bottom-right h)
-  , (chord bottom-right ,)
-)
+;; Settings from Vial configuration
+;; Tapping term: 175ms (setting 4)
+;; Tap dance tapping term: 190ms for A, 200ms for O
+;; Combo term: 50ms (setting 2)
