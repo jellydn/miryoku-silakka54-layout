@@ -2,7 +2,7 @@
 
 🚀 **V1 Ready** - Traditional HRM layout is production-ready! Other versions are work-in-progress.
 
-An interactive Vue.js-based visualization and educational resource for adapting the Miryoku keyboard layout system to the Silakka54 split keyboard.
+A comprehensive implementation suite for the Miryoku keyboard layout system adapted to the Silakka54 split keyboard, featuring **three synchronized approaches**: firmware-based (Vial), software-based (Kanata), and educational visualization (Web UI).
 
 ## Overview
 
@@ -12,9 +12,34 @@ Miryoku operates on **five core principles**: using layers instead of reaching, 
 
 The Silakka54 represents the ideal adaptation target - **54-60 key layouts hit a sweet spot** with enough extra keys for meaningful enhancements without overwhelming the minimalist philosophy, as noted in community research.
 
+## Implementation Options
+
+Choose the approach that best fits your needs:
+
+### 🎛️ **Vial Configuration** (Firmware-based)
+- **Best for**: Split keyboard owners who want real-time configuration
+- **Location**: `vial/` folder
+- **Pros**: Real-time changes, visual interface, no software required
+- **Cons**: Requires Vial-compatible firmware
+
+### ⌨️ **Kanata Configuration** (Software-based)  
+- **Best for**: Any keyboard (MacBook, Keychron K7, standard keyboards)
+- **Location**: `kanata-v1.kbd` (split) & `kanata-standard-keyboards.kbd` (standard)
+- **Pros**: Works with any keyboard, no firmware flashing required
+- **Cons**: Software must run in background
+
+### 🌐 **Web Visualizer** (Educational)
+- **Best for**: Learning the layout, reference, and planning
+- **Location**: `index.html` and related files
+- **Pros**: Interactive learning, no installation, works anywhere
+- **Cons**: Visualization only, not functional
+
 ## Features
 
+- **Three Synchronized Implementations**: All configurations match the same tested layout
 - **Interactive Vue.js Visualizer**: Modern reactive interface with dynamic layer switching
+- **Real Vial Configuration**: Tested and optimized firmware configuration
+- **Dual Kanata Support**: Configurations for both split and standard keyboards
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
 - **Multiple Layout Versions**: 6 different approaches to Miryoku implementation
   - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
@@ -31,6 +56,35 @@ The Silakka54 represents the ideal adaptation target - **54-60 key layouts hit a
 - **No Build System**: Pure HTML/CSS/JS with CDN dependencies
 
 ## Quick Start
+
+### Choose Your Implementation
+
+#### For Split Keyboards (Silakka54)
+1. **Vial (Firmware)**: Use `vial/miryoku-silakka54-vial-config.json`
+   ```bash
+   # Install Vial app, load JSON configuration
+   # See vial/README.md for detailed instructions
+   ```
+
+2. **Kanata (Software)**: Use `kanata-v1.kbd`
+   ```bash
+   sudo kanata --cfg kanata-v1.kbd
+   # See KANATA.md for detailed instructions  
+   ```
+
+#### For Standard Keyboards (MacBook, Keychron K7)
+1. **Kanata (Software)**: Use `kanata-standard-keyboards.kbd`
+   ```bash
+   sudo kanata --cfg kanata-standard-keyboards.kbd
+   # See KANATA.md for detailed instructions
+   ```
+
+#### For Learning & Reference
+1. **Web Visualizer**: Open `index.html` 
+   ```bash
+   npx serve
+   # Then open browser to displayed URL (typically http://localhost:3000)
+   ```
 
 ### Local Development
 
@@ -68,6 +122,28 @@ npx live-server
 ### Direct Access
 
 You can also open `index.html` directly in your web browser, though some features may work better with a local server.
+
+## Implementation Comparison
+
+| Feature | Vial | Kanata | Web Visualizer |
+|---------|------|--------|----------------|
+| **Target Users** | Split keyboard owners | Any keyboard users | Everyone |
+| **Setup Complexity** | Medium (firmware flash) | Low (software install) | None (browser) |
+| **Real-time Changes** | ✅ Instant | ❌ Restart required | ❌ Reference only |
+| **Keyboard Support** | Vial-compatible only | Any keyboard | N/A |
+| **Background Software** | ❌ None needed | ✅ Runs in background | ❌ None needed |
+| **Offline Usage** | ✅ Always works | ✅ Always works | ✅ Always works |
+| **Configuration Backup** | ✅ Export/import JSON | ✅ File-based config | ❌ Display only |
+| **Learning Curve** | Low (GUI) | Medium (config files) | None (visual) |
+| **Advanced Features** | ✅ Full Vial features | ✅ Full Kanata features | ❌ Display only |
+
+### When to Use Which
+
+- **Use Vial** if you have a compatible split keyboard and want the easiest real-time configuration
+- **Use Kanata** if you have any keyboard and want software-based remapping
+- **Use Web Visualizer** for learning, reference, or if you're planning your setup
+
+All three implementations share the **same home row modifiers, layer mappings, and combo definitions** for seamless switching between approaches.
 
 ## How to Use This Layout
 
