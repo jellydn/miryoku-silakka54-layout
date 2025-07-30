@@ -180,7 +180,7 @@
                         <div 
                             v-for="key in getKeysForRow('left', row - 1)" 
                             :key="key.id"
-                            :class="['key rounded flex items-center justify-center tooltip', key.class]"
+                            :class="getKeyClasses(key)"
                             :data-key="key.id"
                             v-html="getKeyContent(key.id)"
                         ></div>
@@ -192,7 +192,7 @@
                     <div 
                         v-for="thumbKey in config.keyboardLayout.leftThumbKeys" 
                         :key="thumbKey.id"
-                        :class="['key rounded flex items-center justify-center tooltip', thumbKey.class]"
+                        :class="getKeyClasses(thumbKey)"
                         :data-key="thumbKey.id"
                         v-html="getKeyContent(thumbKey.id)"
                     ></div>
@@ -208,7 +208,7 @@
                         <div 
                             v-for="key in getKeysForRow('right', row - 1)" 
                             :key="key.id"
-                            :class="['key rounded flex items-center justify-center tooltip', key.class]"
+                            :class="getKeyClasses(key)"
                             :data-key="key.id"
                             v-html="getKeyContent(key.id)"
                         ></div>
@@ -220,7 +220,7 @@
                     <div 
                         v-for="thumbKey in config.keyboardLayout.rightThumbKeys" 
                         :key="thumbKey.id"
-                        :class="['key rounded flex items-center justify-center tooltip', thumbKey.class]"
+                        :class="getKeyClasses(thumbKey)"
                         :data-key="thumbKey.id"
                         v-html="getKeyContent(thumbKey.id)"
                     ></div>
@@ -563,6 +563,22 @@
                     const keys = side === 'left' ? this.config.keyboardLayout.leftKeys : this.config.keyboardLayout.rightKeys;
                     return keys ? keys.filter(key => key.row === row) : [];
                 },
+                getKeyClasses(key) {
+                    let classes = ['key', 'rounded', 'flex', 'items-center', 'justify-center', 'tooltip'];
+                    
+                    // Add base classes from config
+                    if (key.class) {
+                        const baseClasses = key.class.split(' ').filter(cls => cls !== 'combo-key');
+                        classes = classes.concat(baseClasses);
+                    }
+                    
+                    // Only add combo-key class if we're on the base layer
+                    if (this.currentLayer === 'base' && key.class && key.class.includes('combo-key')) {
+                        classes.push('combo-key');
+                    }
+                    
+                    return classes;
+                },
                 getKeyContent(keyId) {
                     if (!this.config.layerData) return '';
                     const layerData = this.config.layerData[this.currentLayer];
@@ -579,9 +595,12 @@
                     }
                 },
                 getTooltipText(keyId, keyValue) {
-                    if (this.config.tooltips && this.config.tooltips[keyId]) {
+                    // Only show combo-specific tooltips on base layer
+                    if (this.currentLayer === 'base' && this.config.tooltips && this.config.tooltips[keyId]) {
                         return this.config.tooltips[keyId];
-                    } else if (keyValue === '' || keyValue === '___') {
+                    } 
+                    // For non-base layers, show generic descriptions
+                    else if (keyValue === '' || keyValue === '___') {
                         return keyValue === '___' ? 'Layer key being held' : 'No function on this layer';
                     } else {
                         // Generic tooltip for regular keys
