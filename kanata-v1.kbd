@@ -1,0 +1,166 @@
+;; Miryoku Layout for Silakka54 - Version 1 (Traditional HRM)
+;; This configuration implements the Miryoku layout adaptation for the Silakka54 keyboard
+;; with Colemak-DH base layer and home row modifiers using the GACS pattern.
+;;
+;; Home Row Modifiers:
+;; Left hand:  A(GUI), R(Alt), S(Ctrl), T(Shift)
+;; Right hand: N(Shift), E(Ctrl), I(Alt), O(GUI)
+;;
+;; Thumb keys:
+;; Left:  Esc(Media), Space(Nav), Tab(Mouse)
+;; Right: Enter(Sym), Backspace(Num), Delete(Fun)
+;;
+;; The home row modifiers use tap-hold-release-timeout with key-timing logic
+;; to prevent accidental modifier activation during fast typing.
+
+(defcfg
+  process-unmapped-keys no
+)
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -
+  tab  q    w    f    p    b    j    l    u    y    '    =
+  [    a    r    s    t    g    m    n    e    i    o    ]
+  ;    z    x    c    d    v    k    h    ,    .    /    \
+              esc  spc  tab  del  bspc ret
+)
+
+;; Template for home row modifiers with key-timing logic
+(deftemplate charmod (char mod)
+  (switch 
+    ((key-timing 3 less-than 250)) $char break
+    () (tap-hold-release-timeout 200 500 $char $mod $char) break
+  )
+)
+
+;; Chord definitions for combos
+;; Top row combos (mirrored on both sides)
+(defchords top-left 50
+  (w  ) w
+  (  f) f
+  (w f) esc
+)
+
+(defchords top-right 50
+  (l  ) l
+  (  u) u
+  (l u) bspc
+)
+
+;; Bottom row combos (mirrored on both sides)
+(defchords bottom-left 50
+  (x  ) x
+  (  c) c
+  (x c) tab
+)
+
+(defchords bottom-right 50
+  (h  ) h
+  (  ,) ,
+  (h ,) ret
+)
+
+;; Layer aliases for clarity
+(defalias
+  ;; Home row modifiers
+  a_gui (t! charmod a lmet)
+  r_alt (t! charmod r lalt)
+  s_ctl (t! charmod s lctl)
+  t_sft (t! charmod t lsft)
+  n_sft (t! charmod n rsft)
+  e_ctl (t! charmod e rctl)
+  i_alt (t! charmod i ralt)
+  o_gui (t! charmod o rmet)
+  
+  ;; Layer tap-holds for thumb keys
+  esc_media (tap-hold-release 200 esc (layer-toggle media))
+  spc_nav   (tap-hold-release 200 spc (layer-toggle nav))
+  tab_mouse (tap-hold-release 200 tab (layer-toggle mouse))
+  ent_sym   (tap-hold-release 200 ret (layer-toggle sym))
+  bsp_num   (tap-hold-release 200 bspc (layer-toggle num))
+  del_fun   (tap-hold-release 200 del (layer-toggle fun))
+)
+
+;; Base layer (Colemak-DH with home row modifiers)
+(deflayer base
+  grv  1    2    3    4    5    6    7    8    9    0    -
+  tab  q    @top-left-w @top-left-f p    b    j    @top-right-l @top-right-u y    '    =
+  [    @a_gui @r_alt @s_ctl @t_sft g    m    @n_sft @e_ctl @i_alt @o_gui ]
+  ;    z    @bottom-left-x @bottom-left-c d    v    k    @bottom-right-h @bottom-right-, .    /    \
+              @esc_media @spc_nav @tab_mouse @del_fun @bsp_num @ent_sym
+)
+
+;; Media layer
+(deflayer media
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    lmet lalt lctl lsft _    _    prev vold volu next _
+  _    _    _    _    _    _    _    _    _    _    _    _
+              _    _    _    stop play mute
+)
+
+;; Navigation layer
+(deflayer nav
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    C-y  C-v  C-c  C-x  C-z  _
+  _    lmet lalt lctl lsft _    caps left down up   rght _
+  _    _    _    _    _    _    ins  home pgdn pgup end  _
+              _    _    _    del  bspc ret
+)
+
+;; Mouse layer
+(deflayer mouse
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    C-y  C-v  C-c  C-x  C-z  _
+  _    lmet lalt lctl lsft _    caps mlft mdown mup  mrgt _
+  _    _    _    _    _    _    ins  whll whld whlu whlr _
+              _    _    _    mmid mrgt mlft
+)
+
+;; Symbol layer
+(deflayer sym
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    {    &    *    \(   }    _    _    _    _    _    _
+  _    :    $    %    ^    +    _    rsft rctl ralt rmet _
+  _    ~    !    @    #    |    _    _    _    _    _    _
+              \(   \)   \_   _    _    _
+)
+
+;; Number layer
+(deflayer num
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    [    7    8    9    ]    _    _    _    _    _    _
+  _    ;    4    5    6    =    _    rsft rctl ralt rmet _
+  _    grv  1    2    3    \    _    _    _    _    _    _
+              .    0    -    _    _    _
+)
+
+;; Function layer
+(deflayer fun
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    f12  f7   f8   f9   prnt _    _    _    _    _    _
+  _    f11  f4   f5   f6   slck _    rsft rctl ralt rmet _
+  _    f10  f1   f2   f3   pause _   _    _    _    _    _
+              f13  spc  tab  _    _    _
+)
+
+;; Chord implementations
+(deflayermap (top-left)
+  w (chord top-left w)
+  f (chord top-left f)
+)
+
+(deflayermap (top-right)
+  l (chord top-right l)
+  u (chord top-right u)
+)
+
+(deflayermap (bottom-left)
+  x (chord bottom-left x)
+  c (chord bottom-left c)
+)
+
+(deflayermap (bottom-right)
+  h (chord bottom-right h)
+  , (chord bottom-right ,)
+)
