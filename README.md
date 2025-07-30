@@ -44,13 +44,14 @@ Choose the approach that best fits your needs:
 - **Real Vial Configuration**: Tested and optimized firmware configuration
 - **Dual Kanata Support**: Configurations for both split and standard keyboards
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
-- **Multiple Layout Versions**: 6 different approaches to Miryoku implementation
+- **Multiple Layout Versions**: 7 different approaches to Miryoku implementation
   - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
   - 🟢 **Pinky Relief** (V1-P): Weak finger friendly with redistributed load - **READY**
   - 🟡 **Optimized 4-Layer** (V2): Reduced layers with direct symbol access - **WIP**
   - 🟡 **No HRM Dedicated** (V3): 7-Layer with dedicated modifier keys - **WIP**
   - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
   - 🟡 **Coding Optimized** (V5): Programming-focused enhancements - **WIP**
+  - 🔴 **Extreme Protection** (V6): Zero pinky use with disabled outer columns - **EXPERIMENTAL**
 - **Interactive Tooltips**: Hover over any key to see detailed explanations
 - **Educational Guide**: Comprehensive documentation of Miryoku principles and adaptation strategies
 - **Layer Switching Guide**: Step-by-step instructions for each version
@@ -309,6 +310,14 @@ Each layout includes navigation buttons to easily compare between:
 - Redistributed outer column symbols
 - Strategic key placement for comfort
 
+### 🔴 V6 - Extreme Protection (Experimental)
+- Zero pinky strain with disabled outer columns
+- 100% pinky protection (6 keys completely disabled)
+- 42 active keys instead of 48
+- GUI/Cmd moved to thumb keys
+- For severe RSI or injury recovery
+- High learning curve but maximum ergonomics
+
 ### 🚧 V2 - Optimized 4-Layer (Work in Progress)
 - Reduced to 4 layers for efficiency
 - Direct symbol access on base layer
@@ -455,6 +464,60 @@ This variant is ideal for users with:
 - Repetitive stress concerns
 - Preference for gentler key placement
 - Need for extended typing sessions
+
+## V6 Extreme Protection (Experimental)
+
+For users with severe RSI or during injury recovery, the **V6 Extreme Protection** layout takes a radical approach by completely disabling all outer column keys.
+
+### Design Philosophy
+
+**Zero Compromise on Pinky Health**: Rather than optimizing pinky usage, V6 eliminates it entirely by disabling all 6 outer column keys. This forces perfect ergonomic hand positioning.
+
+### Key Features
+
+**Disabled Keys (Red Zones):**
+- All outer column positions marked with ❌
+- Visual red striped pattern indicates no-go zones
+- 48 → 42 active keys (87.5% of original)
+- Forces hands to stay in optimal position
+
+**Relocated Functionality:**
+- GUI/Cmd moved to thumb keys (LT1, RT1)
+- All symbols accessible via layers
+- Simplified 4-layer system
+- Mac-optimized for CLI workflows
+
+### Comparison with Other Approaches
+
+| Feature | V1 Traditional | V1-P Balanced | V6 Extreme |
+|---------|---------------|---------------|------------|
+| Pinky Strain | 100% | 50% | 0% |
+| Active Keys | 48 | 48 | 42 |
+| Learning Curve | Medium | Low | High |
+| Best Use Case | General | Weak fingers | Severe RSI |
+
+### When to Use V6
+
+**Recommended for:**
+- Severe RSI or tendonitis recovery
+- Post-surgery rehabilitation
+- Extreme preventive measures
+- Testing if pinky strain is your main issue
+
+**Not recommended for:**
+- General use or mild discomfort (use V1-P instead)
+- Users who need all 48 keys regularly
+- Quick adaptation needs
+- First-time Miryoku users
+
+### Files and Access
+
+- **Layout file**: `index-v6.html`
+- **Configuration**: `app-v6.json`
+- **Visual indicators**: Red striped disabled zones
+- **Access**: Available from version navigation
+
+⚠️ **Important**: This is an experimental layout. Most users should try V1-P Pinky Relief first, which provides 50% strain reduction while maintaining full keyboard functionality.
 
 ## Home Row Modifiers Configuration
 
