@@ -1,0 +1,193 @@
+;; Miryoku Layout for Standard Keyboards (MacBook/Keychron K7/etc.)
+;; STATUS: UNTESTED/WORK IN PROGRESS
+;; WARNING: This configuration has NOT been tested on actual hardware.
+;;          It was created based on the tested Vial configuration but may need adjustments.
+;; This configuration implements the Miryoku layout adaptation for standard keyboards
+;; with Colemak-DH base layer and home row modifiers using the GACS pattern.
+;;
+;; Compatible with:
+;; - MacBook keyboards (built-in and external)  
+;; - Keychron K7 (65%, 75%, TKL layouts)
+;; - Most standard QWERTY keyboards
+;;
+;; Home Row Modifiers:
+;; Left hand:  A(GUI), R(Alt), S(Ctrl), T(Shift)
+;; Right hand: N(Shift), E(Ctrl), I(Alt), O(GUI)
+;;
+;; Layer Access (using existing keys):
+;; - Caps Lock → Escape/Media layer
+;; - Space → Space/Navigation layer (hold for nav)
+;; - Tab → Tab/Mouse layer (hold for mouse)
+;; - Enter → Enter/Symbols layer (hold for symbols)
+;; - Backspace → Backspace/Numbers layer (hold for numbers)
+;; - Right Shift → Function layer access
+
+(defcfg
+  process-unmapped-keys yes
+  ;; Enable for better compatibility with different keyboards
+  log-layer-changes no
+)
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+                      left down up   rght
+)
+
+;; Template for home row modifiers with key-timing logic
+;; Updated timing to match Vial settings (175ms base tapping term)
+(deftemplate charmod (char mod)
+  (switch 
+    ((key-timing 3 less-than 220)) $char break
+    () (tap-hold-release-timeout 175 500 $char $mod $char) break
+  )
+)
+
+;; Chord definitions matching Vial configuration
+(defchords qw-combo 50
+  (q  ) q
+  (  w) w
+  (q w) esc
+)
+
+(defchords qer-combo 50
+  (q  ) q
+  (  e) e
+  (    r) r
+  (q e r) G-q
+)
+
+(defchords ui-combo 50
+  (u  ) u
+  (  i) i
+  (u i) esc
+)
+
+(defchords xc-combo 50
+  (x  ) x
+  (  c) c
+  (x c) G-x
+)
+
+(defchords cv-combo 50
+  (c  ) c
+  (  v) v
+  (c v) G-c
+)
+
+(defchords comdot-combo 50
+  (,  ) ,
+  (  .) .
+  (, .) A-C-S-lmet
+)
+
+;; Layer aliases for clarity
+(defalias
+  ;; Home row modifiers - using tap dance for A and O to match Vial config
+  a_td (multi
+    (tap-hold-release 190 a lmet a)
+  )
+  s_alt (t! charmod s lalt)
+  d_ctl (t! charmod d lctl)
+  f_sft (t! charmod f lsft)
+  j_sft (t! charmod j rsft)
+  k_ctl (t! charmod k rctl)
+  l_alt (t! charmod l ralt)
+  ;_td (multi
+    (tap-hold-release 200 ; rmet ;)
+  )
+  
+  ;; Layer tap-holds using existing keys
+  caps_media (tap-hold-release 200 esc (layer-toggle media))
+  spc_nav   (tap-hold-release 200 spc (layer-toggle nav))
+  tab_mouse (tap-hold-release 200 tab (layer-toggle mouse))
+  ret_sym   (tap-hold-release 200 ret (layer-toggle sym))
+  bsp_num   (tap-hold-release 200 bspc (layer-toggle num))
+  rsft_fun  (tap-hold-release 200 rsft (layer-toggle fun))
+)
+
+;; Base layer (QWERTY positions, Colemak-DH letters with home row modifiers)
+(deflayer base
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    @bsp_num
+  @tab_mouse (chord qw-combo q) (chord qw-combo w) e    r    t    y    (chord ui-combo u) (chord ui-combo i) o    p    [    ]    \
+  @caps_media @a_td @s_alt @d_ctl @f_sft g    h    @j_sft @k_ctl @l_alt @;_td '    @ret_sym
+  lsft z    (chord xc-combo x) (chord cv-combo c) (chord cv-combo v) b    n    m    (chord comdot-combo ,) (chord comdot-combo .) /    @rsft_fun
+  lctl lmet lalt           @spc_nav            ralt rmet rctl
+                      left down up   rght
+)
+
+;; Media layer  
+(deflayer media
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    lmet lalt lctl lsft _    _    prev vold volu next _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _
+                      _    _    _    _
+)
+
+;; Navigation layer
+(deflayer nav
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    G-z  G-v  G-c  G-x  G-s  _    _    _
+  _    lmet lalt lctl lsft _    caps left down up   rght _    _    _
+  _    _    _    _    _    _    ins  home pgdn pgup end  _
+  _    _    _              _              _    _    _
+                      _    _    _    _
+)
+
+;; Mouse layer
+(deflayer mouse
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    G-z  G-v  G-c  G-x  G-s  _    _    _
+  _    lmet lalt lctl lsft _    caps mlft mdown mup  mrgt _    _    _
+  _    _    _    _    _    _    ins  whll whld whlu whlr _
+  _    _    _              _              _    _    _
+                      _    _    _    _
+)
+
+;; Symbol layer
+(deflayer sym
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    {    &    *    \(   }    _    _    _    _    _    _    _    _
+  _    :    $    %    ^    +    _    rsft rctl ralt rmet _    _    _
+  _    ~    !    @    #    |    _    _    _    _    _    _
+  _    _    _              _              _    _    _
+                      _    _    _    _
+)
+
+;; Number layer
+(deflayer num
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    [    7    8    9    ]    _    _    _    _    _    _    _    _
+  _    ;    4    5    6    =    _    rsft rctl ralt rmet _    _    _
+  _    grv  1    2    3    \    _    _    _    _    _    _
+  _    _    _              _              _    _    _
+                      _    _    _    _
+)
+
+;; Function layer  
+(deflayer fun
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    f12  f7   f8   f9   prnt _    _    _    _    _    _    _    _
+  _    f11  f4   f5   f6   slck _    rsft rctl ralt rmet _    _    _
+  _    f10  f1   f2   f3   pause _   _    _    _    _    _
+  _    _    _              _              _    _    _
+                      _    _    _    _
+)
+
+;; Settings from Vial configuration
+;; Tapping term: 175ms (setting 4)
+;; Tap dance tapping term: 190ms for A, 200ms for semicolon
+;; Combo term: 50ms (setting 2)
