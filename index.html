@@ -228,6 +228,96 @@
             </div>
         </div>
 
+        <!-- Combo Reference -->
+        <div class="mt-8 bg-white p-4 rounded-lg shadow">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold">Combo Reference (Vial Configuration)</h3>
+                <button 
+                    @click="showCombos = !showCombos" 
+                    class="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors"
+                >
+                    {{ showCombos ? 'Hide' : 'Show' }} Combos
+                </button>
+            </div>
+            
+            <div v-show="showCombos" class="transition-all duration-300">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Essential Combos -->
+                    <div>
+                        <h4 class="font-medium mb-3 text-blue-700">Essential Navigation</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">Q + W</span>
+                                <span class="text-gray-600">→</span>
+                                <span>Escape</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">L + U</span>
+                                <span class="text-gray-600">→</span>
+                                <span>Escape</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">W + F</span>
+                                <span class="text-gray-600">→</span>
+                                <span>GUI/Super modifier</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Editing Combos -->
+                    <div>
+                        <h4 class="font-medium mb-3 text-green-700">Text Editing</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">X + C</span>
+                                <span class="text-gray-600">→</span>
+                                <span>Cut (Cmd+X)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">C + D</span>
+                                <span class="text-gray-600">→</span>
+                                <span>Copy (Cmd+C)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">U + Y</span>
+                                <span class="text-gray-600">→</span>
+                                <span>Quote (')</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Combos -->
+                <div class="mt-6">
+                    <h4 class="font-medium mb-3 text-purple-700">Advanced Combos</h4>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                            <span class="font-mono bg-yellow-100 px-2 py-1 rounded">Q + W + F</span>
+                            <span class="text-gray-600">→</span>
+                            <span>Quit App (Cmd+Q)</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                            <span class="font-mono bg-yellow-100 px-2 py-1 rounded">, + .</span>
+                            <span class="text-gray-600">→</span>
+                            <span>MEH (Alt+Ctrl+Shift+GUI)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Usage Tips -->
+                <div class="mt-6 p-3 bg-blue-50 rounded-lg">
+                    <h5 class="font-medium text-blue-800 mb-2">💡 Combo Tips for Small Hands</h5>
+                    <ul class="text-sm text-blue-700 space-y-1">
+                        <li>• Press keys simultaneously - no need to hold and press</li>
+                        <li>• Q+W is easier than reaching for Escape key</li>
+                        <li>• X+C and C+D combos are faster than Cmd+X/C shortcuts</li>
+                        <li>• All combos use adjacent or nearby keys for comfort</li>
+                        <li>• Yellow highlighted keys show which keys have combos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <!-- Legend -->
         <div class="mt-8 bg-white p-4 rounded-lg shadow">
             <h3 class="font-semibold mb-3">Key Features of This Layout</h3>
@@ -250,6 +340,10 @@
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 bg-green-200 rounded"></div>
                             <span>Thumb keys (Space/Enter/Tab/Layer switches)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-yellow-100 border-2 border-dashed border-yellow-600 rounded"></div>
+                            <span>Combo keys (see Combo Reference above)</span>
                         </div>
                     </div>
                 </div>
@@ -429,7 +523,8 @@
                         tooltips: {},
                         layerData: {}
                     },
-                    currentLayer: 'base'
+                    currentLayer: 'base',
+                    showCombos: false
                 }
             },
             async mounted() {
