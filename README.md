@@ -51,6 +51,7 @@ Choose the approach that best fits your needs:
   - 🟡 **No HRM Dedicated** (V3): 7-Layer with dedicated modifier keys - **WIP**
   - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
   - 🟡 **Coding Optimized** (V5): Programming-focused enhancements - **WIP**
+  - 🟢 **OSM Optimized** (V6): One-Shot Modifiers via OSL layer - **READY**
 - **Interactive Tooltips**: Hover over any key to see detailed explanations
 - **Educational Guide**: Comprehensive documentation of Miryoku principles and adaptation strategies
 - **Layer Switching Guide**: Step-by-step instructions for each version
@@ -308,6 +309,13 @@ Each layout includes navigation buttons to easily compare between:
 - No GUI modifiers on A/O keys
 - Redistributed outer column symbols
 - Strategic key placement for comfort
+
+### ✅ V6 - OSM Optimized (Production Ready)
+- True One-Shot Modifier behavior via OSL workaround
+- 8th layer dedicated to modifier keys
+- Programming-optimized symbol layer
+- Reduced pinky strain with thumb shift
+- Based on OSM research and Vial limitations
 
 ### 🚧 V2 - Optimized 4-Layer (Work in Progress)
 - Reduced to 4 layers for efficiency
@@ -594,6 +602,89 @@ You'll know your configuration is optimal when:
 - ✅ **Consistent behavior** across different typing speeds
 
 Remember: **Perfect configuration is personal** - what works for others may need adjustment for your typing style, finger strength, and keyboard switch characteristics.
+
+## V6 OSM Implementation (One-Shot Modifiers)
+
+The V6 layout implements One-Shot Modifiers using an ingenious workaround that provides true sticky modifier behavior within Vial's constraints. This addresses a critical limitation where Vial's GUI doesn't expose OSM keycodes despite firmware support.
+
+### The OSL Workaround Strategy
+
+Instead of using unavailable OSM keycodes, V6 leverages **One-Shot Layer (OSL)** functionality which IS available in Vial:
+
+1. **Dedicated OSM Layer**: Layer 8 contains only modifier keys on home row positions
+2. **OSL Access**: Right thumb key activates the OSM layer temporarily
+3. **True Sticky Behavior**: Tap OSL → tap modifier → modifier stays active for next keypress
+4. **No Holding Required**: Eliminates the need for simultaneous key holds
+
+### Key Features
+
+#### Ergonomic Improvements
+- **Shift on left thumb**: Most used modifier moved to strongest digit
+- **Enter/Backspace on thumbs**: Reduces pinky strain
+- **Tab moved to thumb**: Further pinky relief
+- **Escape on dedicated key**: No combo required
+
+#### Programming-Optimized Symbol Layer
+Based on Pascal Getreuer's research on coding efficiency:
+- **Bracket grouping**: `{}`, `[]`, `()` arranged for inward rolls
+- **Common bigrams**: `!=`, `<=`, `==` positioned for comfort
+- **Strong finger placement**: Frequent symbols on index/middle fingers
+- **Avoided pinky doubles**: No `++`, `//` on weak fingers
+
+#### Implementation Details
+
+**Base Layer Changes:**
+- Number row maintains familiar 1-0 positions
+- Escape replaces backtick (L01)
+- Quote/apostrophe on left pinky area
+- Minus on left edge for easy access
+
+**OSM Layer (Layer 8):**
+```
+Left home row:  LCtrl | LAlt | LShift | LGui
+Right home row: RGui | RShift | RAlt | RCtrl
+```
+
+**Thumb Cluster Usage:**
+- **LT1**: Shift (tap) / Media layer (hold)
+- **LT2**: Space (tap) / Navigation layer (hold)
+- **LT3**: Enter (tap) / Mouse layer (hold)
+- **RT1**: Backspace (tap) / Symbols layer (hold)
+- **RT2**: Tab (tap) / Numbers layer (hold)
+- **RT3**: OSL to OSM layer
+
+### Vial Configuration
+
+To implement this in Vial:
+
+1. **Create Layer 8** as your OSM layer
+2. **Assign modifiers** to home row positions only
+3. **Set RT3** to `OSL(8)` in the GUI
+4. **Configure tap-hold** for other thumb keys
+5. **Test sticky behavior**: Tap RT3 → tap modifier → type letter
+
+### Usage Examples
+
+**Capital Letter**: 
+- Traditional: Hold Shift + tap A
+- V6 OSM: Tap OSL → tap Shift position → tap A
+
+**Ctrl+C Copy**:
+- Traditional: Hold Ctrl + tap C
+- V6 OSM: Tap OSL → tap Ctrl position → tap C
+
+**Alt+Tab Switch**:
+- Traditional: Hold Alt + tap Tab
+- V6 OSM: Tap OSL → tap Alt position → tap Tab (thumb)
+
+### Adaptation Timeline
+
+**Week 1**: Focus on OSL timing and modifier positions
+**Week 2**: Practice common shortcuts with sticky behavior
+**Week 3**: Integrate with regular typing flow
+**Week 4**: Achieve seamless modifier usage
+
+This implementation provides the ergonomic benefits of One-Shot Modifiers without requiring QMK compilation or losing Vial's real-time configuration capabilities.
 
 ## Resources
 
