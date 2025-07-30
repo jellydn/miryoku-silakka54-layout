@@ -1,16 +1,20 @@
 # Kanata Layout Implementation
 
-This document provides guidance for implementing the Miryoku Silakka54 layout using the [Kanata](https://github.com/jtroo/kanata) keyboard remapping software.
+This document provides guidance for implementing the Miryoku layout using [Kanata](https://github.com/jtroo/kanata) keyboard remapping software on **both split keyboards and standard keyboards**.
 
 ## Overview
 
 Kanata is a cross-platform keyboard remapping tool that allows for advanced key behavior customization, including:
 - Home row modifiers with tap-hold functionality
-- Layer switching and activation
+- Layer switching and activation  
 - Chord combinations for virtual key expansion
 - Advanced key timing logic to prevent accidental modifier activation
 
-The `kanata-v1.kbd` file implements the **V1 Traditional HRM** layout with all 7 layers and home row modifiers following the GACS pattern.
+We provide **two configurations**:
+- **`kanata-v1.kbd`**: Optimized for **Silakka54 split keyboards** (54 keys)
+- **`kanata-standard-keyboards.kbd`**: Adapted for **standard keyboards** (MacBook, Keychron K7, etc.)
+
+Both implement the **V1 Traditional HRM** layout with all 7 layers and home row modifiers following the GACS pattern.
 
 ## Features
 
@@ -45,6 +49,21 @@ Implements chord combinations matching your Vial configuration:
 - **Left thumb**: Esc(Media), Space(Nav), Tab(Mouse)
 - **Right thumb**: Enter(Sym), Backspace(Num), Delete(Fun)
 
+## Choosing Your Configuration
+
+### For Split Keyboards (Silakka54, Corne, etc.)
+Use **`kanata-v1.kbd`** if you have:
+- Silakka54 split keyboard
+- Similar 54-key split keyboards
+- Custom split keyboards with thumb clusters
+
+### For Standard Keyboards  
+Use **`kanata-standard-keyboards.kbd`** if you have:
+- **MacBook keyboards** (built-in or external)
+- **Keychron K7** (65%, 75%, TKL layouts) 
+- **Most standard QWERTY keyboards**
+- **Gaming keyboards** with standard layouts
+
 ## Installation and Setup
 
 ### Prerequisites
@@ -56,6 +75,7 @@ Implements chord combinations matching your Vial configuration:
 
 ### Configuration Steps
 
+#### For Split Keyboards (Silakka54)
 1. **Copy the configuration file**:
    ```bash
    cp kanata-v1.kbd ~/.config/kanata/config.kbd
@@ -70,11 +90,93 @@ Implements chord combinations matching your Vial configuration:
    kanata.exe --cfg config.kbd
    ```
 
+#### For Standard Keyboards (MacBook/Keychron K7)
+1. **Copy the standard keyboard configuration**:
+   ```bash
+   cp kanata-standard-keyboards.kbd ~/.config/kanata/config.kbd
+   ```
+
+2. **Start Kanata**:
+   ```bash
+   # Linux/macOS  
+   sudo kanata --cfg ~/.config/kanata/config.kbd
+   
+   # Windows (as administrator)
+   kanata.exe --cfg config.kbd
+   ```
+
+### Testing Your Setup
+
 3. **Test the layout**:
    - Verify base layer typing works correctly
    - Test home row modifiers with tap and hold actions
-   - Confirm layer switching with thumb keys
+   - Confirm layer switching works with your keyboard's keys
    - Validate chord combinations
+
+## Key Differences Between Configurations
+
+### Split Keyboard Configuration (`kanata-v1.kbd`)
+- **Dedicated thumb cluster**: Uses actual thumb keys for layer switching
+- **54-key layout**: Optimized for minimal key count
+- **Thumb key access**: Esc(Media), Space(Nav), Tab(Mouse), Enter(Sym), Backspace(Num), Delete(Fun)
+- **Combos**: Q+W, L+U, X+C, H+, combinations
+- **Pure Miryoku**: Closest to original Miryoku design philosophy
+
+### Standard Keyboard Configuration (`kanata-standard-keyboards.kbd`)
+- **Repurposed existing keys**: Uses Caps Lock, Right Shift, etc. for layer access
+- **More keys available**: Includes function row, arrow keys, full layout
+- **Layer access adaptations**:
+  - **Caps Lock** → Escape/Media layer
+  - **Space** → Space/Navigation layer (hold for nav)
+  - **Tab** → Tab/Mouse layer (hold for mouse)  
+  - **Enter** → Enter/Symbols layer (hold for symbols)
+  - **Backspace** → Backspace/Numbers layer (hold for numbers)
+  - **Right Shift** → Function layer access
+- **Modified combos**: Adapted for QWERTY positions (Q+W, U+I, X+C, C+V)
+- **Compatibility**: Works with existing function keys and arrow keys
+
+### Home Row Modifiers (Both Configurations)
+Both use the same GACS pattern:
+- **A key**: Tap-dance A/GUI (190ms timing)
+- **S/R key**: Alt modifier (175ms)
+- **D/S key**: Control modifier (175ms)  
+- **F/T key**: Shift modifier (175ms)
+- **J/N key**: Shift modifier (175ms)
+- **K/E key**: Control modifier (175ms)
+- **L/I key**: Alt modifier (175ms)
+- **;/O key**: Tap-dance ;/GUI (200ms timing)
+
+## Quick Start Guide
+
+### For MacBook Users
+1. **Download**: `kanata-standard-keyboards.kbd`
+2. **Key changes you'll notice**:
+   - **Caps Lock** becomes Escape (tap) or Media layer (hold)
+   - **Home row keys** (A, S, D, F, J, K, L, ;) become modifiers when held
+   - **Space, Tab, Enter, Backspace** access different layers when held
+   - **All function keys and arrow keys work normally**
+3. **Most useful combos**:
+   - **Q+W** = Escape (easier than reaching top-left)
+   - **X+C** = Cut, **C+V** = Copy (faster than Cmd shortcuts)
+   - **,+.** = MEH modifier for advanced shortcuts
+
+### For Keychron K7 Users  
+1. **Download**: `kanata-standard-keyboards.kbd`
+2. **Switch your K7 to Mac mode** (Fn+K+C for 3 seconds)
+3. **Key adaptations**:
+   - **Your existing layout works** - this adds functionality on top
+   - **Home row modifiers** replace need for pinky reaching
+   - **Caps Lock** → Media controls when held
+   - **Right Shift** → Function layer (F1-F12 on left hand)
+4. **Gaming mode**: Temporarily disable Kanata when gaming to avoid conflicts
+
+### For Split Keyboard Users (Silakka54)
+1. **Download**: `kanata-v1.kbd` 
+2. **Pure Miryoku experience**:
+   - **Thumb clusters** handle all layer switching
+   - **54 keys only** - no extra keys to distract
+   - **Optimized combos** for split layout
+   - **True Miryoku philosophy** - minimal keys, maximum efficiency
 
 ## Customization Guide
 
