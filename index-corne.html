@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miryoku Layout for Silakka54 (Vial-Aligned)</title>
+    <title>Miryoku Layout for Corne (42-key)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
@@ -176,7 +176,7 @@
                 <h3 class="text-center font-semibold mb-4">Left Half</h3>
                 <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
                     <!-- Render left keys by rows -->
-                    <template v-for="row in 4" :key="'left-row-' + row">
+                    <template v-for="row in 3" :key="'left-row-' + row">
                         <div 
                             v-for="key in getKeysForRow('left', row - 1)" 
                             :key="key.id"
@@ -204,7 +204,7 @@
                 <h3 class="text-center font-semibold mb-4">Right Half</h3>
                 <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
                     <!-- Render right keys by rows -->
-                    <template v-for="row in 4" :key="'right-row-' + row">
+                    <template v-for="row in 3" :key="'right-row-' + row">
                         <div 
                             v-for="key in getKeysForRow('right', row - 1)" 
                             :key="key.id"
@@ -231,7 +231,7 @@
         <!-- Combo Reference -->
         <div class="mt-8 bg-white p-4 rounded-lg shadow">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">Combo Reference (Vial Configuration)</h3>
+                <h3 class="font-semibold">Combo Reference (Corne Configuration)</h3>
                 <button 
                     @click="showCombos = !showCombos" 
                     class="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors"
@@ -269,50 +269,33 @@
                         <h4 class="font-medium mb-3 text-green-700">Text Editing</h4>
                         <div class="space-y-2 text-sm">
                             <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">X + C</span>
+                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">Q + W + F</span>
                                 <span class="text-gray-600">→</span>
-                                <span>Cut (Cmd+X)</span>
-                            </div>
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">C + D</span>
-                                <span class="text-gray-600">→</span>
-                                <span>Copy (Cmd+C)</span>
+                                <span>Quit App (Cmd+Q)</span>
                             </div>
                             <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
                                 <span class="font-mono bg-yellow-100 px-2 py-1 rounded">U + Y</span>
                                 <span class="text-gray-600">→</span>
                                 <span>Quote (')</span>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Advanced Combos -->
-                <div class="mt-6">
-                    <h4 class="font-medium mb-3 text-purple-700">Advanced Combos</h4>
-                    <div class="grid md:grid-cols-2 gap-4 text-sm">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                            <span class="font-mono bg-yellow-100 px-2 py-1 rounded">Q + W + F</span>
-                            <span class="text-gray-600">→</span>
-                            <span>Quit App (Cmd+Q)</span>
-                        </div>
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                            <span class="font-mono bg-yellow-100 px-2 py-1 rounded">, + .</span>
-                            <span class="text-gray-600">→</span>
-                            <span>MEH (Alt+Ctrl+Shift+GUI)</span>
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">, + .</span>
+                                <span class="text-gray-600">→</span>
+                                <span>MEH (Alt+Ctrl+Shift+GUI)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Usage Tips -->
                 <div class="mt-6 p-3 bg-blue-50 rounded-lg">
-                    <h5 class="font-medium text-blue-800 mb-2">💡 Combo Tips for Small Hands</h5>
+                    <h5 class="font-medium text-blue-800 mb-2">💡 Corne 42-Key Layout Features</h5>
                     <ul class="text-sm text-blue-700 space-y-1">
-                        <li>• Press keys simultaneously - no need to hold and press</li>
-                        <li>• Q+W is easier than reaching for Escape key</li>
-                        <li>• X+C and C+D combos are faster than Cmd+X/C shortcuts</li>
-                        <li>• All combos use adjacent or nearby keys for comfort</li>
-                        <li>• Yellow highlighted keys show which keys have combos</li>
+                        <li>• 3x6+3 split layout optimized for ergonomics</li>
+                        <li>• Home row modifiers (GACS pattern)</li>
+                        <li>• Five dedicated layers accessible via thumb keys</li>
+                        <li>• Tap dance A/O keys for GUI access</li>
+                        <li>• Strategic combo placements for efficiency</li>
                     </ul>
                 </div>
             </div>
@@ -330,16 +313,12 @@
                             <span>Home row with modifiers (GUI/Alt/Ctrl/Shift)</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-orange-100 rounded"></div>
-                            <span>Number row with direct symbol access</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="w-4 h-4 bg-purple-100 rounded"></div>
-                            <span>Common symbols and extra keys</span>
+                            <div class="w-4 h-4 bg-gray-100 rounded"></div>
+                            <span>Standard alphanumeric keys</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 bg-green-200 rounded"></div>
-                            <span>Thumb keys (Space/Enter/Tab/Layer switches)</span>
+                            <span>Thumb keys (Layer switches)</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 bg-yellow-100 border-2 border-dashed border-yellow-600 rounded"></div>
@@ -350,11 +329,11 @@
                 <div>
                     <h4 class="font-medium mb-2">Layout Benefits:</h4>
                     <ul class="space-y-1 text-gray-600">
-                        <li>• Direct access to numbers and symbols</li>
-                        <li>• Common punctuation readily available</li>
-                        <li>• Home row modifiers for ergonomics</li>
-                        <li>• Minimal layer switching needed</li>
-                        <li>• Preserves Miryoku core principles</li>
+                        <li>• Compact 42-key ergonomic layout</li>
+                        <li>• Home row modifiers for comfort</li>
+                        <li>• Layer-based number/symbol access</li>
+                        <li>• Optimal thumb cluster usage</li>
+                        <li>• Based on proven Miryoku principles</li>
                     </ul>
                 </div>
             </div>
@@ -375,43 +354,36 @@
                         <div class="flex items-start gap-2">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Esc key (left thumb)</strong> → Media layer (volume, RGB controls)
-                                <div class="text-gray-600 text-xs">Right hand becomes media controls</div>
+                                <strong>Space key (left thumb)</strong> → Mouse layer
+                                <div class="text-gray-600 text-xs">Mouse movement and clicks</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Space key (left thumb)</strong> → Navigation layer (arrows, clipboard)
-                                <div class="text-gray-600 text-xs">Right hand becomes navigation controls</div>
+                                <strong>Tab key (left thumb)</strong> → Navigation layer
+                                <div class="text-gray-600 text-xs">Arrow keys and navigation</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Tab key (left thumb)</strong> → Mouse layer (mouse movement and clicks)
-                                <div class="text-gray-600 text-xs">Right hand becomes mouse controls</div>
+                                <strong>Enter key (right thumb)</strong> → Symbols layer
+                                <div class="text-gray-600 text-xs">Special characters</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Enter key (right thumb)</strong> → Symbols layer (punctuation)
-                                <div class="text-gray-600 text-xs">Left hand becomes symbol controls</div>
+                                <strong>Backspace key (right thumb)</strong> → Numbers layer
+                                <div class="text-gray-600 text-xs">Numeric keypad layout</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-2">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Backspace key (right thumb)</strong> → Numbers layer (numpad)
-                                <div class="text-gray-600 text-xs">Left hand becomes number controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Delete key (right thumb)</strong> → Function layer (F-keys)
-                                <div class="text-gray-600 text-xs">Left hand becomes function key controls</div>
+                                <strong>Delete key (right thumb)</strong> → Function layer
+                                <div class="text-gray-600 text-xs">F-keys and system functions</div>
                             </div>
                         </div>
                     </div>
@@ -459,34 +431,13 @@
             <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
                 <p class="text-sm text-gray-600 mb-2">Compare Layout Versions:</p>
                 <div class="flex justify-center gap-2 flex-wrap">
+                    <a href="index.html" class="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors text-sm">
+                        Silakka54 Layout
+                    </a>
                     <span class="px-3 py-2 bg-blue-500 text-white rounded text-sm relative">
-                        Current: Traditional HRM
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">READY</span>
+                        Current: Corne 42-Key
+                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
                     </span>
-                    <a href="index-v1-pinky.html" class="px-3 py-2 bg-teal-500 text-white rounded hover:bg-teal-600 transition-colors text-sm relative">
-                        🤚 Pinky Relief
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm relative">
-                        Optimized 4-Layer
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm relative">
-                        No HRM Dedicated
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v4.html" class="px-3 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition-colors text-sm relative">
-                        4-Layer Balanced
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v5.html" class="px-3 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors text-sm relative">
-                        Coding Optimized
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-corne.html" class="px-3 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition-colors text-sm relative">
-                        ⌨️ Corne 42-Key
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -494,14 +445,14 @@
         <!-- Quick Tips -->
         <div class="mt-4 text-center text-gray-600">
             <p class="font-medium">Quick Reference:</p>
-            <p class="text-sm mt-1">Home row modifiers: GUI (pinky) | Alt (ring) | Ctrl (middle) | Shift (index)</p>
+            <p class="text-sm mt-1">Home row modifiers: GUI (A/O) | Alt (R/I) | Ctrl (S/E) | Shift (T/N)</p>
         </div>
 
         <!-- Footer -->
         <div class="mt-8 pt-8 border-t border-gray-300 text-center">
             <p class="text-xs text-gray-500">
                 <a href="https://github.com/manna-harbour/miryoku" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Miryoku Layout</a> by manna-harbour • 
-                <a href="https://github.com/Squalius-cephalus/silakka54" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Silakka54</a> keyboard • 
+                <a href="https://github.com/foostan/crkbd" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Corne Keyboard</a> • 
                 <a href="https://getreuer.info/posts/keyboards/alt-layouts/index.html#which-alt-keyboard-layout-should-i-learn" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Alt Layout Guide</a><br>
                 Built with <a href="https://claude.ai/code" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Claude Code</a> by <a href="http://itman.fyi/" class="text-blue-500 hover:underline" target="_blank" rel="noopener">itman.fyi</a>
             </p>
@@ -538,15 +489,15 @@
             methods: {
                 async loadConfig() {
                     try {
-                        const response = await fetch('./app.json');
+                        const response = await fetch('./app-corne.json');
                         this.config = await response.json();
                         this.currentLayer = this.config.layers.find(l => l.active)?.id || 'base';
                     } catch (error) {
                         console.error('Failed to load config:', error);
                         // Fallback config
                         this.config = {
-                            title: 'Miryoku Layout for Silakka54',
-                            subtitle: '54-key split keyboard with Colemak-DH, home row modifiers, and 6 orthogonal layers',
+                            title: 'Miryoku Layout for Corne',
+                            subtitle: '42-key split keyboard with Colemak-DH, home row modifiers, and 5 layers',
                             layers: [
                                 {id: 'base', name: 'Base', active: true}
                             ],
@@ -624,7 +575,6 @@
                             'Copy': 'Copy to clipboard (Ctrl+C)',
                             'Paste': 'Paste from clipboard (Ctrl+V)',
                             'Undo': 'Undo last action (Ctrl+Z)',
-                            'Redo': 'Redo last action (Ctrl+Y)',
                             'M←': 'Mouse movement: Left',
                             'M↓': 'Mouse movement: Down',
                             'M↑': 'Mouse movement: Up',
