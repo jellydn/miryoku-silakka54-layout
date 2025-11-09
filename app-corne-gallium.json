@@ -52,7 +52,7 @@
       { "id": "R25", "row": 2, "class": "bg-gray-100" },
       { "id": "R24", "row": 2, "class": "bg-yellow-100 combo-key" },
       { "id": "R23", "row": 2, "class": "bg-yellow-100 combo-key" },
-      { "id": "R22", "row": 2, "class": "bg-yellow-100 combo-key" },
+      { "id": "R22", "row": 2, "class": "bg-gray-100" },
       { "id": "R21", "row": 2, "class": "bg-gray-100" }
     ],
     "rightThumbKeys": [
@@ -84,8 +84,7 @@
     "R04": "U key | Part of combo: Escape (U+Y or Y+O+U), Comma (O+U)",
     "R03": "O key | Part of combo: Escape (Y+O+U), Comma (O+U), Slash (Y+O)",
     "R24": "Quote key | Part of combo: MEH modifier (Quote+Semicolon)",
-    "R23": "Semicolon key | Part of combo: MEH modifier (Quote+Semicolon)",
-    "R22": "Dot key | Part of combos"
+    "R23": "Semicolon key | Part of combo: MEH modifier (Quote+Semicolon)"
   },
   "layerData": {
     "base": {
