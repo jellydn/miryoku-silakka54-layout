@@ -76,15 +76,15 @@
     "RT1": "Delete key | Hold: Function layer",
     "RT2": "Backspace key | Hold: Numbers layer",
     "RT3": "Enter key | Hold: Symbols layer",
-    "L02": "B key | Part of combo: Escape (B+L)",
-    "L03": "L key | Part of combo: Escape (L+D or B+L), GUI+Q (B+L+D)",
-    "L04": "D key | Part of combo: Escape (L+D), Dot (D+C), GUI+Q (B+L+D)",
-    "L05": "C key | Part of combo: Dot (D+C)",
-    "R05": "Comma key | Part of combo: Comma (O+U)",
-    "R04": "U key | Part of combo: Escape (U+Y or Y+O+U), Comma (O+U)",
-    "R03": "O key | Part of combo: Escape (Y+O+U), Comma (O+U), Slash (Y+O)",
-    "R24": "Quote key | Part of combo: MEH modifier (Quote+Semicolon)",
-    "R23": "Semicolon key | Part of combo: MEH modifier (Quote+Semicolon)"
+    "L02": "B key | Part of combo: B+L+D → Quit App (GUI+Q)",
+    "L03": "L key | Part of combos: L+D → B, L+D+C → Escape, B+L+D → Quit App",
+    "L04": "D key | Part of combos: L+D → B, L+D+C → Escape, D+C → Dot, B+L+D → Quit App",
+    "L05": "C key | Part of combos: L+D+C → Escape, D+C → Dot",
+    "R03": "U key | Part of combos: O+U → Comma, Y+O+U → Escape",
+    "R04": "O key | Part of combos: O+U → Comma, Y+O → Slash, Y+O+U → Escape",
+    "R05": "Y key | Part of combos: Y+O → Slash, Y+O+U → Escape",
+    "R24": "' key | Part of combo: '+; → MEH modifier (Alt+Ctrl+Shift)",
+    "R23": "; key | Part of combo: '+; → MEH modifier (Alt+Ctrl+Shift)"
   },
   "layerData": {
     "base": {
