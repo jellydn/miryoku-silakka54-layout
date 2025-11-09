@@ -27,7 +27,7 @@
       { "id": "L22", "row": 2, "class": "bg-gray-100" },
       { "id": "L23", "row": 2, "class": "bg-gray-100" },
       { "id": "L24", "row": 2, "class": "bg-gray-100" },
-      { "id": "L25", "row": 2, "class": "bg-yellow-100 combo-key" },
+      { "id": "L25", "row": 2, "class": "bg-gray-100" },
       { "id": "L26", "row": 2, "class": "bg-gray-100" }
     ],
     "leftThumbKeys": [
@@ -80,7 +80,6 @@
     "L03": "L key | Part of combo: Escape (L+D or B+L), GUI+Q (B+L+D)",
     "L04": "D key | Part of combo: Escape (L+D), Dot (D+C), GUI+Q (B+L+D)",
     "L05": "C key | Part of combo: Dot (D+C)",
-    "L25": "W key | Part of combo: GUI modifier (W+F)",
     "R05": "Comma key | Part of combo: Comma (O+U)",
     "R04": "U key | Part of combo: Escape (U+Y or Y+O+U), Comma (O+U)",
     "R03": "O key | Part of combo: Escape (Y+O+U), Comma (O+U), Slash (Y+O)",
