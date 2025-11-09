@@ -44,10 +44,11 @@ Choose the approach that best fits your needs:
 - **Real Vial Configuration**: Tested and optimized firmware configuration
 - **Dual Kanata Support**: Configurations for both split and standard keyboards
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
-- **Multiple Layout Versions**: 7 different approaches to Miryoku implementation
+- **Multiple Layout Versions**: 8 different approaches to Miryoku implementation
   - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
   - 🟢 **Pinky Relief** (V1-P): Weak finger friendly with redistributed load - **READY**
-  - 🟢 **Corne 42-Key** (Corne): Optimized for 3x6+3 split keyboards - **READY**
+  - 🟢 **Corne (Colemak-DH)**: Optimized for 3x6+3 split keyboards - **READY**
+  - 🟢 **Corne (Gallium)**: Alternative alphabet layout for Corne - **READY**
   - 🟡 **Optimized 4-Layer** (V2): Reduced layers with direct symbol access - **WIP**
   - 🟡 **No HRM Dedicated** (V3): 7-Layer with dedicated modifier keys - **WIP**
   - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
@@ -273,8 +274,10 @@ Each layout includes navigation buttons to easily compare between:
 
 - `index.html` - V1 Traditional HRM layout (Vue.js app)
 - `app.json` - V1 configuration data
-- `index-corne.html` - Corne 42-key layout (Vue.js app)
-- `app-corne.json` - Corne configuration data
+- `index-corne.html` - Corne 42-key Colemak-DH layout (Vue.js app)
+- `app-corne.json` - Corne Colemak-DH configuration data
+- `index-corne-gallium.html` - Corne 42-key Gallium layout (Vue.js app)
+- `app-corne-gallium.json` - Corne Gallium configuration data
 - `index-v2.html` - V2 Optimized 4-Layer layout (Vue.js app)
 - `app-v2.json` - V2 configuration data
 - `Keyboard layout.md` - **Comprehensive Miryoku adaptation guide** with detailed research on successful implementations, community feedback, and specific Silakka54 recommendations
@@ -312,13 +315,23 @@ Each layout includes navigation buttons to easily compare between:
 - Redistributed outer column symbols
 - Strategic key placement for comfort
 
-### ✅ Corne 42-Key (Production Ready)
+### ✅ Corne 42-Key Layouts (Production Ready)
+
+#### Corne (Colemak-DH)
 - Optimized for 3x6+3 split keyboards (Corne, Lily58, etc.)
 - Pure Miryoku layout without extra keys
 - 5 layers: Base, Navigation, Mouse, Symbols, Numbers, Function
 - Standard home row modifiers (GACS pattern)
 - Clean Escape key (no layer functionality)
 - Perfect for users wanting authentic Miryoku experience
+
+#### Corne (Gallium)
+- Alternative alphabet layout optimized for finger balance
+- 6 layers: Base (Gallium), Navigation, Mouse, Symbols, Numbers, Function
+- Home row modifiers: GUI (N/I), Alt (R/E), Ctrl (T/A), Shift (S/H)
+- 8 combo keys for efficiency (imported from Vial configuration)
+- Base layout: B-L-D-C-V (left) / J-Y-O-U-, (right)
+- Perfect for users wanting optimized letter placement with Miryoku principles
 
 ### 🚧 V2 - Optimized 4-Layer (Work in Progress)
 - Reduced to 4 layers for efficiency
