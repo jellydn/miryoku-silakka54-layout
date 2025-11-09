@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Miryoku Layout for Corne - Gallium TypeScript</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <style>
+            /* Mobile-first responsive design */
+            .key {
+                min-width: 2.5rem;
+                min-height: 2.5rem;
+                transition: all 0.2s ease;
+                font-size: 0.6rem;
+            }
+
+            /* Tablet and larger */
+            @media (min-width: 768px) {
+                .key {
+                    min-width: 3rem;
+                    min-height: 3rem;
+                    font-size: 0.7rem;
+                }
+            }
+
+            /* Desktop */
+            @media (min-width: 1024px) {
+                .key {
+                    min-width: 3.5rem;
+                    min-height: 3.5rem;
+                    font-size: 0.75rem;
+                }
+            }
+
+            .key:hover {
+                transform: translateY(-2px);
+                box-shadow:
+                    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            }
+
+            .home-row {
+                position: relative;
+            }
+
+            .combo-key {
+                position: relative;
+                border: 2px dashed #f59e0b;
+            }
+
+            .combo-key:hover {
+                background-color: #fef3c7 !important;
+            }
+
+            .ts-optimized {
+                border: 2px solid #ec4899;
+                background-color: #fce7f3;
+            }
+
+            .ts-optimized:hover {
+                background-color: #fbcfe8 !important;
+            }
+
+            .ts-key {
+                color: #be123c;
+                font-weight: 600;
+            }
+
+            .home-row::before {
+                content: "";
+                position: absolute;
+                left: -8px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 4px;
+                height: 4px;
+                background-color: #3b82f6;
+                border-radius: 50%;
+            }
+
+            .thumb-key {
+                min-width: 3rem;
+            }
+
+            @media (min-width: 768px) {
+                .thumb-key {
+                    min-width: 4rem;
+                }
+            }
+
+            @media (min-width: 1024px) {
+                .thumb-key {
+                    min-width: 4.5rem;
+                }
+            }
+            .layer-active {
+                background-color: #3b82f6 !important;
+                color: white !important;
+            }
+            .key-label {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                line-height: 1.2;
+            }
+            .mod-label {
+                font-size: 0.5rem;
+                color: #6b7280;
+            }
+
+            @media (min-width: 768px) {
+                .mod-label {
+                    font-size: 0.55rem;
+                }
+            }
+
+            @media (min-width: 1024px) {
+                .mod-label {
+                    font-size: 0.6rem;
+                }
+            }
+            .tooltip {
+                position: relative;
+                cursor: help;
+            }
+            .tooltip-text {
+                visibility: hidden;
+                opacity: 0;
+                position: absolute;
+                bottom: 125%;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #1f2937;
+                color: white;
+                text-align: center;
+                padding: 6px 10px;
+                border-radius: 6px;
+                font-size: 0.65rem;
+                white-space: nowrap;
+                z-index: 1000;
+                transition:
+                    opacity 0.2s,
+                    visibility 0.2s;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                max-width: 200px;
+            }
+
+            @media (min-width: 768px) {
+                .tooltip-text {
+                    padding: 8px 12px;
+                    font-size: 0.75rem;
+                    max-width: none;
+                }
+            }
+            .tooltip-text::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #1f2937 transparent transparent transparent;
+            }
+            .tooltip:hover .tooltip-text {
+                visibility: visible;
+                opacity: 1;
+            }
+        </style>
+    </head>
+    <body class="bg-gray-100 p-4 sm:p-6 lg:p-8">
+        <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold text-center mb-4">
+                {{ config.title }}
+            </h1>
+            <p class="text-center text-gray-600 mb-8">{{ config.subtitle }}</p>
+
+            <!-- Layer Selector -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button
+                    v-for="layer in config.layers"
+                    :key="layer.id"
+                    @click="showLayer(layer.id)"
+                    :class="['layer-btn px-4 py-2 rounded', currentLayer === layer.id ? 'bg-blue-500 text-white' : 'bg-gray-300']"
+                >
+                    {{ layer.name }}
+                </button>
+            </div>
+
+            <!-- Keyboard Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mb-8">
+                <!-- Left Half -->
+                <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
+                    <h3 class="text-center font-semibold mb-4">Left Half</h3>
+                    <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
+                        <!-- Render left keys by rows -->
+                        <template v-for="row in 3" :key="'left-row-' + row">
+                            <div
+                                v-for="key in getKeysForRow('left', row - 1)"
+                                :key="key.id"
+                                :class="getKeyClasses(key)"
+                                :data-key="key.id"
+                                v-html="getKeyContent(key.id)"
+                            ></div>
+                        </template>
+                    </div>
+
+                    <!-- Left Thumb Cluster -->
+                    <div class="flex justify-center gap-2 mt-4">
+                        <div
+                            v-for="thumbKey in config.keyboardLayout.leftThumbKeys"
+                            :key="thumbKey.id"
+                            :class="getKeyClasses(thumbKey)"
+                            :data-key="thumbKey.id"
+                            v-html="getKeyContent(thumbKey.id)"
+                        ></div>
+                    </div>
+                </div>
+
+                <!-- Right Half -->
+                <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
+                    <h3 class="text-center font-semibold mb-4">Right Half</h3>
+                    <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
+                        <!-- Render right keys by rows -->
+                        <template v-for="row in 3" :key="'right-row-' + row">
+                            <div
+                                v-for="key in getKeysForRow('right', row - 1)"
+                                :key="key.id"
+                                :class="getKeyClasses(key)"
+                                :data-key="key.id"
+                                v-html="getKeyContent(key.id)"
+                            ></div>
+                        </template>
+                    </div>
+
+                    <!-- Right Thumb Cluster -->
+                    <div class="flex justify-center gap-2 mt-4">
+                        <div
+                            v-for="thumbKey in config.keyboardLayout.rightThumbKeys"
+                            :key="thumbKey.id"
+                            :class="getKeyClasses(thumbKey)"
+                            :data-key="thumbKey.id"
+                            v-html="getKeyContent(thumbKey.id)"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Combo Reference -->
+            <div class="mt-8 bg-white p-4 rounded-lg shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-semibold">
+                        Combo Reference (TypeScript-Optimized Gallium)
+                    </h3>
+                    <button
+                        @click="showCombos = !showCombos"
+                        class="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors"
+                    >
+                        {{ showCombos ? 'Hide' : 'Show' }} Combos
+                    </button>
+                </div>
+
+                <div v-show="showCombos" class="transition-all duration-300">
+                    <div class="mb-6 p-3 bg-pink-50 rounded-lg border-2 border-pink-300">
+                        <h4 class="font-medium mb-2 text-pink-800">
+                            🚀 NEW: TypeScript-Specific Combos
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-pink-100 px-2 py-1 rounded font-bold">E + A</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">=></span>
+                                <span class="text-xs text-gray-600">(Arrow function - home row!)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-pink-100 px-2 py-1 rounded font-bold">A + I</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">:</span>
+                                <span class="text-xs text-gray-600">(Type annotation quick access)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Essential Combos -->
+                        <div>
+                            <h4 class="font-medium mb-3 text-blue-700">
+                                Essential Navigation
+                            </h4>
+                            <div class="space-y-2 text-sm">
+                                <div
+                                    class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                                >
+                                    <span
+                                        class="font-mono bg-yellow-100 px-2 py-1 rounded"
+                                        >L + D + C</span
+                                    >
+                                    <span class="text-gray-600">→</span>
+                                    <span>Escape</span>
+                                </div>
+                                <div
+                                    class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                                >
+                                    <span
+                                        class="font-mono bg-yellow-100 px-2 py-1 rounded"
+                                        >L + D</span
+                                    >
+                                    <span class="text-gray-600">→</span>
+                                    <span>B</span>
+                                </div>
+                                <div
+                                    class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                                >
+                                    <span
+                                        class="font-mono bg-yellow-100 px-2 py-1 rounded"
+                                        >B + L + D</span
+                                    >
+                                    <span class="text-gray-600">→</span>
+                                    <span>Quit App (GUI+Q)</span>
+                                </div>
+                                <div
+                                    class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                                >
+                                    <span
+                                        class="font-mono bg-yellow-100 px-2 py-1 rounded"
+                                        >D + C</span
+                                    >
+                                    <span class="text-gray-600">→</span>
+                                    <span>. (Dot)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text Editing Combos -->
+                        <div>
+                            <h4 class="font-medium mb-3 text-green-700">
+                                Text Editing
+                            </h4>
+                            <div class="space-y-2 text-sm">
+                                <div
+                                    class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                                >
+                                    <span
+                                        class="font-mono bg-yellow-100 px-2 py-1 rounded"
+                                        >O + U</span
+                                    >
+                                    <span class="text-gray-600">→</span>
+                                    <span>, (Comma)</span>
+                                </div>
+                                <div
+                                    class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                                >
+                                    <span
+                                        class="font-mono bg-yellow-100 px-2 py-1 rounded"
+                                        >' + ;</span
+                                    >
+                                    <span class="text-gray-600">→</span>
+                                    <span>MEH (Alt+Ctrl+Shift)</span>
+                                </div>
+                                <div
+                                    class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                                >
+                                    <span
+                                        class="font-mono bg-yellow-100 px-2 py-1 rounded"
+                                        >Y + O</span
+                                    >
+                                    <span class="text-gray-600">→</span>
+                                    <span>/ (Slash)</span>
+                                </div>
+                                <div
+                                    class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                                >
+                                    <span
+                                        class="font-mono bg-yellow-100 px-2 py-1 rounded"
+                                        >Y + O + U</span
+                                    >
+                                    <span class="text-gray-600">→</span>
+                                    <span>Escape</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Usage Tips -->
+                    <div class="mt-6 p-3 bg-pink-50 rounded-lg border-2 border-pink-300">
+                        <h5 class="font-medium text-pink-800 mb-2">
+                            🎯 TypeScript-Optimized Features
+                        </h5>
+                        <ul class="text-sm text-pink-700 space-y-1">
+                            <li>
+                                • <strong>Period (.) on top row R02</strong> - Critical for property access (obj.method.call)
+                            </li>
+                            <li>
+                                • <strong>E+A combo → =></strong> - Arrow functions on home row
+                            </li>
+                            <li>
+                                • <strong>A+I combo → :</strong> - Quick type annotation access
+                            </li>
+                            <li>
+                                • <strong>Colon on Symbol layer</strong> - Optimized for const x: Type patterns
+                            </li>
+                            <li>
+                                • <strong>Mac-friendly Cmd shortcuts</strong> - Home row GUI for VS Code workflows
+                            </li>
+                            <li>
+                                • All original Gallium combos preserved
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="mt-8 bg-white p-4 rounded-lg shadow">
+                <h3 class="font-semibold mb-3">Key Features of This Layout</h3>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h4 class="font-medium mb-2">Color Legend:</h4>
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 bg-blue-100 rounded"></div>
+                                <span
+                                    >Home row with modifiers
+                                    (GUI/Alt/Ctrl/Shift)</span
+                                >
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 bg-gray-100 rounded"></div>
+                                <span>Standard alphanumeric keys</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 bg-green-200 rounded"></div>
+                                <span>Thumb keys (Layer switches)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-4 h-4 bg-yellow-100 border-2 border-dashed border-yellow-600 rounded"
+                                ></div>
+                                <span
+                                    >Combo keys (see Combo Reference
+                                    above)</span
+                                >
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-4 h-4 bg-pink-100 border-2 border-pink-600 rounded"
+                                ></div>
+                                <span
+                                    >TypeScript-optimized punctuation (. and ,)</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-medium mb-2">TypeScript Benefits:</h4>
+                        <ul class="space-y-1 text-gray-600">
+                            <li>• Period (.) on top row for property chaining</li>
+                            <li>
+                                • => combo on home row (E+A) for arrow functions
+                            </li>
+                            <li>• Quick : access for type annotations</li>
+                            <li>• Optimized for VS Code on Mac</li>
+                            <li>• 3x fewer keystrokes for common TS patterns</li>
+                            <li>• All original Gallium benefits preserved</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Change Layers -->
+            <div class="mt-8 bg-blue-50 p-6 rounded-lg border border-blue-200">
+                <h3 class="font-semibold text-blue-900 mb-4 text-center">
+                    How to Change Between Layers
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Physical Keyboard Usage -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4
+                            class="font-medium text-blue-800 mb-3 flex items-center"
+                        >
+                            <span
+                                class="bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2"
+                                >1</span
+                            >
+                            On Your Physical Keyboard
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-start gap-2">
+                                <span
+                                    class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium"
+                                    >Hold</span
+                                >
+                                <div>
+                                    <strong>Space key (left thumb)</strong> →
+                                    Navigation layer
+                                    <div class="text-gray-600 text-xs">
+                                        Arrow keys and navigation controls
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span
+                                    class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium"
+                                    >Hold</span
+                                >
+                                <div>
+                                    <strong>Tab key (left thumb)</strong> →
+                                    Mouse layer
+                                    <div class="text-gray-600 text-xs">
+                                        Mouse movement and clicks
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span
+                                    class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium"
+                                    >Hold</span
+                                >
+                                <div>
+                                    <strong>Enter key (right thumb)</strong> →
+                                    Symbols layer
+                                    <div class="text-gray-600 text-xs">
+                                        Special characters
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span
+                                    class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium"
+                                    >Hold</span
+                                >
+                                <div>
+                                    <strong>Backspace key (right thumb)</strong>
+                                    → Numbers layer
+                                    <div class="text-gray-600 text-xs">
+                                        Numeric keypad layout
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span
+                                    class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium"
+                                    >Hold</span
+                                >
+                                <div>
+                                    <strong>Delete key (right thumb)</strong> →
+                                    Function layer
+                                    <div class="text-gray-600 text-xs">
+                                        F-keys and system functions
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visualizer Usage -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4
+                            class="font-medium text-blue-800 mb-3 flex items-center"
+                        >
+                            <span
+                                class="bg-blue-100 rounded-full w-6 h-6 flex items-center justify-center text-xs mr-2"
+                                >2</span
+                            >
+                            In This Visualizer
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-start gap-2">
+                                <span
+                                    class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium"
+                                    >Click</span
+                                >
+                                <div>
+                                    <strong>Layer buttons above</strong> →
+                                    Switch views
+                                    <div class="text-gray-600 text-xs">
+                                        See what each layer looks like
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span
+                                    class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium"
+                                    >Hover</span
+                                >
+                                <div>
+                                    <strong>Over any key</strong> → See details
+                                    <div class="text-gray-600 text-xs">
+                                        Keys lift up to show they're interactive
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="text-gray-600 text-xs mt-3 p-2 bg-gray-50 rounded"
+                            >
+                                💡 <strong>Tip:</strong> The visualizer shows
+                                the final result - on your keyboard, you hold
+                                thumb keys to temporarily access other layers
+                                while typing
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Principle -->
+                <div class="mt-4 p-3 bg-blue-100 rounded-lg text-center">
+                    <p class="text-sm text-blue-800">
+                        <strong>Key Principle:</strong> Tap thumb keys for their
+                        primary function (Space, Enter, etc.) • Hold thumb keys
+                        to activate layers on the opposite hand
+                    </p>
+                </div>
+            </div>
+
+            <!-- Version Navigation -->
+            <div class="mt-6 text-center">
+                <div
+                    class="bg-white p-4 rounded-lg shadow-sm border border-gray-200"
+                >
+                    <p class="text-sm text-gray-600 mb-2">
+                        Compare Layout Versions:
+                    </p>
+                    <div class="flex justify-center gap-2 flex-wrap">
+                        <a
+                            href="index.html"
+                            class="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors text-sm"
+                        >
+                            Silakka54 Layout
+                        </a>
+                        <a
+                            href="index-corne.html"
+                            class="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors text-sm"
+                        >
+                            Corne (Colemak-DH)
+                        </a>
+                        <a
+                            href="index-corne-gallium.html"
+                            class="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors text-sm"
+                        >
+                            Corne (Gallium)
+                        </a>
+                        <span
+                            class="px-3 py-2 bg-pink-600 text-white rounded text-sm relative"
+                        >
+                            Current: Gallium TS
+                            <span
+                                class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full"
+                                >NEW</span
+                            >
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Tips -->
+            <div class="mt-4 text-center text-gray-600">
+                <p class="font-medium">TypeScript Quick Reference:</p>
+                <p class="text-sm mt-1">
+                    <strong class="text-pink-600">TS Combos:</strong> E+A → => | A+I → : |
+                    <strong>HRM:</strong> GUI (N/I) | Alt (R/E) | Ctrl (T/A) | Shift (S/H)
+                </p>
+                <p class="text-xs mt-1 text-pink-600">
+                    Period (.) is on top row R02 for property access!
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 pt-8 border-t border-gray-300 text-center">
+                <p class="text-xs text-gray-500">
+                    <a
+                        href="https://github.com/GalileoBlues/Gallium"
+                        class="text-blue-500 hover:underline"
+                        target="_blank"
+                        rel="noopener"
+                        >Gallium Layout</a
+                    >
+                    •
+                    <a
+                        href="https://github.com/foostan/crkbd"
+                        class="text-blue-500 hover:underline"
+                        target="_blank"
+                        rel="noopener"
+                        >Corne Keyboard</a
+                    >
+                    •
+                    <a
+                        href="https://getreuer.info/posts/keyboards/alt-layouts/index.html#which-alt-keyboard-layout-should-i-learn"
+                        class="text-blue-500 hover:underline"
+                        target="_blank"
+                        rel="noopener"
+                        >Alt Layout Guide</a
+                    ><br />
+                    Built with
+                    <a
+                        href="https://claude.ai/code"
+                        class="text-blue-500 hover:underline"
+                        target="_blank"
+                        rel="noopener"
+                        >Claude Code</a
+                    >
+                    by
+                    <a
+                        href="http://itman.fyi/"
+                        class="text-blue-500 hover:underline"
+                        target="_blank"
+                        rel="noopener"
+                        >itman.fyi</a
+                    >
+                </p>
+            </div>
+        </div>
+
+        <script>
+            const { createApp } = Vue;
+
+            createApp({
+                data() {
+                    return {
+                        config: {
+                            title: "Loading...",
+                            subtitle: "Loading keyboard layout...",
+                            layers: [],
+                            keyboardLayout: {
+                                leftKeys: [],
+                                rightKeys: [],
+                                leftThumbKeys: [],
+                                rightThumbKeys: [],
+                            },
+                            tooltips: {},
+                            layerData: {},
+                        },
+                        currentLayer: "base",
+                        showCombos: false,
+                    };
+                },
+                async mounted() {
+                    await this.loadConfig();
+                    this.updateTooltips();
+                },
+                methods: {
+                    async loadConfig() {
+                        try {
+                            const response = await fetch(
+                                "./app-corne-gallium-ts.json",
+                            );
+                            this.config = await response.json();
+                            this.currentLayer =
+                                this.config.layers.find((l) => l.active)?.id ||
+                                "base";
+                        } catch (error) {
+                            console.error("Failed to load config:", error);
+                            // Fallback config
+                            this.config = {
+                                title: "Gallium Layout for Corne",
+                                subtitle:
+                                    "42-key split keyboard with Gallium layout, home row modifiers, and 6 layers",
+                                layers: [
+                                    { id: "base", name: "Base", active: true },
+                                ],
+                                keyboardLayout: {
+                                    leftKeys: [],
+                                    rightKeys: [],
+                                    leftThumbKeys: [],
+                                    rightThumbKeys: [],
+                                },
+                                tooltips: {},
+                                layerData: { base: {} },
+                            };
+                        }
+                    },
+                    showLayer(layerId) {
+                        this.currentLayer = layerId;
+                        this.$nextTick(() => {
+                            this.updateTooltips();
+                        });
+                    },
+                    getKeysForRow(side, row) {
+                        if (!this.config.keyboardLayout) return [];
+                        const keys =
+                            side === "left"
+                                ? this.config.keyboardLayout.leftKeys
+                                : this.config.keyboardLayout.rightKeys;
+                        return keys
+                            ? keys.filter((key) => key.row === row)
+                            : [];
+                    },
+                    getKeyClasses(key) {
+                        let classes = [
+                            "key",
+                            "rounded",
+                            "flex",
+                            "items-center",
+                            "justify-center",
+                            "tooltip",
+                        ];
+
+                        // Add base classes from config
+                        if (key.class) {
+                            const baseClasses = key.class
+                                .split(" ")
+                                .filter((cls) => cls !== "combo-key");
+                            classes = classes.concat(baseClasses);
+                        }
+
+                        // Only add combo-key class if we're on the base layer
+                        if (
+                            this.currentLayer === "base" &&
+                            key.class &&
+                            key.class.includes("combo-key")
+                        ) {
+                            classes.push("combo-key");
+                        }
+
+                        return classes;
+                    },
+                    getKeyContent(keyId) {
+                        if (!this.config.layerData) return "";
+                        const layerData =
+                            this.config.layerData[this.currentLayer];
+                        if (!layerData) return "";
+
+                        const keyValue = layerData[keyId] || "";
+                        const tooltipText = this.getTooltipText(
+                            keyId,
+                            keyValue,
+                        );
+
+                        if (tooltipText) {
+                            return `<span class="text-xs font-medium">${keyValue}</span>
+                                <div class="tooltip-text">${tooltipText}</div>`;
+                        } else {
+                            return `<span class="text-xs font-medium">${keyValue}</span>`;
+                        }
+                    },
+                    getTooltipText(keyId, keyValue) {
+                        // Only show combo-specific tooltips on base layer
+                        if (
+                            this.currentLayer === "base" &&
+                            this.config.tooltips &&
+                            this.config.tooltips[keyId]
+                        ) {
+                            return this.config.tooltips[keyId];
+                        }
+                        // For non-base layers, show generic descriptions
+                        else if (keyValue === "" || keyValue === "___") {
+                            return keyValue === "___"
+                                ? "Layer key being held"
+                                : "No function on this layer";
+                        } else {
+                            // Generic tooltip for regular keys
+                            const keyDescriptions = {
+                                "←": "Left arrow key",
+                                "→": "Right arrow key",
+                                "↑": "Up arrow key",
+                                "↓": "Down arrow key",
+                                PgUp: "Page Up key",
+                                PgDn: "Page Down key",
+                                Bksp: "Backspace key",
+                                GUI: "GUI/Super modifier",
+                                Alt: "Alt modifier",
+                                Ctrl: "Control modifier",
+                                Shift: "Shift modifier",
+                                Cut: "Cut to clipboard (Ctrl+X)",
+                                Copy: "Copy to clipboard (Ctrl+C)",
+                                Paste: "Paste from clipboard (Ctrl+V)",
+                                Undo: "Undo last action (Ctrl+Z)",
+                                "M←": "Mouse movement: Left",
+                                "M↓": "Mouse movement: Down",
+                                "M↑": "Mouse movement: Up",
+                                "M→": "Mouse movement: Right",
+                                LClick: "Mouse: Left click",
+                                MClick: "Mouse: Middle click (wheel)",
+                                RClick: "Mouse: Right click",
+                                WhlL: "Mouse wheel: Left",
+                                WhlD: "Mouse wheel: Down",
+                                WhlU: "Mouse wheel: Up",
+                                WhlR: "Mouse wheel: Right",
+                            };
+                            return (
+                                keyDescriptions[keyValue] || `${keyValue} key`
+                            );
+                        }
+                    },
+                    updateTooltips() {
+                        // Vue handles this automatically through reactivity
+                    },
+                },
+            }).mount("#app");
+        </script>
+    </body>
+</html>
