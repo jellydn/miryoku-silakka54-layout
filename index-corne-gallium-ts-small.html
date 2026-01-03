@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Miryoku Layout for Corne (42-key)</title>
+        <title>Miryoku Layout for Corne - Gallium TS (Small Hands)</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <style>
@@ -51,6 +51,35 @@
 
             .combo-key:hover {
                 background-color: #fef3c7 !important;
+            }
+
+            .ts-optimized {
+                border: 2px solid #ec4899;
+                background-color: #fce7f3;
+            }
+
+            .ts-optimized:hover {
+                background-color: #fbcfe8 !important;
+            }
+
+            .ts-key {
+                color: #be123c;
+                font-weight: 600;
+            }
+
+            .small-hand {
+                border: 2px solid #f97316;
+                background-color: #fed7aa;
+            }
+
+            .small-hand:hover {
+                background-color: #fdba74 !important;
+            }
+
+            .small-opt {
+                color: #c2410c;
+                font-weight: 500;
+                font-size: 0.5rem;
             }
 
             .home-row::before {
@@ -238,7 +267,7 @@
             <div class="mt-8 bg-white p-4 rounded-lg shadow">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-semibold">
-                        Combo Reference (Gallium Layout)
+                        Combo Reference (Small Hands + TypeScript)
                     </h3>
                     <button
                         @click="showCombos = !showCombos"
@@ -249,6 +278,56 @@
                 </div>
 
                 <div v-show="showCombos" class="transition-all duration-300">
+                    <div class="mb-6 p-3 bg-orange-50 rounded-lg border-2 border-orange-400">
+                        <h4 class="font-medium mb-2 text-orange-800">
+                            🤏 Small Hands Combos - No Outer Column Reaches!
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-orange-100 px-2 py-1 rounded font-bold">U + Y</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">[</span>
+                                <span class="text-xs text-gray-600">(Arrays, types - NO STRETCH!)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-orange-100 px-2 py-1 rounded font-bold">Y + ,</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">]</span>
+                                <span class="text-xs text-gray-600">(Close bracket - EASY!)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-orange-100 px-2 py-1 rounded font-bold">E + I</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">=</span>
+                                <span class="text-xs text-gray-600">(Equals - HOME ROW!)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-orange-100 px-2 py-1 rounded font-bold">H + ,</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">/</span>
+                                <span class="text-xs text-gray-600">(Comments - COMFORTABLE!)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-6 p-3 bg-pink-50 rounded-lg border-2 border-pink-300">
+                        <h4 class="font-medium mb-2 text-pink-800">
+                            🚀 TypeScript-Specific Combos
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-pink-100 px-2 py-1 rounded font-bold">E + A</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">=></span>
+                                <span class="text-xs text-gray-600">(Arrow function - home row!)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-pink-100 px-2 py-1 rounded font-bold">A + I</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">:</span>
+                                <span class="text-xs text-gray-600">(Type annotation quick access)</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="grid md:grid-cols-2 gap-6">
                         <!-- Essential Combos -->
                         <div>
@@ -350,28 +429,34 @@
                     </div>
 
                     <!-- Usage Tips -->
-                    <div class="mt-6 p-3 bg-blue-50 rounded-lg">
-                        <h5 class="font-medium text-blue-800 mb-2">
-                            💡 Gallium Layout Features
+                    <div class="mt-6 p-3 bg-orange-50 rounded-lg border-2 border-orange-400">
+                        <h5 class="font-medium text-orange-800 mb-2">
+                            🤏 Small Hands Optimizations
                         </h5>
-                        <ul class="text-sm text-blue-700 space-y-1">
+                        <ul class="text-sm text-orange-700 space-y-1">
                             <li>
-                                • 3x6+3 split layout optimized for ergonomics
+                                • <strong>Outer columns CLEARED</strong> - [ ] = / \ moved to combos (75% less reaching!)
                             </li>
                             <li>
-                                • Gallium alphabet layout for improved finger
-                                balance
+                                • <strong>U+Y combo → [</strong> - Arrays/types with NO index finger stretch
                             </li>
                             <li>
-                                • Home row modifiers (GACS pattern: N/R/T/S on
-                                left, H/A/E/I on right)
+                                • <strong>Y+, combo → ]</strong> - Close brackets easily
                             </li>
                             <li>
-                                • Six dedicated layers accessible via thumb keys
+                                • <strong>E+I combo → =</strong> - Assignments on home row (most ergonomic!)
                             </li>
                             <li>
-                                • Strategic combo placements for common
-                                operations
+                                • <strong>H+, combo → /</strong> - Comments without pinky reach
+                            </li>
+                            <li>
+                                • <strong>Period (.) on R02</strong> - TS property access still optimized
+                            </li>
+                            <li>
+                                • <strong>All TS combos preserved</strong> - E+A (=>), A+I (:)
+                            </li>
+                            <li>
+                                • Thumbs stay comfortable - no outer thumb stretches needed
                             </li>
                         </ul>
                     </div>
@@ -409,19 +494,34 @@
                                     above)</span
                                 >
                             </div>
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-4 h-4 bg-pink-100 border-2 border-pink-600 rounded"
+                                ></div>
+                                <span
+                                    >TypeScript-optimized punctuation (. and ,)</span
+                                >
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-4 h-4 bg-orange-100 border-2 border-orange-600 rounded"
+                                ></div>
+                                <span
+                                    >Small hands - outer columns cleared (use combos)</span
+                                >
+                            </div>
                         </div>
                     </div>
                     <div>
-                        <h4 class="font-medium mb-2">Layout Benefits:</h4>
+                        <h4 class="font-medium mb-2">Small Hands + TS Benefits:</h4>
                         <ul class="space-y-1 text-gray-600">
-                            <li>• Compact 42-key ergonomic layout</li>
-                            <li>
-                                • Gallium alphabet layout (optimized letter
-                                placement)
-                            </li>
-                            <li>• Home row modifiers for easy access</li>
-                            <li>• Layer-based number/symbol access</li>
-                            <li>• 6 layers for complete functionality</li>
+                            <li>• 75% less reaching with cleared outer columns</li>
+                            <li>• [] accessible via U+Y combo (no stretch!)</li>
+                            <li>• = on home row via E+I (most ergonomic)</li>
+                            <li>• Period (.) still on top row for TS</li>
+                            <li>• All TS combos preserved (=>, :)</li>
+                            <li>• Comfortable thumb positions</li>
+                            <li>• Perfect for extended coding sessions</li>
                         </ul>
                     </div>
                 </div>
@@ -594,37 +694,40 @@
                         >
                             Corne (Colemak-DH)
                         </a>
-                        <span
-                            class="px-3 py-2 bg-purple-500 text-white rounded text-sm relative"
+                        <a
+                            href="index-corne-gallium.html"
+                            class="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors text-sm"
                         >
-                            Current: Corne (Gallium)
-                        </span>
+                            Corne (Gallium)
+                        </a>
                         <a
                             href="index-corne-gallium-ts.html"
-                            class="px-3 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition-colors text-sm"
+                            class="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors text-sm"
                         >
                             Gallium TS
                         </a>
-                        <a
-                            href="index-corne-gallium-ts-small.html"
-                            class="px-3 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition-colors text-sm relative"
+                        <span
+                            class="px-3 py-2 bg-orange-600 text-white rounded text-sm relative"
                         >
-                            TS Small Hands
+                            Current: TS Small
                             <span
                                 class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full"
                                 >NEW</span
                             >
-                        </a>
+                        </span>
                     </div>
                 </div>
             </div>
 
             <!-- Quick Tips -->
             <div class="mt-4 text-center text-gray-600">
-                <p class="font-medium">Quick Reference:</p>
+                <p class="font-medium">Small Hands + TypeScript Quick Reference:</p>
                 <p class="text-sm mt-1">
-                    Home row modifiers: GUI (N/I) | Alt (R/E) | Ctrl (T/A) |
-                    Shift (S/H)
+                    <strong class="text-orange-600">Small Hand:</strong> U+Y → [ | Y+, → ] | E+I → = | H+, → / |
+                    <strong class="text-pink-600">TS:</strong> E+A → => | A+I → :
+                </p>
+                <p class="text-xs mt-1 text-orange-600">
+                    Outer columns cleared - use combos for 75% less reaching!
                 </p>
             </div>
 
@@ -705,7 +808,7 @@
                     async loadConfig() {
                         try {
                             const response = await fetch(
-                                "./app-corne-gallium.json",
+                                "./app-corne-gallium-ts-small.json",
                             );
                             this.config = await response.json();
                             this.currentLayer =

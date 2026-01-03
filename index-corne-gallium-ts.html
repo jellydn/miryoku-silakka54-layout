@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Miryoku Layout for Corne (42-key)</title>
+        <title>Miryoku Layout for Corne - Gallium TypeScript</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
         <style>
@@ -51,6 +51,20 @@
 
             .combo-key:hover {
                 background-color: #fef3c7 !important;
+            }
+
+            .ts-optimized {
+                border: 2px solid #ec4899;
+                background-color: #fce7f3;
+            }
+
+            .ts-optimized:hover {
+                background-color: #fbcfe8 !important;
+            }
+
+            .ts-key {
+                color: #be123c;
+                font-weight: 600;
             }
 
             .home-row::before {
@@ -238,7 +252,7 @@
             <div class="mt-8 bg-white p-4 rounded-lg shadow">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-semibold">
-                        Combo Reference (Gallium Layout)
+                        Combo Reference (TypeScript-Optimized Gallium)
                     </h3>
                     <button
                         @click="showCombos = !showCombos"
@@ -249,6 +263,25 @@
                 </div>
 
                 <div v-show="showCombos" class="transition-all duration-300">
+                    <div class="mb-6 p-3 bg-pink-50 rounded-lg border-2 border-pink-300">
+                        <h4 class="font-medium mb-2 text-pink-800">
+                            🚀 NEW: TypeScript-Specific Combos
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-pink-100 px-2 py-1 rounded font-bold">E + A</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">=></span>
+                                <span class="text-xs text-gray-600">(Arrow function - home row!)</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-white rounded">
+                                <span class="font-mono bg-pink-100 px-2 py-1 rounded font-bold">A + I</span>
+                                <span class="text-gray-600">→</span>
+                                <span class="font-mono">:</span>
+                                <span class="text-xs text-gray-600">(Type annotation quick access)</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="grid md:grid-cols-2 gap-6">
                         <!-- Essential Combos -->
                         <div>
@@ -350,28 +383,28 @@
                     </div>
 
                     <!-- Usage Tips -->
-                    <div class="mt-6 p-3 bg-blue-50 rounded-lg">
-                        <h5 class="font-medium text-blue-800 mb-2">
-                            💡 Gallium Layout Features
+                    <div class="mt-6 p-3 bg-pink-50 rounded-lg border-2 border-pink-300">
+                        <h5 class="font-medium text-pink-800 mb-2">
+                            🎯 TypeScript-Optimized Features
                         </h5>
-                        <ul class="text-sm text-blue-700 space-y-1">
+                        <ul class="text-sm text-pink-700 space-y-1">
                             <li>
-                                • 3x6+3 split layout optimized for ergonomics
+                                • <strong>Period (.) on top row R02</strong> - Critical for property access (obj.method.call)
                             </li>
                             <li>
-                                • Gallium alphabet layout for improved finger
-                                balance
+                                • <strong>E+A combo → =></strong> - Arrow functions on home row
                             </li>
                             <li>
-                                • Home row modifiers (GACS pattern: N/R/T/S on
-                                left, H/A/E/I on right)
+                                • <strong>A+I combo → :</strong> - Quick type annotation access
                             </li>
                             <li>
-                                • Six dedicated layers accessible via thumb keys
+                                • <strong>Colon on Symbol layer</strong> - Optimized for const x: Type patterns
                             </li>
                             <li>
-                                • Strategic combo placements for common
-                                operations
+                                • <strong>Mac-friendly Cmd shortcuts</strong> - Home row GUI for VS Code workflows
+                            </li>
+                            <li>
+                                • All original Gallium combos preserved
                             </li>
                         </ul>
                     </div>
@@ -409,19 +442,27 @@
                                     above)</span
                                 >
                             </div>
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-4 h-4 bg-pink-100 border-2 border-pink-600 rounded"
+                                ></div>
+                                <span
+                                    >TypeScript-optimized punctuation (. and ,)</span
+                                >
+                            </div>
                         </div>
                     </div>
                     <div>
-                        <h4 class="font-medium mb-2">Layout Benefits:</h4>
+                        <h4 class="font-medium mb-2">TypeScript Benefits:</h4>
                         <ul class="space-y-1 text-gray-600">
-                            <li>• Compact 42-key ergonomic layout</li>
+                            <li>• Period (.) on top row for property chaining</li>
                             <li>
-                                • Gallium alphabet layout (optimized letter
-                                placement)
+                                • => combo on home row (E+A) for arrow functions
                             </li>
-                            <li>• Home row modifiers for easy access</li>
-                            <li>• Layer-based number/symbol access</li>
-                            <li>• 6 layers for complete functionality</li>
+                            <li>• Quick : access for type annotations</li>
+                            <li>• Optimized for VS Code on Mac</li>
+                            <li>• 3x fewer keystrokes for common TS patterns</li>
+                            <li>• All original Gallium benefits preserved</li>
                         </ul>
                     </div>
                 </div>
@@ -594,17 +635,17 @@
                         >
                             Corne (Colemak-DH)
                         </a>
-                        <span
-                            class="px-3 py-2 bg-purple-500 text-white rounded text-sm relative"
-                        >
-                            Current: Corne (Gallium)
-                        </span>
                         <a
-                            href="index-corne-gallium-ts.html"
-                            class="px-3 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition-colors text-sm"
+                            href="index-corne-gallium.html"
+                            class="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors text-sm"
                         >
-                            Gallium TS
+                            Corne (Gallium)
                         </a>
+                        <span
+                            class="px-3 py-2 bg-pink-600 text-white rounded text-sm relative"
+                        >
+                            Current: Gallium TS
+                        </span>
                         <a
                             href="index-corne-gallium-ts-small.html"
                             class="px-3 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition-colors text-sm relative"
@@ -621,10 +662,13 @@
 
             <!-- Quick Tips -->
             <div class="mt-4 text-center text-gray-600">
-                <p class="font-medium">Quick Reference:</p>
+                <p class="font-medium">TypeScript Quick Reference:</p>
                 <p class="text-sm mt-1">
-                    Home row modifiers: GUI (N/I) | Alt (R/E) | Ctrl (T/A) |
-                    Shift (S/H)
+                    <strong class="text-pink-600">TS Combos:</strong> E+A → => | A+I → : |
+                    <strong>HRM:</strong> GUI (N/I) | Alt (R/E) | Ctrl (T/A) | Shift (S/H)
+                </p>
+                <p class="text-xs mt-1 text-pink-600">
+                    Period (.) is on top row R02 for property access!
                 </p>
             </div>
 
@@ -705,7 +749,7 @@
                     async loadConfig() {
                         try {
                             const response = await fetch(
-                                "./app-corne-gallium.json",
+                                "./app-corne-gallium-ts.json",
                             );
                             this.config = await response.json();
                             this.currentLayer =
