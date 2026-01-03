@@ -44,11 +44,12 @@ Choose the approach that best fits your needs:
 - **Real Vial Configuration**: Tested and optimized firmware configuration
 - **Dual Kanata Support**: Configurations for both split and standard keyboards
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
-- **Multiple Layout Versions**: 8 different approaches to Miryoku implementation
+- **Multiple Layout Versions**: 9 different approaches to Miryoku implementation
   - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
   - 🟢 **Pinky Relief** (V1-P): Weak finger friendly with redistributed load - **READY**
   - 🟢 **Corne (Colemak-DH)**: Optimized for 3x6+3 split keyboards - **READY**
   - 🟢 **Corne (Gallium)**: Alternative alphabet layout for Corne - **READY**
+  - 🟢 **Corne (Enthium v13)**: Enthium v13 layout with improved pinky comfort - **READY**
   - 🟡 **Optimized 4-Layer** (V2): Reduced layers with direct symbol access - **WIP**
   - 🟡 **No HRM Dedicated** (V3): 7-Layer with dedicated modifier keys - **WIP**
   - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
@@ -278,6 +279,8 @@ Each layout includes navigation buttons to easily compare between:
 - `app-corne.json` - Corne Colemak-DH configuration data
 - `index-corne-gallium.html` - Corne 42-key Gallium layout (Vue.js app)
 - `app-corne-gallium.json` - Corne Gallium configuration data
+- `index-corne-enthium.html` - Corne 42-key Enthium v13 layout (Vue.js app)
+- `app-corne-enthium.json` - Corne Enthium v13 configuration data
 - `index-v2.html` - V2 Optimized 4-Layer layout (Vue.js app)
 - `app-v2.json` - V2 configuration data
 - `Keyboard layout.md` - **Comprehensive Miryoku adaptation guide** with detailed research on successful implementations, community feedback, and specific Silakka54 recommendations
@@ -332,6 +335,26 @@ Each layout includes navigation buttons to easily compare between:
 - 8 combo keys for efficiency (imported from Vial configuration)
 - Base layout: B-L-D-C-V (left) / J-Y-O-U-, (right)
 - Perfect for users wanting optimized letter placement with Miryoku principles
+
+#### Corne (Enthium v13)
+- Latest Enthium v13 (PWF/;) layout with significant ergonomic improvements
+- Clockwise rotation of PWF and swap of /; compared to Enthium v12
+- 6 layers: Base (Enthium), Navigation, Mouse, Symbols, Numbers, Function
+- Home row modifiers: GUI (C/S), Alt (I/N), Ctrl (A/T), Shift (E/H)
+- 7 combo keys for missing letters and modifiers (Q, Z, V, Hyper, Meh, Escape, Enter)
+- Base layout:
+  - Top row: [ Q Y O U = ] (left) / Z X L P D - (right)
+  - Home row: B C I A E - (left) / W S N T H K (right)
+  - Bottom row: ( ' , . / ; (left) / ) J M G F V (right)
+- Right thumb cluster: Backspace/Sym → R/Num → Empty (left to right)
+- Performance improvements over v12:
+  - 52.5% reduction in long-distance row jumps
+  - 30% reduction in right pinky same-finger bigrams
+  - 9.63% reduction in pinky off-home movements
+  - Restores P on upper row for comfortable SP, PL, PH, XP rolls
+  - Moves W to home row pinky, converting WN to inward roll
+  - Moves F to lower row ring finger for better ergonomics
+- Perfect for users wanting the latest optimized Enthium layout with enhanced comfort
 
 ### 🚧 V2 - Optimized 4-Layer (Work in Progress)
 - Reduced to 4 layers for efficiency
@@ -623,6 +646,8 @@ Remember: **Perfect configuration is personal** - what works for others may need
 
 - [Miryoku Official Repository](https://github.com/manna-harbour/miryoku) - Original layout and documentation
 - [Miryoku QMK Reference](https://github.com/manna-harbour/miryoku_qmk) - QMK implementation
+- [Enthium Layout](https://github.com/sunaku/enthium) - Engrammer meets Promethium keyboard layout
+- [Enthium v13 Release](https://github.com/sunaku/enthium/releases/tag/v13) - Latest Enthium release with PWF/; improvements
 - [Colemak-DH Layout](https://colemakmods.github.io/mod-dh/) - Optimized alpha layout
 - [Alternative Keyboard Layouts Guide](https://getreuer.info/posts/keyboards/alt-layouts/index.html#which-alt-keyboard-layout-should-i-learn) - Comprehensive comparison and selection guide
 - [QMK Firmware](https://qmk.fm/) - Customizable keyboard firmware

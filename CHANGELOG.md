@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Corne (Enthium v13) Layout** (index-corne-enthium.html): Latest Enthium v13 implementation for 3x6+3 split keyboards
+  - **PWF/; layout**: Clockwise rotation of PWF and swap of /; compared to Enthium v12
+  - **Improved ergonomics**: 52.5% reduction in long-distance row jumps, 30% reduction in right pinky SFBs
+  - **6 complete layers**: Base (Enthium), Navigation, Mouse, Symbols, Numbers, Function
+  - **7 combo keys**: Q, Z, V, Hyper, Meh, Escape, Enter for efficiency
+  - **Optimized thumb cluster**: Backspace/Sym → R/Num → Empty (left to right)
+  - **Performance metrics**: 0.55% SFBs, 0.07% LSBs, 45.82% rolls, 2.91% pinky off
+  - **Enhanced tooltips**: Comprehensive explanations for Enthium-specific features
+  - **Vial configuration**: Complete .vil file for easy firmware flashing
+- **Updated Documentation**: README.md now includes Enthium v13 alongside other Corne layouts
+- **Resource Links**: Added Enthium project and v13 release references
+
+### Changed
+- **Layout Ecosystem**: Now 9 complete layout options including latest Enthium v13
+- **Corne Layout Options**: 3 complete Corne variants (Colemak-DH, Gallium, Enthium v13)
+
 ## [1.4.0] - 2025-01-24
 
 ### Added
