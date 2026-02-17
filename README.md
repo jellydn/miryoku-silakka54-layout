@@ -44,12 +44,13 @@ Choose the approach that best fits your needs:
 - **Real Vial Configuration**: Tested and optimized firmware configuration
 - **Dual Kanata Support**: Configurations for both split and standard keyboards
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
-- **Multiple Layout Versions**: 9 different approaches to Miryoku implementation
+- **Multiple Layout Versions**: 10 different approaches to Miryoku implementation
   - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
   - 🟢 **Pinky Relief** (V1-P): Weak finger friendly with redistributed load - **READY**
   - 🟢 **Corne (Colemak-DH)**: Optimized for 3x6+3 split keyboards - **READY**
   - 🟢 **Corne (Gallium)**: Alternative alphabet layout for Corne - **READY**
   - 🟢 **Corne (Enthium v13)**: Enthium v13 layout with improved pinky comfort - **READY**
+  - 🟢 **Corne (Promethium)**: Promethium layout adapted from `promethium.vil` - **READY**
   - 🟡 **Optimized 4-Layer** (V2): Reduced layers with direct symbol access - **WIP**
   - 🟡 **No HRM Dedicated** (V3): 7-Layer with dedicated modifier keys - **WIP**
   - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
@@ -281,6 +282,8 @@ Each layout includes navigation buttons to easily compare between:
 - `app-corne-gallium.json` - Corne Gallium configuration data
 - `index-corne-enthium.html` - Corne 42-key Enthium v13 layout (Vue.js app)
 - `app-corne-enthium.json` - Corne Enthium v13 configuration data
+- `index-corne-promethium.html` - Corne 42-key Promethium layout (Vue.js app)
+- `app-corne-promethium.json` - Corne Promethium configuration data
 - `index-v2.html` - V2 Optimized 4-Layer layout (Vue.js app)
 - `app-v2.json` - V2 configuration data
 - `Keyboard layout.md` - **Comprehensive Miryoku adaptation guide** with detailed research on successful implementations, community feedback, and specific Silakka54 recommendations
@@ -355,6 +358,14 @@ Each layout includes navigation buttons to easily compare between:
   - Moves W to home row pinky, converting WN to inward roll
   - Moves F to lower row ring finger for better ergonomics
 - Perfect for users wanting the latest optimized Enthium layout with enhanced comfort
+
+#### Corne (Promethium)
+- Promethium layout imported from `~/Projects/dotfiles/mics/corne/promethium.vil`
+- 6 layers: Base (Promethium), Navigation, Mouse, Symbols, Numbers, Function
+- Home row modifiers: GUI (S/C), Alt (N/I), Ctrl (T/E), Shift (H/A)
+- 4 combos: Y+U → Escape, P+L → Enter, W+G → Hyper, '+. → Meh
+- Thumb behavior: Left (Esc, R/Nav, Tab/Mouse), Right (Enter, Space/Num, Backspace/Sym)
+- Perfect for users wanting Promethium alpha positions with Miryoku-style layering
 
 ### 🚧 V2 - Optimized 4-Layer (Work in Progress)
 - Reduced to 4 layers for efficiency
