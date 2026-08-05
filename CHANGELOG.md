@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Silakka54 (Graphite) Layout** (index-graphite.html): Graphite alphabet layout adapted for Silakka54 54-key split keyboard
+  - **Graphite alpha core**: B-L-D-W-Z / N-R-T-S-G / Q-X-M-C-V (left) and '-F-O-U-J / Y-H-A-E-I / K-P-.-\-/ (right)
+  - **High alternation**: 42% hand alternation, 44% rolls, 3% redirects, 1% SFBs
+  - **7 complete layers**: Base (Graphite), Media, Navigation, Mouse, Symbols, Numbers, Function
+  - **Home row modifiers**: GACS pattern preserved (N/R/T/S left, H/A/E/I right)
+  - **8 combos adapted for Graphite**: B+L→Esc, F+O→Esc, L+D→GUI, Q+X→Cut, X+M→Copy, O+U→Quote, B+L+D→Quit, .+-→MEH
+  - **Outer column adjustments**: ; and , moved to right outer (Graphite positions), = moved to left outer
+  - **Punctuation pairings preserved**: '/_, /?, ./>, -/", //<, ;/:, =/+, \/|, [/{ (QWERTY-compatible shift class)
+  - **Vial-aligned**: Compatible with existing Vial configuration structure
 - **Corne (Enthium v13) Layout** (index-corne-enthium.html): Latest Enthium v13 implementation for 3x6+3 split keyboards
   - **PWF/; layout**: Clockwise rotation of PWF and swap of /; compared to Enthium v12
   - **Improved ergonomics**: 52.5% reduction in long-distance row jumps, 30% reduction in right pinky SFBs
