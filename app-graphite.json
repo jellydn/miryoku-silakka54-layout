@@ -138,7 +138,7 @@
       {
         "id": "L32",
         "row": 3,
-        "class": "bg-gray-100"
+        "class": "bg-yellow-100 combo-key"
       },
       {
         "id": "L33",
@@ -153,7 +153,7 @@
       {
         "id": "L35",
         "row": 3,
-        "class": "bg-yellow-100 combo-key"
+        "class": "bg-gray-100"
       },
       {
         "id": "L36",
@@ -330,9 +330,9 @@
     "L12": "B key | Part of combo combinations",
     "L13": "L key | Part of combo combinations",
     "L14": "D key | Part of combo combinations",
+    "L32": "Q key | Part of combo combinations",
     "L33": "X key | Part of combo combinations",
     "L34": "M key | Part of combo combinations",
-    "L35": "C key | Part of combo combinations",
     "R15": "F key | Part of combo combinations",
     "R14": "O key | Part of combo combinations",
     "R13": "U key | Part of combo combinations",

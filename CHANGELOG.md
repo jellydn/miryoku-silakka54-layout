@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Home row modifiers**: GACS pattern preserved (N/R/T/S left, H/A/E/I right)
   - **8 combos adapted for Graphite**: B+L→Esc, F+O→Esc, L+D→GUI, Q+X→Cut, X+M→Copy, O+U→Quote, B+L+D→Quit, .+-→MEH
   - **Outer column adjustments**: ; and , moved to right outer (Graphite positions), = moved to left outer
-  - **Punctuation pairings preserved**: '/_, /?, ./>, -/", //<, ;/:, =/+, \/|, [/{ (QWERTY-compatible shift class)
+  - **Punctuation pairings preserved**: '/", /?, ./>, -/_, //<, ;/:, =/+, \/|, [/{ (QWERTY-compatible shift class)
   - **Vial-aligned**: Compatible with existing Vial configuration structure
 - **Corne (Enthium v13) Layout** (index-corne-enthium.html): Latest Enthium v13 implementation for 3x6+3 split keyboards
   - **PWF/; layout**: Clockwise rotation of PWF and swap of /; compared to Enthium v12
