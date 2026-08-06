@@ -377,11 +377,11 @@ Each layout includes navigation buttons to easily compare between:
 - 7 layers: Base (Graphite), Media, Navigation, Mouse, Symbols, Numbers, Function
 - Home row modifiers: GUI (N/I), Alt (R/E), Ctrl (T/A), Shift (S/H)
 - Base layout (3×5 core):
-  - Left: B-L-D-W-Z / N-R-T-S-G / Q-X-M-C-V
-  - Right: '-F-O-U-J / Y-H-A-E-I / K-P-.-\-/
+  - Left: `B L D W Z` / `N R T S G` / `Q X M C V`
+  - Right: `' F O U J` / `Y H A E I` / `K P . - /`
 - Outer column adjustments for Graphite punctuation:
-  - Left outer: Tab, [, = (moved from right side)
-  - Right outer: ;, ,, \ (Graphite's right-side punctuation)
+  - Left outer: `Tab`, `[`, `=` (moved from right side)
+  - Right outer: `;`, `,`, `\` (Graphite's right-side punctuation)
 - 8 combos adapted for Graphite key positions:
   - B+L → Escape, F+O → Escape, L+D → GUI
   - Q+X → Cut, X+M → Copy, O+U → Quote

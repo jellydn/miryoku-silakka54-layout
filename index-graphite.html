@@ -608,11 +608,13 @@
                     const keyValue = layerData[keyId] || '';
                     const tooltipText = this.getTooltipText(keyId, keyValue);
                     
+                    const isHtml = typeof keyValue === 'string' && keyValue.includes('<');
+                    const labelHtml = isHtml ? keyValue : `<span class="text-xs font-medium">${keyValue}</span>`;
+                    
                     if (tooltipText) {
-                        return `<span class="text-xs font-medium">${keyValue}</span>
-                                <div class="tooltip-text">${tooltipText}</div>`;
+                        return `${labelHtml}<div class="tooltip-text">${tooltipText}</div>`;
                     } else {
-                        return `<span class="text-xs font-medium">${keyValue}</span>`;
+                        return labelHtml;
                     }
                 },
                 getTooltipText(keyId, keyValue) {
@@ -624,6 +626,10 @@
                     else if (keyValue === '' || keyValue === '___') {
                         return keyValue === '___' ? 'Layer key being held' : 'No function on this layer';
                     } else {
+                        // Avoid embedding raw HTML strings into generic tooltips
+                        if (typeof keyValue === 'string' && keyValue.includes('<')) {
+                            return '';
+                        }
                         // Generic tooltip for regular keys
                         const keyDescriptions = {
                             '←': 'Left arrow key',
