@@ -374,7 +374,7 @@
       "R04": "<div class=\"key-label\">8<br><span class=\"mod-label\">*</span></div>",
       "R03": "<div class=\"key-label\">9<br><span class=\"mod-label\">(</span></div>",
       "R02": "<div class=\"key-label\">0<br><span class=\"mod-label\">)</span></div>",
-      "R01": "<div class=\"key-label\">-<br><span class=\"mod-label\">_</span></div>",
+      "R01": "Next track",
       "R16": "'",
       "R15": "F",
       "R14": "O",
