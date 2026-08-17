@@ -51,6 +51,7 @@ Choose the approach that best fits your needs:
   - 🟢 **Corne (Gallium)**: Alternative alphabet layout for Corne - **READY**
   - 🟢 **Corne (Enthium v13)**: Enthium v13 layout with improved pinky comfort - **READY**
   - 🟢 **Corne (Promethium)**: Promethium layout adapted from `promethium.vil` - **READY**
+  - 🟢 **Silakka54 (Graphite)**: Graphite alphabet layout for Silakka54 - **READY**
   - 🟡 **Optimized 4-Layer** (V2): Reduced layers with direct symbol access - **WIP**
   - 🟡 **No HRM Dedicated** (V3): 7-Layer with dedicated modifier keys - **WIP**
   - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
@@ -284,6 +285,8 @@ Each layout includes navigation buttons to easily compare between:
 - `app-corne-enthium.json` - Corne Enthium v13 configuration data
 - `index-corne-promethium.html` - Corne 42-key Promethium layout (Vue.js app)
 - `app-corne-promethium.json` - Corne Promethium configuration data
+- `index-graphite.html` - Silakka54 54-key Graphite layout (Vue.js app)
+- `app-graphite.json` - Silakka54 Graphite configuration data
 - `index-v2.html` - V2 Optimized 4-Layer layout (Vue.js app)
 - `app-v2.json` - V2 configuration data
 - `Keyboard layout.md` - **Comprehensive Miryoku adaptation guide** with detailed research on successful implementations, community feedback, and specific Silakka54 recommendations
@@ -366,6 +369,25 @@ Each layout includes navigation buttons to easily compare between:
 - 4 combos: Y+U → Escape, P+L → Enter, W+G → Hyper, '+. → Meh
 - Thumb behavior: Left (Esc, R/Nav, Tab/Mouse), Right (Enter, Space/Num, Backspace/Sym)
 - Perfect for users wanting Promethium alpha positions with Miryoku-style layering
+
+### ✅ Silakka54 (Graphite)
+
+#### Silakka54 (Graphite)
+- Graphite alphabet layout by [rdavison](https://github.com/rdavison/graphite-layout) adapted for Silakka54
+- 7 layers: Base (Graphite), Media, Navigation, Mouse, Symbols, Numbers, Function
+- Home row modifiers: GUI (N/I), Alt (R/E), Ctrl (T/A), Shift (S/H)
+- Base layout (3×5 core):
+  - Left: `B L D W Z` / `N R T S G` / `Q X M C V`
+  - Right: `' F O U J` / `Y H A E I` / `K P . - /`
+- Outer column adjustments for Graphite punctuation:
+  - Left outer: `[` on base (Tab moved to left thumb LT3), `=` on left thumb/numbers
+  - Right outer: `]` and `,` on base; `;` and `\` on numbers layer
+- 8 combos adapted for Graphite key positions:
+  - B+L → Escape, F+O → Escape, L+D → GUI
+  - Q+X → Cut, X+M → Copy, O+U → Quote
+  - B+L+D → Quit App, .+- → MEH
+- Graphite design: high hand alternation (42%), high rolls (44%), low redirects (3%), low SFB (1%)
+- Perfect for users wanting an optimized modern alpha layout with Miryoku layering on 54 keys
 
 ### 🚧 V2 - Optimized 4-Layer (Work in Progress)
 - Reduced to 4 layers for efficiency
