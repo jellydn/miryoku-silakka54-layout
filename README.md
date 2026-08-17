@@ -380,8 +380,8 @@ Each layout includes navigation buttons to easily compare between:
   - Left: `B L D W Z` / `N R T S G` / `Q X M C V`
   - Right: `' F O U J` / `Y H A E I` / `K P . - /`
 - Outer column adjustments for Graphite punctuation:
-  - Left outer: `Tab`, `[`, `=` (moved from right side)
-  - Right outer: `;`, `,`, `\` (Graphite's right-side punctuation)
+  - Left outer: `[` on base (Tab moved to left thumb LT3), `=` on left thumb/numbers
+  - Right outer: `]` and `,` on base; `;` and `\` on numbers layer
 - 8 combos adapted for Graphite key positions:
   - B+L → Escape, F+O → Escape, L+D → GUI
   - Q+X → Cut, X+M → Copy, O+U → Quote
