@@ -223,7 +223,7 @@ miryoku-silakka54-gaming-variant.vil
 # In Vial app  
 File → Load saved layout → select-your-backup.vil
 
-# Or drag-and-drop JSON file into Vial
+# Or drag-and-drop the corresponding .vil saved-layout file into Vial
 ```
 
 ## Troubleshooting
