@@ -70,9 +70,12 @@ Choose the approach that best fits your needs:
 
 #### For Split Keyboards (Silakka54)
 1. **Vial (Firmware)**: Choose a saved layout:
+   - Colemak-DH (original): `vial/miryoku-silakka54-vial-config.json`
    - QWERTY: `vial/miryoku-silakka54-qwerty.vil`
    ```bash
-   # Install Vial app, connect the keyboard, and load the .vil saved layout
+   # Install Vial, connect the keyboard, and load your chosen layout
+   # If Vial treats the legacy JSON as a keyboard definition, copy it to a
+   # filename ending in .vil and use File → Load saved layout
    # See vial/README.md for detailed instructions
    ```
 

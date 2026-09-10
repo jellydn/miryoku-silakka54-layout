@@ -1,6 +1,6 @@
 # Vial Configuration for Miryoku Silakka54
 
-This folder contains the complete Vial configuration used as the reference implementation for this project. The configuration has been tested and optimized for ergonomic use with small hands and represents the baseline that both the Kanata software implementation and web visualizer are aligned with.
+This folder contains the original Colemak-DH configuration and the contributed QWERTY variant. Both preserve the same Miryoku layers and ergonomic approach for the Silakka54.
 
 ## Overview
 
@@ -16,8 +16,12 @@ This folder contains the complete Vial configuration used as the reference imple
 
 ## File Contents
 
+- **`miryoku-silakka54-vial-config.json`**: Original Colemak-DH configuration
+  - Kept unchanged for existing users and backward compatibility
+  - Uses Colemak-DH alphas and the original Miryoku movement positions
 - **`miryoku-silakka54-qwerty.vil`**: Complete Vial saved-layout file
   - 7-layer Miryoku implementation with QWERTY alphas
+  - Vim-style H/J/K/L navigation and mouse movement
   - Optimized home row modifiers with tap-dance
   - 8 combo combinations for enhanced productivity
   - Fine-tuned timing settings (175ms base, 190ms/200ms tap-dance)
@@ -26,8 +30,10 @@ This folder contains the complete Vial configuration used as the reference imple
 > `MIRYOKU_ALPHAS=QWERTY` is a build-time option for generated Miryoku/QMK
 > keymaps. It is not an option accepted by Vial saved-layout files. This saved
 > Vial layout therefore contains the QWERTY mappings directly. The `.vil`
-> extension is important: loading the same content as `.json` makes Vial treat
-> it as a keyboard definition and results in a missing `vendorId` error.
+> extension is important: some Vial versions treat a `.json` upload as a
+> keyboard definition and report a missing `vendorId`. If that happens with the
+> legacy Colemak-DH file, make a copy named `miryoku-silakka54-colemak-dh.vil`
+> and load that copy as a saved layout. Keep the original JSON in the repository.
 
 ## Hardware Requirements
 
@@ -86,12 +92,17 @@ chmod +x Vial-*.AppImage
 
 1. **Open Vial application**
 2. **Connect your keyboard** - it should appear in the device list
-3. **Load configuration**:
-   - File → Load saved layout → Select `miryoku-silakka54-qwerty.vil`
-   - Or drag and drop the `.vil` file into Vial
-4. **Apply configuration** - changes happen instantly
+3. **Choose a layout**:
+   - **QWERTY**: `miryoku-silakka54-qwerty.vil`
+   - **Colemak-DH (original)**: `miryoku-silakka54-vial-config.json`
+4. **Load the configuration**:
+   - For QWERTY, use File → Load saved layout and select the `.vil` file
+   - For Colemak-DH, try the original JSON; if Vial reports `vendorId`, copy it
+     with a `.vil` extension and load the copied file as a saved layout
+   - You can also drag and drop the corresponding saved-layout file into Vial
+5. **Apply configuration** - changes happen instantly
 
-### Step 4: Test Your Setup
+### Step 4: Test the QWERTY Setup
 
 1. **Test basic typing** - verify the QWERTY layout works
 2. **Test home row modifiers**:
