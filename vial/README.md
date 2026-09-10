@@ -16,12 +16,18 @@ This folder contains the complete Vial configuration used as the reference imple
 
 ## File Contents
 
-- **`miryoku-silakka54-vial-config.json`**: Complete Vial configuration file
-  - 7-layer Miryoku implementation  
+- **`miryoku-silakka54-qwerty.vil`**: Complete Vial saved-layout file
+  - 7-layer Miryoku implementation with QWERTY alphas
   - Optimized home row modifiers with tap-dance
   - 8 combo combinations for enhanced productivity
   - Fine-tuned timing settings (175ms base, 190ms/200ms tap-dance)
   - All layer mappings and special functions
+
+> `MIRYOKU_ALPHAS=QWERTY` is a build-time option for generated Miryoku/QMK
+> keymaps. It is not an option accepted by Vial saved-layout files. This saved
+> Vial layout therefore contains the QWERTY mappings directly. The `.vil`
+> extension is important: loading the same content as `.json` makes Vial treat
+> it as a keyboard definition and results in a missing `vendorId` error.
 
 ## Hardware Requirements
 
@@ -81,30 +87,30 @@ chmod +x Vial-*.AppImage
 1. **Open Vial application**
 2. **Connect your keyboard** - it should appear in the device list
 3. **Load configuration**:
-   - File → Load → Select `miryoku-silakka54-vial-config.json`
-   - Or drag and drop the JSON file into Vial
+   - File → Load saved layout → Select `miryoku-silakka54-qwerty.vil`
+   - Or drag and drop the `.vil` file into Vial
 4. **Apply configuration** - changes happen instantly
 
 ### Step 4: Test Your Setup
 
-1. **Test basic typing** - verify Colemak-DH layout works
+1. **Test basic typing** - verify the QWERTY layout works
 2. **Test home row modifiers**:
    - Hold A briefly → should activate GUI modifier
-   - Hold R, S, T → should activate Alt, Ctrl, Shift respectively
-   - Hold N, E, I → should activate Shift, Ctrl, Alt respectively  
-   - Hold O briefly → should activate GUI modifier
+   - Hold S, D, F → should activate Alt, Ctrl, Shift respectively
+   - Hold J, K, L → should activate Shift, Ctrl, Alt respectively
+   - Hold ; briefly → should activate GUI modifier
 3. **Test layer switching**:
    - Hold Escape (left thumb) → Media layer
-   - Hold Space (left thumb) → Navigation layer
-   - Hold Tab (left thumb) → Mouse layer
+   - Hold Space (left thumb) → Navigation layer (`H/J/K/L` = Left/Down/Up/Right)
+   - Hold Tab (left thumb) → Mouse layer (`H/J/K/L` = Left/Down/Up/Right)
    - Hold Enter (right thumb) → Symbols layer
    - Hold Backspace (right thumb) → Numbers layer
    - Hold Delete (right thumb) → Function layer
 4. **Test combos**:
    - Q+W → Escape
-   - L+U → Escape
+   - U+I → Escape
    - X+C → Cut (Cmd+X)
-   - C+D → Copy (Cmd+C)
+   - C+V → Copy (Cmd+C)
    - And others listed below
 
 ## Configuration Details
@@ -113,13 +119,13 @@ chmod +x Vial-*.AppImage
 | Key | Tap | Hold | Timing |
 |-----|-----|------|--------|
 | A | A | GUI/Super | 190ms (tap-dance) |
-| R | R | Alt | 175ms |
-| S | S | Control | 175ms |
-| T | T | Shift | 175ms |
-| N | N | Shift | 175ms |
-| E | E | Control | 175ms |
-| I | I | Alt | 175ms |
-| O | O | GUI/Super | 200ms (tap-dance) |
+| S | S | Alt | 175ms |
+| D | D | Control | 175ms |
+| F | F | Shift | 175ms |
+| J | J | Shift | 175ms |
+| K | K | Control | 175ms |
+| L | L | Alt | 175ms |
+| ; | ; | GUI/Super | 200ms (tap-dance) |
 
 ### Layer Access (Thumb Keys)
 | Key | Tap | Hold (Layer) | Vial Code |
@@ -135,12 +141,12 @@ chmod +x Vial-*.AppImage
 | Keys | Result | Description |
 |------|--------|-------------|
 | Q + W | Escape | Easier than reaching top-left |
-| Q + W + F | Cmd+Q | Quit application |
-| L + U | Escape | Right-hand escape option |
-| W + F | GUI modifier | Super/Cmd key |
-| U + Y | Quote (') | Quick quote access |
+| Q + W + E | Cmd+Q | Quit application |
+| U + I | Escape | Right-hand escape option |
+| W + E | GUI modifier | Super/Cmd key |
+| I + O | Quote (') | Quick quote access |
 | X + C | Cmd+X | Cut to clipboard |
-| C + D | Cmd+C | Copy to clipboard |
+| C + V | Cmd+C | Copy to clipboard |
 | , + . | MEH | Alt+Ctrl+Shift+GUI |
 
 ### Vial Settings Applied
@@ -194,17 +200,17 @@ chmod +x Vial-*.AppImage
 #### Creating Backups
 ```bash
 # In Vial app
-File → Save → name-your-backup.json
+File → Save → name-your-backup.vil
 
 # Store in safe location with descriptive names
-miryoku-silakka54-base-config.json
-miryoku-silakka54-gaming-variant.json
+miryoku-silakka54-base-config.vil
+miryoku-silakka54-gaming-variant.vil
 ```
 
 #### Restoring from Backup
 ```bash
 # In Vial app  
-File → Load → select-your-backup.json
+File → Load saved layout → select-your-backup.vil
 
 # Or drag-and-drop JSON file into Vial
 ```

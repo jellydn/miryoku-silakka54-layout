@@ -44,8 +44,9 @@ Choose the approach that best fits your needs:
 - **Real Vial Configuration**: Tested and optimized firmware configuration
 - **Dual Kanata Support**: Configurations for both split and standard keyboards
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
-- **Multiple Layout Versions**: 10 different approaches to Miryoku implementation
+- **Multiple Layout Versions**: 12 different approaches to Miryoku implementation
   - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
+  - 🟢 **Silakka54 QWERTY**: Tested Vial layout with Vim-style navigation - **READY**
   - 🟢 **Pinky Relief** (V1-P): Weak finger friendly with redistributed load - **READY**
   - 🟢 **Corne (Colemak-DH)**: Optimized for 3x6+3 split keyboards - **READY**
   - 🟢 **Corne (Gallium)**: Alternative alphabet layout for Corne - **READY**
@@ -68,9 +69,10 @@ Choose the approach that best fits your needs:
 ### Choose Your Implementation
 
 #### For Split Keyboards (Silakka54)
-1. **Vial (Firmware)**: Use `vial/miryoku-silakka54-vial-config.json`
+1. **Vial (Firmware)**: Choose a saved layout:
+   - QWERTY: `vial/miryoku-silakka54-qwerty.vil`
    ```bash
-   # Install Vial app, load JSON configuration
+   # Install Vial app, connect the keyboard, and load the .vil saved layout
    # See vial/README.md for detailed instructions
    ```
 
@@ -144,7 +146,7 @@ You can also open `index.html` directly in your web browser, though some feature
 | **Keyboard Support** | Vial-compatible only | Any keyboard | N/A |
 | **Background Software** | ❌ None needed | ✅ Runs in background | ❌ None needed |
 | **Offline Usage** | ✅ Always works | ✅ Always works | ✅ Always works |
-| **Configuration Backup** | ✅ Export/import JSON | ✅ File-based config | ❌ Display only |
+| **Configuration Backup** | ✅ Export/import `.vil` | ✅ File-based config | ❌ Display only |
 | **Learning Curve** | Low (GUI) | Medium (config files) | None (visual) |
 | **Advanced Features** | ✅ Full Vial features | ✅ Full Kanata features | ❌ Display only |
 
@@ -277,6 +279,8 @@ Each layout includes navigation buttons to easily compare between:
 
 - `index.html` - V1 Traditional HRM layout (Vue.js app)
 - `app.json` - V1 configuration data
+- `index-qwerty.html` - Silakka54 QWERTY layout with Vim-style navigation (Vue.js app)
+- `app-qwerty.json` - Silakka54 QWERTY visualizer configuration data
 - `index-corne.html` - Corne 42-key Colemak-DH layout (Vue.js app)
 - `app-corne.json` - Corne Colemak-DH configuration data
 - `index-corne-gallium.html` - Corne 42-key Gallium layout (Vue.js app)
@@ -316,6 +320,14 @@ Each layout includes navigation buttons to easily compare between:
 - Complete Vue.js refactoring
 - JSON configuration system
 - Interactive tooltips and layer switching
+
+### ✅ Silakka54 QWERTY (Production Ready)
+- Tested Vial saved layout in `vial/miryoku-silakka54-qwerty.vil`
+- Standard QWERTY alpha arrangement with GACS home row modifiers
+- Home row modifiers: GUI (A/;), Alt (S/L), Ctrl (D/K), Shift (F/J)
+- Vim-style `H/J/K/L` movement on both Navigation and Mouse layers
+- Eight combos moved with their physical key positions for QWERTY
+- Matching web visualizer in `index-qwerty.html` and `app-qwerty.json`
 
 ### ✅ V1-P - Pinky Relief (Production Ready)
 - Weak finger optimized variant of V1
