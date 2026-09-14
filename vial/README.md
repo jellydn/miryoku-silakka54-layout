@@ -158,14 +158,14 @@ chmod +x Vial-*.AppImage
 | I + O | Quote (') | Quick quote access |
 | X + C | Cmd+X | Cut to clipboard |
 | C + V | Cmd+C | Copy to clipboard |
-| , + . | MEH | Alt+Ctrl+Shift+GUI |
+| , + . | MEH | Alt+Ctrl+Shift |
 
 ### Vial Settings Applied
 | Setting | Value | Purpose |
 |---------|-------|---------|
 | Tapping Term | 175ms | Base tap-hold timing |
 | Combo Term | 50ms | Combo key timing |
-| Tap Dance Term | 190ms (A), 200ms (O) | GUI key timing |
+| Tap Dance Term | 190ms (A), 200ms (;) | GUI key timing |
 | Permissive Hold | Enabled | Easier modifier activation |
 | Ignore Mod Tap Interrupt | Enabled | Prevents accidental mods |
 
@@ -255,9 +255,11 @@ File → Load saved layout → select-your-backup.vil
 ## Migration Between Systems
 
 ### From Vial to Kanata
-Use the provided Kanata configurations which mirror this Vial setup:
-- `kanata-v1.kbd` for split keyboards
-- `kanata-standard-keyboards.kbd` for standard keyboards
+The Kanata configurations implement the Colemak-DH V1 variant; they do not mirror the QWERTY Vial layout:
+- `kanata-v1.kbd` for the Colemak-DH split-keyboard layout
+- `kanata-standard-keyboards.kbd` for the Colemak-DH standard-keyboard layout
+
+A QWERTY Kanata configuration is not currently provided.
 
 ### From Vial to QMK
 Export Vial config and adapt to QMK C code:
@@ -266,7 +268,9 @@ Export Vial config and adapt to QMK C code:
 3. Compile and flash standard QMK firmware
 
 ### Sharing Configurations
-- **JSON format**: Universal Vial format, works across devices
+- **Saved layouts**: Share `.vil` files exported with **File → Save**
+- **Legacy JSON file**: `miryoku-silakka54-vial-config.json` is retained for the original Colemak-DH layout and might need a `.vil` extension when loaded as a saved layout
+- **Compatibility**: Saved layouts require the same keyboard definition and compatible firmware; they are not universal across devices
 - **Include documentation**: Add notes about custom settings
 - **Version compatibility**: Note Vial version used for configuration
 
@@ -282,9 +286,9 @@ Export Vial config and adapt to QMK C code:
 This Vial configuration embodies several key principles:
 
 1. **Ergonomic first**: Optimized for small hands and reduced strain
-2. **Consistency**: Matches Kanata and web visualizer implementations
+2. **Consistency**: Each saved layout matches its corresponding web visualizer; Kanata covers the Colemak-DH V1 variant only
 3. **Practical combos**: Only includes combos that provide real ergonomic benefit
 4. **Conservative timing**: Settings balanced for accuracy over speed
 5. **Layer orthogonality**: Each layer serves distinct, non-overlapping functions
 
-The result is a practical, comfortable layout that serves as the foundation for both software-based alternatives and visual learning tools.
+The result is a practical, comfortable layout with matching visual learning tools and clearly scoped software-based alternatives.

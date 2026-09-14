@@ -14,7 +14,7 @@
             transition: all 0.2s ease;
             font-size: 0.6rem;
         }
-        
+
         /* Tablet and larger */
         @media (min-width: 768px) {
             .key {
@@ -23,7 +23,7 @@
                 font-size: 0.7rem;
             }
         }
-        
+
         /* Desktop */
         @media (min-width: 1024px) {
             .key {
@@ -32,25 +32,25 @@
                 font-size: 0.75rem;
             }
         }
-        
+
         .key:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-        
+
         .home-row {
             position: relative;
         }
-        
+
         .combo-key {
             position: relative;
             border: 2px dashed #f59e0b;
         }
-        
+
         .combo-key:hover {
             background-color: #fef3c7 !important;
         }
-        
+
         .home-row::before {
             content: '';
             position: absolute;
@@ -62,17 +62,17 @@
             background-color: #3b82f6;
             border-radius: 50%;
         }
-        
+
         .thumb-key {
             min-width: 3rem;
         }
-        
+
         @media (min-width: 768px) {
             .thumb-key {
                 min-width: 4rem;
             }
         }
-        
+
         @media (min-width: 1024px) {
             .thumb-key {
                 min-width: 4.5rem;
@@ -93,13 +93,13 @@
             font-size: 0.5rem;
             color: #6b7280;
         }
-        
+
         @media (min-width: 768px) {
             .mod-label {
                 font-size: 0.55rem;
             }
         }
-        
+
         @media (min-width: 1024px) {
             .mod-label {
                 font-size: 0.6rem;
@@ -128,7 +128,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             max-width: 200px;
         }
-        
+
         @media (min-width: 768px) {
             .tooltip-text {
                 padding: 8px 12px;
@@ -156,13 +156,13 @@
     <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold text-center mb-4">{{ config.title }}</h1>
         <p class="text-center text-gray-600 mb-8">{{ config.subtitle }}</p>
-        
+
         <!-- Layer Selector -->
         <div class="flex flex-wrap justify-center gap-2 mb-8">
-            <button 
-                v-for="layer in config.layers" 
+            <button
+                v-for="layer in config.layers"
                 :key="layer.id"
-                @click="showLayer(layer.id)" 
+                @click="showLayer(layer.id)"
                 :class="['layer-btn px-4 py-2 rounded', currentLayer === layer.id ? 'bg-blue-500 text-white' : 'bg-gray-300']"
             >
                 {{ layer.name }}
@@ -177,8 +177,8 @@
                 <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
                     <!-- Render left keys by rows -->
                     <template v-for="row in 4" :key="'left-row-' + row">
-                        <div 
-                            v-for="key in getKeysForRow('left', row - 1)" 
+                        <div
+                            v-for="key in getKeysForRow('left', row - 1)"
                             :key="key.id"
                             :class="getKeyClasses(key)"
                             :data-key="key.id"
@@ -186,11 +186,11 @@
                         ></div>
                     </template>
                 </div>
-                
+
                 <!-- Left Thumb Cluster -->
                 <div class="flex justify-center gap-2 mt-4">
-                    <div 
-                        v-for="thumbKey in config.keyboardLayout.leftThumbKeys" 
+                    <div
+                        v-for="thumbKey in config.keyboardLayout.leftThumbKeys"
                         :key="thumbKey.id"
                         :class="getKeyClasses(thumbKey)"
                         :data-key="thumbKey.id"
@@ -205,8 +205,8 @@
                 <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
                     <!-- Render right keys by rows -->
                     <template v-for="row in 4" :key="'right-row-' + row">
-                        <div 
-                            v-for="key in getKeysForRow('right', row - 1)" 
+                        <div
+                            v-for="key in getKeysForRow('right', row - 1)"
                             :key="key.id"
                             :class="getKeyClasses(key)"
                             :data-key="key.id"
@@ -214,11 +214,11 @@
                         ></div>
                     </template>
                 </div>
-                
+
                 <!-- Right Thumb Cluster -->
                 <div class="flex justify-center gap-2 mt-4">
-                    <div 
-                        v-for="thumbKey in config.keyboardLayout.rightThumbKeys" 
+                    <div
+                        v-for="thumbKey in config.keyboardLayout.rightThumbKeys"
                         :key="thumbKey.id"
                         :class="getKeyClasses(thumbKey)"
                         :data-key="thumbKey.id"
@@ -232,14 +232,14 @@
         <div class="mt-8 bg-white p-4 rounded-lg shadow">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="font-semibold">Combo Reference (Vial Configuration)</h3>
-                <button 
-                    @click="showCombos = !showCombos" 
+                <button
+                    @click="showCombos = !showCombos"
                     class="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors"
                 >
                     {{ showCombos ? 'Hide' : 'Show' }} Combos
                 </button>
             </div>
-            
+
             <div v-show="showCombos" class="transition-all duration-300">
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Essential Combos -->
@@ -299,7 +299,7 @@
                         <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
                             <span class="font-mono bg-yellow-100 px-2 py-1 rounded">, + .</span>
                             <span class="text-gray-600">→</span>
-                            <span>MEH (Alt+Ctrl+Shift+GUI)</span>
+                            <span>MEH (Alt+Ctrl+Shift)</span>
                         </div>
                     </div>
                 </div>
@@ -364,7 +364,7 @@
         <!-- How to Change Layers -->
         <div class="mt-8 bg-blue-50 p-6 rounded-lg border border-blue-200">
             <h3 class="font-semibold text-blue-900 mb-4 text-center">How to Change Between Layers</h3>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Physical Keyboard Usage -->
                 <div class="bg-white p-4 rounded-lg shadow-sm">
@@ -449,7 +449,7 @@
             <!-- Key Principle -->
             <div class="mt-4 p-3 bg-blue-100 rounded-lg text-center">
                 <p class="text-sm text-blue-800">
-                    <strong>Key Principle:</strong> Tap thumb keys for their primary function (Space, Enter, etc.) • 
+                    <strong>Key Principle:</strong> Tap thumb keys for their primary function (Space, Enter, etc.) •
                     Hold thumb keys to activate layers on the opposite hand
                 </p>
             </div>
@@ -520,8 +520,8 @@
         <!-- Footer -->
          <div class="mt-8 pt-8 border-t border-gray-300 text-center">
              <p class="text-xs text-gray-500">
-                 <a href="https://github.com/manna-harbour/miryoku" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Miryoku Layout</a> by manna-harbour • 
-                 <a href="https://github.com/Squalius-cephalus/silakka54" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Silakka54</a> keyboard • 
+                 <a href="https://github.com/manna-harbour/miryoku" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Miryoku Layout</a> by manna-harbour •
+                 <a href="https://github.com/Squalius-cephalus/silakka54" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Silakka54</a> keyboard •
                  <a href="https://getreuer.info/posts/keyboards/alt-layouts/index.html#which-alt-keyboard-layout-should-i-learn" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Alt Layout Guide</a><br>
                  Built with <a href="https://claude.ai/code" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Claude Code</a> by <a href="http://itman.fyi/" class="text-blue-500 hover:underline" target="_blank" rel="noopener">itman.fyi</a><br>
                  <a href="https://github.com/jellydn/miryoku-silakka54-layout" class="text-blue-500 hover:underline" target="_blank" rel="noopener">Use this as template</a>
@@ -531,7 +531,7 @@
 
     <script>
         const { createApp } = Vue;
-        
+
         createApp({
             data() {
                 return {
@@ -590,28 +590,28 @@
                 },
                 getKeyClasses(key) {
                     let classes = ['key', 'rounded', 'flex', 'items-center', 'justify-center', 'tooltip'];
-                    
+
                     // Add base classes from config
                     if (key.class) {
                         const baseClasses = key.class.split(' ').filter(cls => cls !== 'combo-key');
                         classes = classes.concat(baseClasses);
                     }
-                    
+
                     // Only add combo-key class if we're on the base layer
                     if (this.currentLayer === 'base' && key.class && key.class.includes('combo-key')) {
                         classes.push('combo-key');
                     }
-                    
+
                     return classes;
                 },
                 getKeyContent(keyId) {
                     if (!this.config.layerData) return '';
                     const layerData = this.config.layerData[this.currentLayer];
                     if (!layerData) return '';
-                    
+
                     const keyValue = layerData[keyId] || '';
                     const tooltipText = this.getTooltipText(keyId, keyValue);
-                    
+
                     if (tooltipText) {
                         return `<span class="text-xs font-medium">${keyValue}</span>
                                 <div class="tooltip-text">${tooltipText}</div>`;
@@ -623,7 +623,7 @@
                     // Only show combo-specific tooltips on base layer
                     if (this.currentLayer === 'base' && this.config.tooltips && this.config.tooltips[keyId]) {
                         return this.config.tooltips[keyId];
-                    } 
+                    }
                     // For non-base layers, show generic descriptions
                     else if (keyValue === '' || keyValue === '___') {
                         return keyValue === '___' ? 'Layer key being held' : 'No function on this layer';
@@ -631,7 +631,7 @@
                         // Generic tooltip for regular keys
                         const keyDescriptions = {
                             '←': 'Left arrow key',
-                            '→': 'Right arrow key', 
+                            '→': 'Right arrow key',
                             '↑': 'Up arrow key',
                             '↓': 'Down arrow key',
                             'PgUp': 'Page Up key',
@@ -639,7 +639,7 @@
                             'Bksp': 'Backspace key',
                             'GUI': 'GUI/Super modifier',
                             'Alt': 'Alt modifier',
-                            'Ctrl': 'Control modifier', 
+                            'Ctrl': 'Control modifier',
                             'Shift': 'Shift modifier',
                             'Cut': 'Cut to clipboard (Ctrl+X)',
                             'Copy': 'Copy to clipboard (Ctrl+C)',

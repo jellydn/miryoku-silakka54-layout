@@ -1,0 +1,48 @@
+{
+  "projectName": "miryoku-silakka54-layout",
+  "projectOwner": "jellydn",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributorsSortAlphabetically": false,
+  "linkToUsage": true,
+  "skipCi": true,
+  "contributors": [
+    {
+      "login": "jellydn",
+      "name": "Dung Duc Huynh (Kaka)",
+      "avatar_url": "https://avatars.githubusercontent.com/u/870029",
+      "profile": "https://github.com/jellydn",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "SlenderB13",
+      "name": "Lucas Silva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62191201",
+      "profile": "https://github.com/SlenderB13",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "ampagent",
+      "name": "Amp",
+      "avatar_url": "https://avatars.githubusercontent.com/u/289058786",
+      "profile": "https://ampcode.com/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ]
+}
