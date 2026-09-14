@@ -1,8 +1,10 @@
 # Miryoku Silakka54 Layout
 
+[![All Contributors](https://img.shields.io/github/all-contributors/jellydn/miryoku-silakka54-layout?color=ee8449&style=flat-square)](#contributors-)
+
 🚀 **V1 Ready** - Traditional HRM layout is production-ready! Other versions are work-in-progress.
 
-A comprehensive implementation suite for the Miryoku keyboard layout system adapted to the Silakka54 split keyboard, featuring **three synchronized approaches**: firmware-based (Vial - ✅ Tested), software-based (Kanata - ⚠️ Untested/WIP), and educational visualization (Web UI - ✅ Ready).
+A comprehensive implementation suite for the Miryoku keyboard layout system adapted to the Silakka54 split keyboard, with firmware-based layouts (Vial - ✅ Tested), software-based layouts (Kanata - ⚠️ Untested/WIP), and educational visualizations (Web UI - ✅ Ready). Implementation coverage differs by variant; the QWERTY variant currently supports Vial and the Web UI.
 
 ## Overview
 
@@ -19,7 +21,7 @@ Choose the approach that best fits your needs:
 ### 🎛️ **Vial Configuration** (Firmware-based) ✅ TESTED & WORKING
 - **Best for**: Split keyboard owners who want real-time configuration
 - **Location**: `vial/` folder
-- **Status**: Production-ready, thoroughly tested
+- **Status**: The Colemak-DH and QWERTY saved layouts are production-ready and tested
 - **Pros**: Real-time changes, visual interface, no software required
 - **Cons**: Requires Vial-compatible firmware
 
@@ -39,13 +41,14 @@ Choose the approach that best fits your needs:
 
 ## Features
 
-- **Three Synchronized Implementations**: All configurations match the same tested layout
+- **Variant-specific Implementations**: Each layout lists its supported Vial, Kanata, and Web UI options
 - **Interactive Vue.js Visualizer**: Modern reactive interface with dynamic layer switching
 - **Real Vial Configuration**: Tested and optimized firmware configuration
 - **Dual Kanata Support**: Configurations for both split and standard keyboards
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
-- **Multiple Layout Versions**: 10 different approaches to Miryoku implementation
+- **Multiple Layout Versions**: 12 different approaches to Miryoku implementation
   - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
+  - 🟢 **Silakka54 QWERTY**: Tested Vial layout with Vim-style navigation - **READY**
   - 🟢 **Pinky Relief** (V1-P): Weak finger friendly with redistributed load - **READY**
   - 🟢 **Corne (Colemak-DH)**: Optimized for 3x6+3 split keyboards - **READY**
   - 🟢 **Corne (Gallium)**: Alternative alphabet layout for Corne - **READY**
@@ -68,13 +71,17 @@ Choose the approach that best fits your needs:
 ### Choose Your Implementation
 
 #### For Split Keyboards (Silakka54)
-1. **Vial (Firmware)**: Use `vial/miryoku-silakka54-vial-config.json`
+1. **Vial (Firmware)**: Choose a saved layout:
+   - Colemak-DH (original): `vial/miryoku-silakka54-vial-config.json`
+   - QWERTY: `vial/miryoku-silakka54-qwerty.vil`
    ```bash
-   # Install Vial app, load JSON configuration
+   # Install Vial, connect the keyboard, and load your chosen layout
+   # If Vial treats the legacy JSON as a keyboard definition, copy it to a
+   # filename ending in .vil and use File → Load saved layout
    # See vial/README.md for detailed instructions
    ```
 
-2. **Kanata (Software)**: Use `kanata-v1.kbd` ⚠️ UNTESTED
+2. **Kanata (Software)**: Use `kanata-v1.kbd` for the Colemak-DH V1 layout ⚠️ UNTESTED. A QWERTY Kanata configuration is not currently provided.
    ```bash
    sudo kanata --cfg kanata-v1.kbd
    # See KANATA.md for detailed instructions
@@ -105,6 +112,14 @@ npx serve
 ```
 
 Then open your browser to the displayed URL (typically `http://localhost:3000`).
+
+Validate the QWERTY Vial-to-visualizer contract and JSON files before submitting changes:
+
+```bash
+python3 -m unittest discover -s tests -v
+jq empty app*.json vial/*.json vial/*.vil .all-contributorsrc
+git diff --check
+```
 
 ### Get Official Miryoku Layer Specifications
 
@@ -144,7 +159,7 @@ You can also open `index.html` directly in your web browser, though some feature
 | **Keyboard Support** | Vial-compatible only | Any keyboard | N/A |
 | **Background Software** | ❌ None needed | ✅ Runs in background | ❌ None needed |
 | **Offline Usage** | ✅ Always works | ✅ Always works | ✅ Always works |
-| **Configuration Backup** | ✅ Export/import JSON | ✅ File-based config | ❌ Display only |
+| **Configuration Backup** | ✅ Export/import `.vil` | ✅ File-based config | ❌ Display only |
 | **Learning Curve** | Low (GUI) | Medium (config files) | None (visual) |
 | **Advanced Features** | ✅ Full Vial features | ✅ Full Kanata features | ❌ Display only |
 
@@ -154,7 +169,7 @@ You can also open `index.html` directly in your web browser, though some feature
 - **Use Kanata** if you have any keyboard and want software-based remapping
 - **Use Web Visualizer** for learning, reference, or if you're planning your setup
 
-All three implementations share the **same home row modifiers, layer mappings, and combo definitions** for seamless switching between approaches.
+The Colemak-DH V1 files provide the Vial, Kanata, and Web UI approaches. The QWERTY variant currently provides Vial and Web UI files only. Check each variant before switching because its layer mappings and combos can differ.
 
 ## How to Use This Layout
 
@@ -180,11 +195,15 @@ The Miryoku layout uses **multiple layers with orthogonal functionality** - each
 ```
 Left Thumb Hold → Right Hand Layers
 - Hold Space → Navigation layer (arrows, clipboard)
-- Hold Tab → Numbers layer (numpad layout)
+- Hold Tab → Mouse layer (pointer and wheel controls)
 
-Right Thumb Hold → Left Hand Layers  
+Right Thumb Hold → Left Hand Layers
 - Hold Enter → Symbols layer (punctuation, operators)
-- Hold Escape → Function layer (F-keys, system)
+- Hold Backspace → Numbers layer (numpad layout)
+- Hold Delete → Function layer (F-keys, system)
+
+Left Thumb Hold → Media Layer
+- Hold Escape → Media layer (playback and volume controls)
 ```
 
 ### Visualizer Usage
@@ -260,6 +279,7 @@ All layout versions now include comprehensive tooltips that appear when you hove
 ### Version Navigation
 Each layout includes navigation buttons to easily compare between:
 - **Traditional HRM**: Full Miryoku experience with home row modifiers
+- **Silakka54 QWERTY**: Familiar alphas with Vim-style navigation and mouse movement
 - **Optimized 4-Layer**: Reduced complexity with direct symbol access
 - **No HRM Dedicated**: Familiar modifier keys for easier transition
 - **4-Layer Balanced**: Perfect balance between simplicity and efficiency
@@ -277,6 +297,8 @@ Each layout includes navigation buttons to easily compare between:
 
 - `index.html` - V1 Traditional HRM layout (Vue.js app)
 - `app.json` - V1 configuration data
+- `index-qwerty.html` - Silakka54 QWERTY layout with Vim-style navigation (Vue.js app)
+- `app-qwerty.json` - Silakka54 QWERTY visualizer configuration data
 - `index-corne.html` - Corne 42-key Colemak-DH layout (Vue.js app)
 - `app-corne.json` - Corne Colemak-DH configuration data
 - `index-corne-gallium.html` - Corne 42-key Gallium layout (Vue.js app)
@@ -294,12 +316,13 @@ Each layout includes navigation buttons to easily compare between:
 
 ## Layout Layers
 
-1. **Base** - Colemak-DH alpha layout with home row modifiers
-2. **Navigation** - Arrow keys, page navigation, clipboard operations
-3. **Symbols** - Special characters and punctuation marks
-4. **Numbers** - Numeric keypad layout
-5. **Function** - F-keys and system functions
-6. **Media** - Volume and playback controls
+1. **Base** - Variant-specific alpha layout with home row modifiers
+2. **Media** - Volume and playback controls
+3. **Navigation** - Arrow keys, page navigation, clipboard operations
+4. **Mouse** - Pointer, wheel, and button controls
+5. **Symbols** - Special characters and punctuation marks
+6. **Numbers** - Numeric keypad layout
+7. **Function** - F-keys and system functions
 
 ## Key Principles
 
@@ -316,6 +339,14 @@ Each layout includes navigation buttons to easily compare between:
 - Complete Vue.js refactoring
 - JSON configuration system
 - Interactive tooltips and layer switching
+
+### ✅ Silakka54 QWERTY (Production Ready)
+- Tested Vial saved layout in `vial/miryoku-silakka54-qwerty.vil`
+- Standard QWERTY alpha arrangement with GACS home row modifiers
+- Home row modifiers: GUI (A/;), Alt (S/L), Ctrl (D/K), Shift (F/J)
+- Vim-style `H/J/K/L` movement on both Navigation and Mouse layers
+- Eight combos moved with their physical key positions for QWERTY
+- Matching web visualizer in `index-qwerty.html` and `app-qwerty.json`
 
 ### ✅ V1-P - Pinky Relief (Production Ready)
 - Weak finger optimized variant of V1
@@ -687,3 +718,36 @@ Remember: **Perfect configuration is personal** - what works for others may need
 - [ZMK Firmware](https://zmk.dev/) - Wireless keyboard firmware
 - [Vial](https://vial.rocks/) - GUI for QMK configuration
 - [Home Row Mods Guide](https://precondition.github.io/home-row-mods) - Detailed implementation guide
+
+## Contributors ✨
+
+Thanks go to these contributors ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/jellydn"><img src="https://avatars.githubusercontent.com/u/870029?s=100" width="100px;" alt="Dung Duc Huynh (Kaka)"/><br /><sub><b>Dung Duc Huynh (Kaka)</b></sub></a><br /><a href="https://github.com/jellydn/miryoku-silakka54-layout/commits?author=jellydn" title="Code">💻</a> <a href="https://github.com/jellydn/miryoku-silakka54-layout/commits?author=jellydn" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/SlenderB13"><img src="https://avatars.githubusercontent.com/u/62191201?s=100" width="100px;" alt="Lucas Silva"/><br /><sub><b>Lucas Silva</b></sub></a><br /><a href="https://github.com/jellydn/miryoku-silakka54-layout/commits?author=SlenderB13" title="Code">💻</a> <a href="https://github.com/jellydn/miryoku-silakka54-layout/commits?author=SlenderB13" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://ampcode.com/"><img src="https://avatars.githubusercontent.com/u/289058786?s=100" width="100px;" alt="Amp"/><br /><sub><b>Amp</b></sub></a><br /><a href="https://github.com/jellydn/miryoku-silakka54-layout/commits?author=ampagent" title="Code">💻</a> <a href="https://github.com/jellydn/miryoku-silakka54-layout/commits?author=ampagent" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td align="center" size="13px" colspan="7">
+        <img src="https://raw.githubusercontent.com/all-contributors/all-contributors-cli/1b8533af435da9854653492b1327a23a4dbd0a10/assets/logo-small.svg">
+          <a href="https://all-contributors.js.org/docs/en/bot/usage">Add your contributions</a>
+        </img>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [All Contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome.

@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Silakka54 QWERTY Layout** (`index-qwerty.html`, `app-qwerty.json`, and `vial/miryoku-silakka54-qwerty.vil`)
+  - Standard QWERTY alphas with GACS home row modifiers on A/S/D/F and J/K/L/;
+  - Vim-style H/J/K/L movement on the Navigation and Mouse layers
+  - Eight combos adapted to their equivalent physical QWERTY positions
+  - Tested Vial saved-layout file and matching interactive web visualizer
 - **Silakka54 (Graphite) Layout** (index-graphite.html): Graphite alphabet layout adapted for Silakka54 54-key split keyboard
   - **Graphite alpha core**: B-L-D-W-Z / N-R-T-S-G / Q-X-M-C-V (left) and '-F-O-U-J / Y-H-A-E-I / K-P-.-\-/ (right)
   - **High alternation**: 42% hand alternation, 44% rolls, 3% redirects, 1% SFBs
