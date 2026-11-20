@@ -187,11 +187,11 @@
                     <a v-if="baseInfo.file" :href="layoutUrl(board, baseId)"
                        @click.prevent="selectLayout(board, baseId)"
                        :class="['px-3 py-1 rounded', base === baseId ? 'bg-gray-800 text-white' : 'bg-white border border-gray-300 hover:bg-gray-50']">{{ baseInfo.name }}</a>
-                    <a v-else :href="baseInfo.page" class="px-3 py-1 rounded bg-white border border-dashed border-gray-300 hover:bg-gray-50 text-gray-700">{{ baseInfo.name }}<span v-if="baseInfo.status" class="ml-1 bg-yellow-600 text-white text-xs px-1 rounded-full">{{ baseInfo.status }}</span></a>
+                    <a v-else :href="baseInfo.page" class="px-3 py-1 rounded bg-white border border-dashed border-gray-300 hover:bg-gray-50 text-gray-700">{{ baseInfo.name }}</a>
                 </template>
             </div>
             <noscript>
-                <span class="text-gray-600">Silakka54: <a class="underline" href="index.html">Graphite</a> · <a class="underline" href="index.html?base=colemak-dh">Colemak-DH</a> · <a class="underline" href="index.html?base=qwerty">QWERTY</a> · <a class="underline" href="index-v1-pinky.html">Pinky Relief</a> · <a class="underline" href="index-v2.html">Optimized 4-Layer (WIP)</a> · <a class="underline" href="index-v3.html">No HRM Dedicated (WIP)</a> · <a class="underline" href="index-v4.html">4-Layer Balanced (WIP)</a> · <a class="underline" href="index-v5.html">Coding Optimized (WIP)</a></span>
+                <span class="text-gray-600">Silakka54: <a class="underline" href="index.html">Graphite</a> · <a class="underline" href="index.html?base=colemak-dh">Colemak-DH</a> · <a class="underline" href="index.html?base=qwerty">QWERTY</a></span>
                 <span class="text-gray-600">Corne: <a class="underline" href="index.html?board=corne">Graphite (v4.1)</a> · <a class="underline" href="index-corne.html">Colemak-DH</a> · <a class="underline" href="index-corne-gallium.html">Gallium</a> · <a class="underline" href="index-corne-enthium.html">Enthium</a> · <a class="underline" href="index-corne-promethium.html">Promethium</a></span>
             </noscript>
         </nav>
@@ -446,12 +446,7 @@
                 bases: {
                     graphite: { name: 'Graphite', file: 'app-graphite.json' },
                     'colemak-dh': { name: 'Colemak-DH', file: 'app.json' },
-                    qwerty: { name: 'QWERTY', file: 'app-qwerty.json' },
-                    'pinky-relief': { name: 'Pinky Relief', page: 'index-v1-pinky.html' },
-                    'v2': { name: 'Optimized 4-Layer', page: 'index-v2.html', status: 'WIP' },
-                    'v3': { name: 'No HRM Dedicated', page: 'index-v3.html', status: 'WIP' },
-                    'v4': { name: '4-Layer Balanced', page: 'index-v4.html', status: 'WIP' },
-                    'v5': { name: 'Coding Optimized', page: 'index-v5.html', status: 'WIP' }
+                    qwerty: { name: 'QWERTY', file: 'app-qwerty.json' }
                 }
             },
             corne: {
