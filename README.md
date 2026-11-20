@@ -71,9 +71,16 @@ Choose the approach that best fits your needs:
 ### Choose Your Implementation
 
 #### For Split Keyboards (Silakka54)
+> **Note:** The maintainer's Silakka54 now runs **ZMK** with the Graphite layout:
+> [jellydn/zmk-config](https://github.com/jellydn/zmk-config) (`config/base.keymap`, `config/combos.dtsi`).
+> The web visualizer follows that config. `vial/miryoku-silakka54-graphite.vil` is the older Vial
+> export of the same layers (4 combos at 35 ms). Keep it for reference only.
+
 1. **Vial (Firmware)**: Choose a saved layout:
+   - Graphite (reference; the ZMK config is the source): `vial/miryoku-silakka54-graphite.vil`
    - Colemak-DH (original): `vial/miryoku-silakka54-vial-config.json`
    - QWERTY: `vial/miryoku-silakka54-qwerty.vil`
+   - Corne v4.1 Graphite (46 keys): `vial/miryoku-corne-v41-graphite.vil`
    ```bash
    # Install Vial, connect the keyboard, and load your chosen layout
    # If Vial treats the legacy JSON as a keyboard definition, copy it to a
@@ -97,7 +104,9 @@ Choose the approach that best fits your needs:
    ```
 
 #### For Learning & Reference
-1. **Web Visualizer**: Open `index.html` 
+1. **Web Visualizer**: Open `index.html`. Select the board (Silakka54 or Corne v4.1) and the base
+   layout (Graphite, Colemak-DH or QWERTY). Graphite on the Silakka54 is the default. The selection
+   is in the URL, for example `index.html?base=qwerty` or `index.html?board=corne`.
    ```bash
    npx serve
    # Then open browser to displayed URL (typically http://localhost:3000)
@@ -113,7 +122,7 @@ npx serve
 
 Then open your browser to the displayed URL (typically `http://localhost:3000`).
 
-Validate the QWERTY Vial-to-visualizer contract and JSON files before submitting changes:
+Validate the Vial-to-visualizer contracts (QWERTY, Graphite for Silakka54 and Corne v4.1) and the JSON files before you submit changes:
 
 ```bash
 python3 -m unittest discover -s tests -v
@@ -295,10 +304,12 @@ Each layout includes navigation buttons to easily compare between:
 
 ### File Structure
 
-- `index.html` - V1 Traditional HRM layout (Vue.js app)
-- `app.json` - V1 configuration data
-- `index-qwerty.html` - Silakka54 QWERTY layout with Vim-style navigation (Vue.js app)
-- `app-qwerty.json` - Silakka54 QWERTY visualizer configuration data
+- `index.html` - Main visualizer with the board and base layout switch (Vue.js app). The title, description and Open Graph tags are static HTML, so link previews and search engines see real text.
+- `app-graphite.json` - Silakka54 Graphite data (default). Layers come from `vial/miryoku-silakka54-graphite.vil`; combos come from the ZMK config.
+- `app-corne-graphite.json` - Corne v4.1 Graphite data (46 keys), from `vial/miryoku-corne-v41-graphite.vil`
+- `app.json` - Silakka54 Colemak-DH (V1) data
+- `app-qwerty.json` - Silakka54 QWERTY data with Vim-style navigation
+- `index-graphite.html`, `index-qwerty.html` - Redirects to `index.html`, so old links continue to work
 - `index-corne.html` - Corne 42-key Colemak-DH layout (Vue.js app)
 - `app-corne.json` - Corne Colemak-DH configuration data
 - `index-corne-gallium.html` - Corne 42-key Gallium layout (Vue.js app)
@@ -307,8 +318,6 @@ Each layout includes navigation buttons to easily compare between:
 - `app-corne-enthium.json` - Corne Enthium v13 configuration data
 - `index-corne-promethium.html` - Corne 42-key Promethium layout (Vue.js app)
 - `app-corne-promethium.json` - Corne Promethium configuration data
-- `index-graphite.html` - Silakka54 54-key Graphite layout (Vue.js app)
-- `app-graphite.json` - Silakka54 Graphite configuration data
 - `index-v2.html` - V2 Optimized 4-Layer layout (Vue.js app)
 - `app-v2.json` - V2 configuration data
 - `Keyboard layout.md` - **Comprehensive Miryoku adaptation guide** with detailed research on successful implementations, community feedback, and specific Silakka54 recommendations
@@ -401,24 +410,30 @@ Each layout includes navigation buttons to easily compare between:
 - Thumb behavior: Left (Esc, R/Nav, Tab/Mouse), Right (Enter, Space/Num, Backspace/Sym)
 - Perfect for users wanting Promethium alpha positions with Miryoku-style layering
 
-### ✅ Silakka54 (Graphite)
+### ✅ Silakka54 (Graphite) - default
 
-#### Silakka54 (Graphite)
-- Graphite alphabet layout by [rdavison](https://github.com/rdavison/graphite-layout) adapted for Silakka54
-- 7 layers: Base (Graphite), Media, Navigation, Mouse, Symbols, Numbers, Function
+- Source: [jellydn/zmk-config](https://github.com/jellydn/zmk-config) (`config/base.keymap`, `config/combos.dtsi`). The Silakka54 runs ZMK.
+- Graphite alphabet layout by [rdavison](https://github.com/rdavison/graphite-layout)
+- 6 layers: Base (Graphite), Navigation, Mouse, Symbols, Numbers, Function (one-shot from Mouse)
 - Home row modifiers: GUI (N/I), Alt (R/E), Ctrl (T/A), Shift (S/H)
 - Base layout (3×5 core):
   - Left: `B L D W Z` / `N R T S G` / `Q X M C V`
   - Right: `' F O U J` / `Y H A E I` / `K P . - /`
-- Outer column adjustments for Graphite punctuation:
-  - Left outer: `[` on base (Tab moved to left thumb LT3), `=` on left thumb/numbers
-  - Right outer: `]` and `,` on base; `;` and `\` on numbers layer
-- 8 combos adapted for Graphite key positions:
-  - B+L → Escape, F+O → Escape, L+D → GUI
-  - Q+X → Cut, X+M → Copy, O+U → Quote
-  - B+L+D → Quit App, .+- → MEH
-- Graphite design: high hand alternation (42%), high rolls (44%), low redirects (3%), low SFB (1%)
-- Perfect for users wanting an optimized modern alpha layout with Miryoku layering on 54 keys
+- Thumbs: `=`, Space/Nav, Tab/Mouse | Enter/Sym, Backspace/Num, `;`
+- 11 combos, base layer only, combo term 50 ms:
+  - B+L → Esc, F+U → Esc, L+W → Enter, B+L+D → Cmd+Q
+  - L+D → sticky GUI, D+W → sticky Hyper, F+O → sticky Meh, .+- → sticky Meh
+  - Q+X → Cut, X+M → Copy, O+U → `'`
+- Shift overrides: Shift+`'` → `_`, Shift+`,` → `?`, Shift+`-` → `"`, Shift+`/` → `<`
+- Upcoming ([zmk-config PR #4](https://github.com/jellydn/zmk-config/pull/4), not merged): Leader key. Leader `B O O T` enters the bootloader, Leader `R E S E T` restarts the half.
+
+### ✅ Corne v4.1 (Graphite)
+
+- Source: `qmk/corne-v4.1-graphite.vil` in [jellydn/zmk-config](https://github.com/jellydn/zmk-config), copied to `vial/miryoku-corne-v41-graphite.vil`
+- 46 keys: 3×6, 3 thumbs and 2 extra keys per half
+- Same Graphite layers, 11 combos (50 ms, base layer only) and shift overrides as the Silakka54
+- Extra keys on the base layer: left ← and Play/Pause, right → and Next track. Outer thumbs: `=` and `;`
+- RGB: Typing Heatmap is the default effect after a Vial EEPROM reset
 
 ### 🚧 V2 - Optimized 4-Layer (Work in Progress)
 - Reduced to 4 layers for efficiency

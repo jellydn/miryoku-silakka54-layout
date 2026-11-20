@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Graphite is the default base layout** on `index.html`, with a board switch (Silakka54, Corne v4.1) and a base layout switch (Graphite, Colemak-DH, QWERTY). The selection is in the URL (`?board=`, `?base=`).
+  - Silakka54 Graphite now follows the ZMK config in jellydn/zmk-config: 6 layers, 11 combos at 50 ms (base layer only), 4 shift overrides. Leader key is marked as upcoming (zmk-config PR #4).
+  - New Corne v4.1 Graphite layout (46 keys, 2 extra keys per half) in `app-corne-graphite.json`.
+  - `vial/miryoku-silakka54-graphite.vil` and `vial/miryoku-corne-v41-graphite.vil`, with `tests/test_graphite_contract.py` to keep the site and the keymaps the same.
+  - Static title, description, canonical and Open Graph tags in `index.html`; the page shows no raw template text without JavaScript.
+
+### Changed
+- `index-graphite.html` and `index-qwerty.html` redirect to `index.html`. Combos, layer holds and notes moved from the HTML to the JSON files.
+- Colemak-DH combo `, + .` is MEH (Alt+Ctrl+Shift), as in the Vial file. The page said Alt+Ctrl+Shift+GUI.
+
 - **Silakka54 QWERTY Layout** (`index-qwerty.html`, `app-qwerty.json`, and `vial/miryoku-silakka54-qwerty.vil`)
   - Standard QWERTY alphas with GACS home row modifiers on A/S/D/F and J/K/L/;
   - Vim-style H/J/K/L movement on the Navigation and Mouse layers
