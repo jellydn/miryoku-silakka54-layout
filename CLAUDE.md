@@ -26,7 +26,8 @@ python3 -m http.server 8000
 
 ## File Structure
 
-- `index.html` - Interactive keyboard layout visualizer (V1 Traditional HRM)
+- `index.html` - Interactive visualizer with a board switch (Silakka54, Corne v4.1) and a base layout switch (Graphite default, Colemak-DH, QWERTY). Static title, description and Open Graph tags are in its `<head>`.
+- `app-graphite.json`, `app-corne-graphite.json` - Graphite data; `tests/test_graphite_contract.py` checks their layer labels and shift overrides against each board's own `.vil` file in `vial/`, and checks both combo lists against the Corne `.vil` file (the same 11 combos as the ZMK config; the Silakka54 `.vil` has 4 older combos)
 - `index-v1-pinky.html` - V1 Pinky Relief variant
 - `index-v2.html`, `index-v3.html`, `index-v4.html`, `index-v5.html` - Additional layout versions (WIP)
 - `app.json`, `app-v1-pinky.json`, `app-v2.json`, `app-v3.json`, `app-v4.json`, `app-v5.json` - JSON configuration files for each version
@@ -36,8 +37,8 @@ python3 -m http.server 8000
 
 ## Key Architecture
 
-The visualizer implements a 7-layer keyboard system following Miryoku principles (layer ordering intentionally differs from upstream Miryoku for Silakka54 ergonomics):
-1. **Base layer** - Colemak-DH layout
+The Colemak-DH and QWERTY layouts use a 7-layer system (the Graphite layouts use 6 layers, without Media), following Miryoku principles (layer ordering intentionally differs from upstream Miryoku for Silakka54 ergonomics):
+1. **Base layer** - The selected alpha layout (Graphite, Colemak-DH or QWERTY)
 2. **Media layer** - Volume, playback controls
 3. **Navigation layer** - Arrow keys, page navigation
 4. **Mouse layer** - Mouse movement and clicks

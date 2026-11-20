@@ -189,7 +189,6 @@ class QwertyContractTest(unittest.TestCase):
         active_combos = [combo for combo in self.vial["combo"] if combo[-1] != "KC_NO"]
         self.assertEqual(len(active_combos), 8)
 
-        expected_rows = {}
         result_labels = {
             "KC_ESCAPE": "Escape",
             "LGUI(KC_Q)": "Quit App (Cmd+Q)",
@@ -199,28 +198,20 @@ class QwertyContractTest(unittest.TestCase):
             "LGUI(KC_C)": "Copy (Cmd+C)",
             "LGUI(KC_X)": "Cut (Cmd+X)",
         }
-        for combo in active_combos:
-            trigger = " + ".join(self.vial_label(key) for key in combo[:-1] if key != "KC_NO")
-            expected_rows[trigger] = result_labels[combo[-1]]
+        expected_rows = [
+            {
+                "keys": " + ".join(self.vial_label(key) for key in combo[:-1] if key != "KC_NO"),
+                "action": result_labels[combo[-1]],
+            }
+            for combo in active_combos
+        ]
+        self.assertEqual(self.visualizer["combos"], expected_rows)
 
-        page = (ROOT / "index-qwerty.html").read_text()
-        combo_rows = re.findall(
-            r'<div class="flex justify-between items-center p-2 bg-gray-50 rounded">\s*'
-            r'<span[^>]*>([^<]+)</span>\s*<span[^>]*>→</span>\s*<span>([^<]+)</span>',
-            page,
-        )
-        self.assertEqual(dict(combo_rows), expected_rows)
-
-    def test_every_visualizer_has_qwerty_navigation(self):
-        pages = sorted(ROOT.glob("index*.html"))
-        self.assertGreater(len(pages), 1)
-        for page in pages:
-            contents = page.read_text()
-            if page.name == "index-qwerty.html":
-                self.assertIn("Current: Silakka54 QWERTY", contents)
-            else:
-                self.assertIn('href="index-qwerty.html"', contents, page.name)
-
+    def test_qwerty_is_a_base_layout_of_the_main_page(self):
+        page = (ROOT / "index.html").read_text()
+        self.assertIn("qwerty: { name: 'QWERTY', file: 'app-qwerty.json' }", page)
+        self.assertIn('href="index.html?base=qwerty"', page)
+        self.assertIn('url=index.html?base=qwerty"', (ROOT / "index-qwerty.html").read_text())
 
 if __name__ == "__main__":
     unittest.main()

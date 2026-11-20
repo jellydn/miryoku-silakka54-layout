@@ -101,6 +101,32 @@
     "R34": "Comma key | Part of combo combinations",
     "R33": "Dot key | Part of combo combinations"
   },
+  "board": "silakka54",
+  "base": "colemak-dh",
+  "combos": [
+    {"keys": "Q + W", "action": "Escape"},
+    {"keys": "Q + W + F", "action": "Quit App (Cmd+Q)"},
+    {"keys": "L + U", "action": "Escape"},
+    {"keys": ", + .", "action": "MEH (Alt+Ctrl+Shift)"},
+    {"keys": "U + Y", "action": "Quote (')"},
+    {"keys": "W + F", "action": "GUI/Super modifier"},
+    {"keys": "C + D", "action": "Copy (Cmd+C)"},
+    {"keys": "X + C", "action": "Cut (Cmd+X)"}
+  ],
+  "layerHolds": [
+    {"hold": "Esc (left thumb)", "layer": "Media", "detail": "Right hand: volume and playback"},
+    {"hold": "Space (left thumb)", "layer": "Navigation", "detail": "Right hand: arrows and clipboard"},
+    {"hold": "Tab (left thumb)", "layer": "Mouse", "detail": "Right hand: mouse movement and clicks"},
+    {"hold": "Enter (right thumb)", "layer": "Symbols", "detail": "Left hand: punctuation"},
+    {"hold": "Backspace (right thumb)", "layer": "Numbers", "detail": "Left hand: numpad"},
+    {"hold": "Delete (right thumb)", "layer": "Function", "detail": "Left hand: F-keys"}
+  ],
+  "notes": [
+    "Press combo keys at the same time. You do not hold one and then press the other.",
+    "Q+W is easier than a reach to the Escape key.",
+    "X+C and C+D combos are faster than Cmd+X/C shortcuts.",
+    "Home row mods: GUI, Alt, Ctrl, Shift (GACS)."
+  ],
   "layerData": {
     "base": {
       "L01": "<div class=\"key-label\">`<br><span class=\"mod-label\">~</span></div>", 

@@ -1,6 +1,6 @@
 # Vial Configuration for Miryoku Silakka54
 
-This folder contains the original Colemak-DH configuration and the contributed QWERTY variant. Both preserve the same Miryoku layers and ergonomic approach for the Silakka54.
+This folder contains the original Colemak-DH configuration, the contributed QWERTY variant, and the Graphite layouts for the Silakka54 and the Corne v4.1. Both preserve the same Miryoku layers and ergonomic approach for the Silakka54.
 
 ## Overview
 
@@ -16,6 +16,11 @@ This folder contains the original Colemak-DH configuration and the contributed Q
 
 ## File Contents
 
+- **`miryoku-silakka54-graphite.vil`**: Silakka54 Graphite (reference only)
+  - The Silakka54 now runs ZMK ([jellydn/zmk-config](https://github.com/jellydn/zmk-config)). The ZMK config is the source.
+  - The layers are the same as ZMK. The combos are older: 4 combos at 35 ms. ZMK has 11 combos at 50 ms.
+- **`miryoku-corne-v41-graphite.vil`**: Corne v4.1 Graphite (46 keys, from `qmk/corne-v4.1-graphite.vil` in jellydn/zmk-config)
+  - 11 combos at 50 ms (base layer only), 4 Graphite shift overrides, 2 extra keys per half
 - **`miryoku-silakka54-vial-config.json`**: Original Colemak-DH configuration
   - Kept unchanged for existing users and backward compatibility
   - Uses Colemak-DH alphas and the original Miryoku movement positions

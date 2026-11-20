@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miryoku Layout for Silakka54 (Vial-Aligned)</title>
+    <title>Miryoku Layout for Silakka54 (Graphite)</title>
+    <meta name="description" content="Interactive Miryoku keyboard layout for the Silakka54 and Corne v4.1 split keyboards: Graphite (default), Colemak-DH or QWERTY base, home row mods, combos and 6 to 7 layers, with ZMK and Vial files.">
+    <link rel="canonical" href="https://kb.itman.fyi/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Miryoku Silakka54 Layout">
+    <meta property="og:url" content="https://kb.itman.fyi/">
+    <meta property="og:title" content="Miryoku Layout for Silakka54 (Graphite)">
+    <meta property="og:description" content="Interactive Miryoku keyboard layout for the Silakka54 and Corne v4.1 split keyboards: Graphite (default), Colemak-DH or QWERTY base, home row mods, combos and 6 to 7 layers, with ZMK and Vial files.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Miryoku Layout for Silakka54 (Graphite)">
+    <meta name="twitter:description" content="Interactive Miryoku keyboard layout for the Silakka54 and Corne v4.1 split keyboards: Graphite (default), Colemak-DH or QWERTY base, home row mods, combos and 6 to 7 layers.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
+        /* Hide Vue templates until Vue mounts. Without JavaScript the static text and links stay visible. */
+        [v-cloak] { display: none; }
+
         /* Mobile-first responsive design */
         .key {
             min-width: 2.5rem;
@@ -154,9 +167,42 @@
 </head>
 <body class="bg-gray-100 p-4 sm:p-6 lg:p-8">
     <div id="app" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold text-center mb-4">{{ config.title }}</h1>
-        <p class="text-center text-gray-600 mb-8">{{ config.subtitle }}</p>
-        
+        <!-- Static text is visible without JavaScript; Vue replaces it with the selected layout. -->
+        <h1 v-if="config.layerData.base" v-cloak class="text-3xl font-bold text-center mb-4">{{ config.title }}</h1>
+        <h1 v-else class="text-3xl font-bold text-center mb-4">Miryoku Layout for Silakka54 (Graphite)</h1>
+        <p v-if="config.layerData.base" v-cloak class="text-center text-gray-600 mb-6">{{ config.subtitle }}</p>
+        <p v-else class="text-center text-gray-600 mb-6">54-key split keyboard on ZMK with Graphite, home row mods, 11 combos and 6 layers</p>
+
+        <!-- Board and base layout switch: plain links, so they also work without JavaScript -->
+        <nav class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 mb-8 text-sm" aria-label="Board and base layout">
+            <div v-cloak class="flex items-center gap-2">
+                <span class="text-gray-600">Board:</span>
+                <a v-for="(boardInfo, boardId) in layouts" :key="boardId" :href="layoutUrl(boardId, 'graphite')"
+                   @click.prevent="selectLayout(boardId, 'graphite')"
+                   :class="['px-3 py-1 rounded', board === boardId ? 'bg-gray-800 text-white' : 'bg-white border border-gray-300 hover:bg-gray-50']">{{ boardInfo.name }}</a>
+            </div>
+            <div v-cloak class="flex flex-wrap justify-center items-center gap-2">
+                <span class="text-gray-600">Base layout:</span>
+                <template v-for="(baseInfo, baseId) in layouts[board].bases" :key="baseId">
+                    <a v-if="baseInfo.file" :href="layoutUrl(board, baseId)"
+                       @click.prevent="selectLayout(board, baseId)"
+                       :class="['px-3 py-1 rounded', base === baseId ? 'bg-gray-800 text-white' : 'bg-white border border-gray-300 hover:bg-gray-50']">{{ baseInfo.name }}</a>
+                    <a v-else :href="baseInfo.page" class="px-3 py-1 rounded bg-white border border-dashed border-gray-300 hover:bg-gray-50 text-gray-700">{{ baseInfo.name }}<span v-if="baseInfo.status" class="ml-1 bg-yellow-600 text-white text-xs px-1 rounded-full">{{ baseInfo.status }}</span></a>
+                </template>
+            </div>
+            <noscript>
+                <span class="text-gray-600">Silakka54: <a class="underline" href="index.html">Graphite</a> · <a class="underline" href="index.html?base=colemak-dh">Colemak-DH</a> · <a class="underline" href="index.html?base=qwerty">QWERTY</a> · <a class="underline" href="index-v1-pinky.html">Pinky Relief</a> · <a class="underline" href="index-v2.html">Optimized 4-Layer (WIP)</a> · <a class="underline" href="index-v3.html">No HRM Dedicated (WIP)</a> · <a class="underline" href="index-v4.html">4-Layer Balanced (WIP)</a> · <a class="underline" href="index-v5.html">Coding Optimized (WIP)</a></span>
+                <span class="text-gray-600">Corne: <a class="underline" href="index.html?board=corne">Graphite (v4.1)</a> · <a class="underline" href="index-corne.html">Colemak-DH</a> · <a class="underline" href="index-corne-gallium.html">Gallium</a> · <a class="underline" href="index-corne-enthium.html">Enthium</a> · <a class="underline" href="index-corne-promethium.html">Promethium</a></span>
+            </noscript>
+        </nav>
+
+        <p v-if="loadError" v-cloak class="text-center bg-red-50 border border-red-200 text-red-800 rounded p-3 mb-8 text-sm">{{ loadError }}</p>
+
+        <noscript>
+            <p class="text-center bg-yellow-50 border border-yellow-200 rounded p-3 mb-8 text-sm">The interactive keyboard needs JavaScript. The layouts are also in the repository as JSON, ZMK and Vial files.</p>
+        </noscript>
+
+        <div v-cloak>
         <!-- Layer Selector -->
         <div class="flex flex-wrap justify-center gap-2 mb-8">
             <button 
@@ -174,13 +220,13 @@
             <!-- Left Half -->
             <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
                 <h3 class="text-center font-semibold mb-4">Left Half</h3>
-                <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
+                <div class="grid gap-1 sm:gap-1.5" :style="gridStyle">
                     <!-- Render left keys by rows -->
-                    <template v-for="row in 4" :key="'left-row-' + row">
+                    <template v-for="row in (config.keyboardLayout.rows || 4)" :key="'left-row-' + row">
                         <div 
                             v-for="key in getKeysForRow('left', row - 1)" 
                             :key="key.id"
-                            :class="getKeyClasses(key)"
+                            :class="key.spacer ? '' : getKeyClasses(key)"
                             :data-key="key.id"
                             v-html="getKeyContent(key.id)"
                         ></div>
@@ -202,13 +248,13 @@
             <!-- Right Half -->
             <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-lg">
                 <h3 class="text-center font-semibold mb-4">Right Half</h3>
-                <div class="grid grid-cols-6 gap-1 sm:gap-1.5">
+                <div class="grid gap-1 sm:gap-1.5" :style="gridStyle">
                     <!-- Render right keys by rows -->
-                    <template v-for="row in 4" :key="'right-row-' + row">
+                    <template v-for="row in (config.keyboardLayout.rows || 4)" :key="'right-row-' + row">
                         <div 
                             v-for="key in getKeysForRow('right', row - 1)" 
                             :key="key.id"
-                            :class="getKeyClasses(key)"
+                            :class="key.spacer ? '' : getKeyClasses(key)"
                             :data-key="key.id"
                             v-html="getKeyContent(key.id)"
                         ></div>
@@ -231,7 +277,7 @@
         <!-- Combo Reference -->
         <div class="mt-8 bg-white p-4 rounded-lg shadow">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="font-semibold">Combo Reference (Vial Configuration)</h3>
+                <h3 class="font-semibold">Combo Reference ({{ baseName }})</h3>
                 <button 
                     @click="showCombos = !showCombos" 
                     class="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 transition-colors"
@@ -239,85 +285,32 @@
                     {{ showCombos ? 'Hide' : 'Show' }} Combos
                 </button>
             </div>
-            
+
             <div v-show="showCombos" class="transition-all duration-300">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Essential Combos -->
-                    <div>
-                        <h4 class="font-medium mb-3 text-blue-700">Essential Navigation</h4>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">Q + W</span>
-                                <span class="text-gray-600">→</span>
-                                <span>Escape</span>
-                            </div>
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">L + U</span>
-                                <span class="text-gray-600">→</span>
-                                <span>Escape</span>
-                            </div>
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">W + F</span>
-                                <span class="text-gray-600">→</span>
-                                <span>GUI/Super modifier</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Text Editing Combos -->
-                    <div>
-                        <h4 class="font-medium mb-3 text-green-700">Text Editing</h4>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">X + C</span>
-                                <span class="text-gray-600">→</span>
-                                <span>Cut (Cmd+X)</span>
-                            </div>
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">C + D</span>
-                                <span class="text-gray-600">→</span>
-                                <span>Copy (Cmd+C)</span>
-                            </div>
-                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                                <span class="font-mono bg-yellow-100 px-2 py-1 rounded">U + Y</span>
-                                <span class="text-gray-600">→</span>
-                                <span>Quote (')</span>
-                            </div>
-                        </div>
+                <div class="grid md:grid-cols-2 gap-2 text-sm">
+                    <div v-for="combo in config.combos" :key="combo.keys" class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                        <span class="font-mono bg-yellow-100 px-2 py-1 rounded">{{ combo.keys }}</span>
+                        <span class="text-gray-600">→</span>
+                        <span>{{ combo.action }}</span>
                     </div>
                 </div>
 
-                <!-- Advanced Combos -->
-                <div class="mt-6">
-                    <h4 class="font-medium mb-3 text-purple-700">Advanced Combos</h4>
-                    <div class="grid md:grid-cols-2 gap-4 text-sm">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                            <span class="font-mono bg-yellow-100 px-2 py-1 rounded">Q + W + F</span>
-                            <span class="text-gray-600">→</span>
-                            <span>Quit App (Cmd+Q)</span>
-                        </div>
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                            <span class="font-mono bg-yellow-100 px-2 py-1 rounded">, + .</span>
-                            <span class="text-gray-600">→</span>
-                            <span>MEH (Alt+Ctrl+Shift+GUI)</span>
-                        </div>
+                <div v-if="config.shiftOverrides" class="mt-6">
+                    <h4 class="font-medium mb-3 text-purple-700">Shift Overrides (base layer)</h4>
+                    <div class="flex flex-wrap gap-2 text-sm">
+                        <span v-for="override in config.shiftOverrides" :key="override" class="font-mono bg-purple-50 px-2 py-1 rounded">{{ override }}</span>
                     </div>
                 </div>
 
-                <!-- Usage Tips -->
                 <div class="mt-6 p-3 bg-blue-50 rounded-lg">
-                    <h5 class="font-medium text-blue-800 mb-2">💡 Combo Tips for Small Hands</h5>
+                    <h5 class="font-medium text-blue-800 mb-2">💡 Notes</h5>
                     <ul class="text-sm text-blue-700 space-y-1">
-                        <li>• Press keys simultaneously - no need to hold and press</li>
-                        <li>• Q+W is easier than reaching for Escape key</li>
-                        <li>• X+C and C+D combos are faster than Cmd+X/C shortcuts</li>
-                        <li>• All combos use adjacent or nearby keys for comfort</li>
+                        <li v-for="note in config.notes" :key="note">• {{ note }}</li>
                         <li>• Yellow highlighted keys show which keys have combos</li>
                     </ul>
                 </div>
             </div>
         </div>
-
         <!-- Legend -->
         <div class="mt-8 bg-white p-4 rounded-lg shadow">
             <h3 class="font-semibold mb-3">Key Features of This Layout</h3>
@@ -344,6 +337,10 @@
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 bg-yellow-100 border-2 border-dashed border-yellow-600 rounded"></div>
                             <span>Combo keys (see Combo Reference above)</span>
+                        </div>
+                        <div v-if="board === 'corne'" class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-pink-100 rounded"></div>
+                            <span>Extra keys (Corne v4.1)</span>
                         </div>
                     </div>
                 </div>
@@ -372,46 +369,11 @@
                         On Your Physical Keyboard
                     </h4>
                     <div class="space-y-2 text-sm">
-                        <div class="flex items-start gap-2">
+                        <div v-for="hold in config.layerHolds" :key="hold.layer" class="flex items-start gap-2">
                             <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
                             <div>
-                                <strong>Esc key (left thumb)</strong> → Media layer (volume, RGB controls)
-                                <div class="text-gray-600 text-xs">Right hand becomes media controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Space key (left thumb)</strong> → Navigation layer (arrows, clipboard)
-                                <div class="text-gray-600 text-xs">Right hand becomes navigation controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Tab key (left thumb)</strong> → Mouse layer (mouse movement and clicks)
-                                <div class="text-gray-600 text-xs">Right hand becomes mouse controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Enter key (right thumb)</strong> → Symbols layer (punctuation)
-                                <div class="text-gray-600 text-xs">Left hand becomes symbol controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Backspace key (right thumb)</strong> → Numbers layer (numpad)
-                                <div class="text-gray-600 text-xs">Left hand becomes number controls</div>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Hold</span>
-                            <div>
-                                <strong>Delete key (right thumb)</strong> → Function layer (F-keys)
-                                <div class="text-gray-600 text-xs">Left hand becomes function key controls</div>
+                                <strong>{{ hold.hold }}</strong> → {{ hold.layer }} layer
+                                <div class="text-gray-600 text-xs">{{ hold.detail }}</div>
                             </div>
                         </div>
                     </div>
@@ -454,61 +416,6 @@
             </div>
         </div>
 
-        <!-- Version Navigation -->
-        <div class="mt-6 text-center">
-            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                <p class="text-sm text-gray-600 mb-2">Compare Layout Versions:</p>
-                <div class="flex justify-center gap-2 flex-wrap">
-                    <span class="px-3 py-2 bg-blue-500 text-white rounded text-sm relative">
-                        Current: Traditional HRM
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">READY</span>
-                    </span>
-                    <a href="index-qwerty.html" class="px-3 py-2 bg-sky-600 text-white rounded hover:bg-sky-700 transition-colors text-sm relative">
-                        Silakka54 (QWERTY)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-v1-pinky.html" class="px-3 py-2 bg-teal-500 text-white rounded hover:bg-teal-600 transition-colors text-sm relative">
-                        🤚 Pinky Relief
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm relative">
-                        Optimized 4-Layer
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm relative">
-                        No HRM Dedicated
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v4.html" class="px-3 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition-colors text-sm relative">
-                        4-Layer Balanced
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v5.html" class="px-3 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors text-sm relative">
-                        Coding Optimized
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-corne.html" class="px-3 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition-colors text-sm relative">
-                        ⌨️ Corne (Colemak-DH)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-corne-gallium.html" class="px-3 py-2 bg-violet-500 text-white rounded hover:bg-violet-600 transition-colors text-sm relative">
-                        ⌨️ Corne (Gallium)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-corne-enthium.html" class="px-3 py-2 bg-rose-500 text-white rounded hover:bg-rose-600 transition-colors text-sm relative">
-                        ⌨️ Corne (Enthium)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-corne-promethium.html" class="px-3 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 transition-colors text-sm relative">
-                        ⌨️ Corne (Promethium)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-graphite.html" class="px-3 py-2 bg-slate-500 text-white rounded hover:bg-slate-600 transition-colors text-sm relative">
-                        ✦ Silakka54 (Graphite)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                </div>
-            </div>
         </div>
 
         <!-- Quick Tips -->
@@ -531,12 +438,45 @@
 
     <script>
         const { createApp } = Vue;
-        
+
+        // Each board lists its base layouts. The first entry is the default.
+        const LAYOUTS = {
+            silakka54: {
+                name: 'Silakka54',
+                bases: {
+                    graphite: { name: 'Graphite', file: 'app-graphite.json' },
+                    'colemak-dh': { name: 'Colemak-DH', file: 'app.json' },
+                    qwerty: { name: 'QWERTY', file: 'app-qwerty.json' },
+                    'pinky-relief': { name: 'Pinky Relief', page: 'index-v1-pinky.html' },
+                    'v2': { name: 'Optimized 4-Layer', page: 'index-v2.html', status: 'WIP' },
+                    'v3': { name: 'No HRM Dedicated', page: 'index-v3.html', status: 'WIP' },
+                    'v4': { name: '4-Layer Balanced', page: 'index-v4.html', status: 'WIP' },
+                    'v5': { name: 'Coding Optimized', page: 'index-v5.html', status: 'WIP' }
+                }
+            },
+            corne: {
+                name: 'Corne',
+                bases: {
+                    graphite: { name: 'Graphite (v4.1)', file: 'app-corne-graphite.json' },
+                    'colemak-dh': { name: 'Colemak-DH', page: 'index-corne.html' },
+                    gallium: { name: 'Gallium', page: 'index-corne-gallium.html' },
+                    enthium: { name: 'Enthium', page: 'index-corne-enthium.html' },
+                    promethium: { name: 'Promethium', page: 'index-corne-promethium.html' }
+                }
+            }
+        };
+        // Bases with "page" have their combos and help text in their own HTML, so they open that page.
+        const DEFAULT_BOARD = 'silakka54';
+        const DEFAULT_BASE = 'graphite';
+
         createApp({
             data() {
                 return {
+                    layouts: LAYOUTS,
+                    board: DEFAULT_BOARD,
+                    base: DEFAULT_BASE,
                     config: {
-                        title: 'Loading...',
+                        title: 'Miryoku Layout for Silakka54 (Graphite)',
                         subtitle: 'Loading keyboard layout...',
                         layers: [],
                         keyboardLayout: {
@@ -549,32 +489,60 @@
                         layerData: {}
                     },
                     currentLayer: 'base',
-                    showCombos: false
+                    showCombos: false,
+                    layoutRequest: 0,
+                    loadError: ''
+                }
+            },
+            computed: {
+                baseName() {
+                    return this.layouts[this.board].bases[this.base].name;
+                },
+                gridStyle() {
+                    const columns = this.config.keyboardLayout.columns || 6;
+                    return { gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` };
                 }
             },
             async mounted() {
-                await this.loadConfig();
-                this.updateTooltips();
+                const params = new URLSearchParams(window.location.search);
+                await this.selectLayout(params.get('board'), params.get('base'), false);
             },
             methods: {
-                async loadConfig() {
+                layoutUrl(board, base) {
+                    const params = new URLSearchParams();
+                    if (board !== DEFAULT_BOARD) params.set('board', board);
+                    if (base !== DEFAULT_BASE) params.set('base', base);
+                    const query = params.toString();
+                    return query ? `?${query}` : window.location.pathname;
+                },
+                async selectLayout(board, base, updateUrl = true) {
+                    // Own properties only, so names such as "constructor" fall back to the default.
+                    board = Object.hasOwn(LAYOUTS, board) ? board : DEFAULT_BOARD;
+                    const bases = LAYOUTS[board].bases;
+                    base = Object.hasOwn(bases, base) && bases[base].file ? base : Object.keys(bases)[0];
+                    const file = bases[base].file;
+
+                    // Apply a response only if no newer selection started, and only if it loaded.
+                    // A failed load keeps the shown layout, its switch state and its URL.
+                    const request = ++this.layoutRequest;
                     try {
-                        const response = await fetch('./app.json');
-                        this.config = await response.json();
-                        this.currentLayer = this.config.layers.find(l => l.active)?.id || 'base';
+                        const response = await fetch(`./${file}`);
+                        if (!response.ok) throw new Error(`${file}: HTTP ${response.status}`);
+                        const config = await response.json();
+                        if (request !== this.layoutRequest) return;
+                        this.board = board;
+                        this.base = base;
+                        this.config = config;
+                        this.currentLayer = config.layers.find(l => l.active)?.id || 'base';
+                        this.loadError = '';
+                        document.title = config.title;
+                        if (updateUrl) {
+                            history.replaceState(null, '', this.layoutUrl(board, base));
+                        }
                     } catch (error) {
+                        if (request !== this.layoutRequest) return;
                         console.error('Failed to load config:', error);
-                        // Fallback config
-                        this.config = {
-                            title: 'Miryoku Layout for Silakka54',
-                            subtitle: '54-key split keyboard with Colemak-DH, home row modifiers, and 6 orthogonal layers',
-                            layers: [
-                                {id: 'base', name: 'Base', active: true}
-                            ],
-                            keyboardLayout: { leftKeys: [], rightKeys: [], leftThumbKeys: [], rightThumbKeys: [] },
-                            tooltips: {},
-                            layerData: { base: {} }
-                        };
+                        this.loadError = `Could not load ${file}. Serve the folder over HTTP (for example: npx serve).`;
                     }
                 },
                 showLayer(layerId) {
@@ -656,7 +624,10 @@
                             'WhlL': 'Mouse wheel: Left',
                             'WhlD': 'Mouse wheel: Down',
                             'WhlU': 'Mouse wheel: Up',
-                            'WhlR': 'Mouse wheel: Right'
+                            'WhlR': 'Mouse wheel: Right',
+                            'Shot': 'Screenshot of an area to the clipboard (Ctrl+Shift+Cmd+4)',
+                            'OS Fn': 'One-shot Function layer: active for the next key',
+                            'Lock': 'Layer lock: keeps this layer on until you press it again'
                         };
                         return keyDescriptions[keyValue] || `${keyValue} key`;
                     }
