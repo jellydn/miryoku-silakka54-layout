@@ -192,6 +192,8 @@
             </noscript>
         </nav>
 
+        <p v-if="loadError" v-cloak class="text-center bg-red-50 border border-red-200 text-red-800 rounded p-3 mb-8 text-sm">{{ loadError }}</p>
+
         <noscript>
             <p class="text-center bg-yellow-50 border border-yellow-200 rounded p-3 mb-8 text-sm">The interactive keyboard needs JavaScript. The layouts are also in the repository as JSON, ZMK and Vial files.</p>
         </noscript>
@@ -518,7 +520,9 @@
                         layerData: {}
                     },
                     currentLayer: 'base',
-                    showCombos: false
+                    showCombos: false,
+                    layoutRequest: 0,
+                    loadError: ''
                 }
             },
             computed: {
@@ -543,27 +547,33 @@
                     return query ? `?${query}` : window.location.pathname;
                 },
                 async selectLayout(board, base, updateUrl = true) {
-                    this.board = LAYOUTS[board] ? board : DEFAULT_BOARD;
-                    const bases = LAYOUTS[this.board].bases;
-                    this.base = bases[base] ? base : Object.keys(bases)[0];
-                    if (updateUrl) {
-                        history.replaceState(null, '', this.layoutUrl(this.board, this.base));
-                    }
-                    await this.loadConfig(bases[this.base].file);
-                },
-                async loadConfig(file) {
+                    // Own properties only, so names such as "constructor" fall back to the default.
+                    board = Object.hasOwn(LAYOUTS, board) ? board : DEFAULT_BOARD;
+                    const bases = LAYOUTS[board].bases;
+                    base = Object.hasOwn(bases, base) ? base : Object.keys(bases)[0];
+                    const file = bases[base].file;
+
+                    // Apply a response only if no newer selection started, and only if it loaded.
+                    // A failed load keeps the shown layout, its switch state and its URL.
+                    const request = ++this.layoutRequest;
                     try {
                         const response = await fetch(`./${file}`);
                         if (!response.ok) throw new Error(`${file}: HTTP ${response.status}`);
-                        this.config = await response.json();
-                        this.currentLayer = this.config.layers.find(l => l.active)?.id || 'base';
-                        document.title = this.config.title;
+                        const config = await response.json();
+                        if (request !== this.layoutRequest) return;
+                        this.board = board;
+                        this.base = base;
+                        this.config = config;
+                        this.currentLayer = config.layers.find(l => l.active)?.id || 'base';
+                        this.loadError = '';
+                        document.title = config.title;
+                        if (updateUrl) {
+                            history.replaceState(null, '', this.layoutUrl(board, base));
+                        }
                     } catch (error) {
+                        if (request !== this.layoutRequest) return;
                         console.error('Failed to load config:', error);
-                        this.config = {
-                            ...this.config,
-                            subtitle: `Could not load ${file}. Serve the folder over HTTP (for example: npx serve).`
-                        };
+                        this.loadError = `Could not load ${file}. Serve the folder over HTTP (for example: npx serve).`;
                     }
                 },
                 showLayer(layerId) {

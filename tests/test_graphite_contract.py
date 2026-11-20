@@ -129,6 +129,9 @@ class GraphiteContractTest(unittest.TestCase):
                     keycode = vial["layout"][layer_index][row][column]
                     expected = vial_label(keycode)
                     if ACTIVE_LAYER_KEYS.get(layer_id) == key_id:
+                        # The held thumb key is empty, transparent, or repeats its base-layer tap key.
+                        base_keycode = vial["layout"][0][row][column]
+                        self.assertIn(vial_label(keycode), {"", "___", vial_label(base_keycode)}, f"{board} {layer_id}.{key_id}")
                         expected = "___"
                     self.assertEqual(
                         primary_visualizer_label(web_layer[key_id]),
