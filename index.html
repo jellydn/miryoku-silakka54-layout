@@ -181,14 +181,18 @@
                    @click.prevent="selectLayout(boardId, 'graphite')"
                    :class="['px-3 py-1 rounded', board === boardId ? 'bg-gray-800 text-white' : 'bg-white border border-gray-300 hover:bg-gray-50']">{{ boardInfo.name }}</a>
             </div>
-            <div v-cloak class="flex items-center gap-2">
+            <div v-cloak class="flex flex-wrap justify-center items-center gap-2">
                 <span class="text-gray-600">Base layout:</span>
-                <a v-for="(baseInfo, baseId) in layouts[board].bases" :key="baseId" :href="layoutUrl(board, baseId)"
-                   @click.prevent="selectLayout(board, baseId)"
-                   :class="['px-3 py-1 rounded', base === baseId ? 'bg-gray-800 text-white' : 'bg-white border border-gray-300 hover:bg-gray-50']">{{ baseInfo.name }}</a>
+                <template v-for="(baseInfo, baseId) in layouts[board].bases" :key="baseId">
+                    <a v-if="baseInfo.file" :href="layoutUrl(board, baseId)"
+                       @click.prevent="selectLayout(board, baseId)"
+                       :class="['px-3 py-1 rounded', base === baseId ? 'bg-gray-800 text-white' : 'bg-white border border-gray-300 hover:bg-gray-50']">{{ baseInfo.name }}</a>
+                    <a v-else :href="baseInfo.page" class="px-3 py-1 rounded bg-white border border-dashed border-gray-300 hover:bg-gray-50 text-gray-700">{{ baseInfo.name }}<span v-if="baseInfo.status" class="ml-1 bg-yellow-600 text-white text-xs px-1 rounded-full">{{ baseInfo.status }}</span></a>
+                </template>
             </div>
             <noscript>
-                <span class="text-gray-600">Silakka54: <a class="underline" href="index.html">Graphite</a> · <a class="underline" href="index.html?base=colemak-dh">Colemak-DH</a> · <a class="underline" href="index.html?base=qwerty">QWERTY</a> · <a class="underline" href="index.html?board=corne">Corne v4.1 (Graphite)</a></span>
+                <span class="text-gray-600">Silakka54: <a class="underline" href="index.html">Graphite</a> · <a class="underline" href="index.html?base=colemak-dh">Colemak-DH</a> · <a class="underline" href="index.html?base=qwerty">QWERTY</a> · <a class="underline" href="index-v1-pinky.html">Pinky Relief</a> · <a class="underline" href="index-v2.html">Optimized 4-Layer (WIP)</a> · <a class="underline" href="index-v3.html">No HRM Dedicated (WIP)</a> · <a class="underline" href="index-v4.html">4-Layer Balanced (WIP)</a> · <a class="underline" href="index-v5.html">Coding Optimized (WIP)</a></span>
+                <span class="text-gray-600">Corne: <a class="underline" href="index.html?board=corne">Graphite (v4.1)</a> · <a class="underline" href="index-corne.html">Colemak-DH</a> · <a class="underline" href="index-corne-gallium.html">Gallium</a> · <a class="underline" href="index-corne-enthium.html">Enthium</a> · <a class="underline" href="index-corne-promethium.html">Promethium</a></span>
             </noscript>
         </nav>
 
@@ -414,51 +418,6 @@
 
         </div>
 
-        <!-- Version Navigation -->
-        <div class="mt-6 text-center">
-            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-                <p class="text-sm text-gray-600 mb-2">Compare Layout Versions:</p>
-                <div class="flex justify-center gap-2 flex-wrap">
-                    <a href="index-v1-pinky.html" class="px-3 py-2 bg-teal-500 text-white rounded hover:bg-teal-600 transition-colors text-sm relative">
-                        🤚 Pinky Relief
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-v2.html" class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm relative">
-                        Optimized 4-Layer
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v3.html" class="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors text-sm relative">
-                        No HRM Dedicated
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v4.html" class="px-3 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition-colors text-sm relative">
-                        4-Layer Balanced
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-v5.html" class="px-3 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors text-sm relative">
-                        Coding Optimized
-                        <span class="absolute -top-1 -right-1 bg-yellow-600 text-white text-xs px-1 rounded-full">WIP</span>
-                    </a>
-                    <a href="index-corne.html" class="px-3 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition-colors text-sm relative">
-                        ⌨️ Corne (Colemak-DH)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-corne-gallium.html" class="px-3 py-2 bg-violet-500 text-white rounded hover:bg-violet-600 transition-colors text-sm relative">
-                        ⌨️ Corne (Gallium)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-corne-enthium.html" class="px-3 py-2 bg-rose-500 text-white rounded hover:bg-rose-600 transition-colors text-sm relative">
-                        ⌨️ Corne (Enthium)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                    <a href="index-corne-promethium.html" class="px-3 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600 transition-colors text-sm relative">
-                        ⌨️ Corne (Promethium)
-                        <span class="absolute -top-1 -right-1 bg-green-600 text-white text-xs px-1 rounded-full">NEW</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
         <!-- Quick Tips -->
         <div class="mt-4 text-center text-gray-600">
             <p class="font-medium">Quick Reference:</p>
@@ -487,16 +446,26 @@
                 bases: {
                     graphite: { name: 'Graphite', file: 'app-graphite.json' },
                     'colemak-dh': { name: 'Colemak-DH', file: 'app.json' },
-                    qwerty: { name: 'QWERTY', file: 'app-qwerty.json' }
+                    qwerty: { name: 'QWERTY', file: 'app-qwerty.json' },
+                    'pinky-relief': { name: 'Pinky Relief', page: 'index-v1-pinky.html' },
+                    'v2': { name: 'Optimized 4-Layer', page: 'index-v2.html', status: 'WIP' },
+                    'v3': { name: 'No HRM Dedicated', page: 'index-v3.html', status: 'WIP' },
+                    'v4': { name: '4-Layer Balanced', page: 'index-v4.html', status: 'WIP' },
+                    'v5': { name: 'Coding Optimized', page: 'index-v5.html', status: 'WIP' }
                 }
             },
             corne: {
-                name: 'Corne v4.1',
+                name: 'Corne',
                 bases: {
-                    graphite: { name: 'Graphite', file: 'app-corne-graphite.json' }
+                    graphite: { name: 'Graphite (v4.1)', file: 'app-corne-graphite.json' },
+                    'colemak-dh': { name: 'Colemak-DH', page: 'index-corne.html' },
+                    gallium: { name: 'Gallium', page: 'index-corne-gallium.html' },
+                    enthium: { name: 'Enthium', page: 'index-corne-enthium.html' },
+                    promethium: { name: 'Promethium', page: 'index-corne-promethium.html' }
                 }
             }
         };
+        // Bases with "page" have their combos and help text in their own HTML, so they open that page.
         const DEFAULT_BOARD = 'silakka54';
         const DEFAULT_BASE = 'graphite';
 
@@ -550,7 +519,7 @@
                     // Own properties only, so names such as "constructor" fall back to the default.
                     board = Object.hasOwn(LAYOUTS, board) ? board : DEFAULT_BOARD;
                     const bases = LAYOUTS[board].bases;
-                    base = Object.hasOwn(bases, base) ? base : Object.keys(bases)[0];
+                    base = Object.hasOwn(bases, base) && bases[base].file ? base : Object.keys(bases)[0];
                     const file = bases[base].file;
 
                     // Apply a response only if no newer selection started, and only if it loaded.
