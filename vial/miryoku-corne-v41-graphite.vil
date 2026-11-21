@@ -92,7 +92,7 @@
         "KC_LALT",
         "KC_LCTRL",
         "KC_LSHIFT",
-        "OSL(5)",
+        "KC_NO",
         "KC_MUTE"
       ],
       [
@@ -198,7 +198,7 @@
       ],
       [
         "KC_NO",
-        "KC_CAPSLOCK",
+        "KC_NO",
         "KC_MS_R",
         "KC_MS_D",
         "KC_MS_L",
@@ -292,9 +292,9 @@
         -1,
         -1,
         -1,
-        "QK_LAYER_LOCK",
-        "KC_BSPACE",
-        "KC_ENTER",
+        "KC_NO",
+        "KC_NO",
+        "KC_NO",
         -1
       ]
     ],
@@ -366,9 +366,9 @@
         -1,
         -1,
         -1,
-        "QK_LAYER_LOCK",
-        "KC_BSPACE",
-        "KC_ENTER",
+        "KC_NO",
+        "KC_NO",
+        "KC_NO",
         -1
       ]
     ],
@@ -1557,6 +1557,6 @@
     "24": 0,
     "25": 200,
     "26": 1,
-    "27": 0
+    "27": 150
   }
 }
