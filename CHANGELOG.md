@@ -30,6 +30,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Updated Documentation**: README.md now includes Enthium v13 alongside other Corne layouts
 - **Resource Links**: Added Enthium project and v13 release references
 
+### Removed
+- Pinky Relief (`index-v1-pinky.html`) and the WIP V2–V5 pages, their `app-v*.json` files and `v3-vs-v4-comparison.md`. The header switch keeps only the popular layouts.
+
 ### Changed
 - `index-graphite.html` and `index-qwerty.html` redirect to `index.html`. Combos, layer holds and notes moved from the HTML to the JSON files.
 - Colemak-DH combo `, + .` is MEH (Alt+Ctrl+Shift), as in the Vial file. The page said Alt+Ctrl+Shift+GUI.

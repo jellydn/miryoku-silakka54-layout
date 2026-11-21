@@ -28,9 +28,8 @@ python3 -m http.server 8000
 
 - `index.html` - Interactive visualizer with a board switch (Silakka54, Corne v4.1) and a base layout switch (Graphite default, Colemak-DH, QWERTY). Static title, description and Open Graph tags are in its `<head>`.
 - `app-graphite.json`, `app-corne-graphite.json` - Graphite data; `tests/test_graphite_contract.py` checks their layer labels and shift overrides against each board's own `.vil` file in `vial/`, and checks both combo lists against the Corne `.vil` file (the same 11 combos as the ZMK config; the Silakka54 `.vil` has 4 older combos)
-- `index-v1-pinky.html` - V1 Pinky Relief variant
-- `index-v2.html`, `index-v3.html`, `index-v4.html`, `index-v5.html` - Additional layout versions (WIP)
-- `app.json`, `app-v1-pinky.json`, `app-v2.json`, `app-v3.json`, `app-v4.json`, `app-v5.json` - JSON configuration files for each version
+- `app.json`, `app-qwerty.json` - Silakka54 Colemak-DH and QWERTY data
+- `index-corne*.html`, `app-corne*.json` - Corne layouts
 - `Keyboard layout.md` - Comprehensive Miryoku adaptation guide and principles
 - `README.md` - Project documentation and setup instructions
 - `miryoku-layers/` - Reference layer images and JSON files from official Miryoku
