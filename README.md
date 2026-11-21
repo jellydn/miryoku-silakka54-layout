@@ -2,7 +2,7 @@
 
 [![All Contributors](https://img.shields.io/github/all-contributors/jellydn/miryoku-silakka54-layout?color=ee8449&style=flat-square)](#contributors-)
 
-🚀 **V1 Ready** - Traditional HRM layout is production-ready! Other versions are work-in-progress.
+🚀 **Ready** - Graphite (default), Colemak-DH and QWERTY layouts for the Silakka54, and Corne layouts.
 
 A comprehensive implementation suite for the Miryoku keyboard layout system adapted to the Silakka54 split keyboard, with firmware-based layouts (Vial - ✅ Tested), software-based layouts (Kanata - ⚠️ Untested/WIP), and educational visualizations (Web UI - ✅ Ready). Implementation coverage differs by variant; the QWERTY variant currently supports Vial and the Web UI.
 
@@ -46,23 +46,18 @@ Choose the approach that best fits your needs:
 - **Real Vial Configuration**: Tested and optimized firmware configuration
 - **Dual Kanata Support**: Configurations for both split and standard keyboards
 - **Configuration-Driven Architecture**: JSON-based layout definitions for easy customization
-- **Multiple Layout Versions**: 12 different approaches to Miryoku implementation
+- **Multiple Layouts**: Silakka54 and Corne variants of the Miryoku layout
   - 🟢 **Traditional HRM** (V1): 7-Layer with Home Row Modifiers - **READY**
   - 🟢 **Silakka54 QWERTY**: Tested Vial layout with Vim-style navigation - **READY**
-  - 🟢 **Pinky Relief** (V1-P): Weak finger friendly with redistributed load - **READY**
   - 🟢 **Corne (Colemak-DH)**: Optimized for 3x6+3 split keyboards - **READY**
   - 🟢 **Corne (Gallium)**: Alternative alphabet layout for Corne - **READY**
   - 🟢 **Corne (Enthium v13)**: Enthium v13 layout with improved pinky comfort - **READY**
   - 🟢 **Corne (Promethium)**: Promethium layout adapted from `promethium.vil` - **READY**
   - 🟢 **Silakka54 (Graphite)**: Graphite alphabet layout for Silakka54 - **READY**
-  - 🟡 **Optimized 4-Layer** (V2): Reduced layers with direct symbol access - **WIP**
-  - 🟡 **No HRM Dedicated** (V3): 7-Layer with dedicated modifier keys - **WIP**
-  - 🟡 **4-Layer Balanced** (V4): Balance of simplicity and efficiency - **WIP**
-  - 🟡 **Coding Optimized** (V5): Programming-focused enhancements - **WIP**
 - **Interactive Tooltips**: Hover over any key to see detailed explanations
 - **Educational Guide**: Comprehensive documentation of Miryoku principles and adaptation strategies
 - **Layer Switching Guide**: Step-by-step instructions for each version
-- **Version Navigation**: Easy comparison with status indicators
+- **Board and Layout Switch**: Select the board and the base layout at the top of `index.html`
 - **Color-coded Keys**: Visual distinction between home row, thumb keys, and extra keys
 - **No Build System**: Pure HTML/CSS/JS with CDN dependencies
 
@@ -223,7 +218,7 @@ Left Thumb Hold → Media Layer
 4. Note the color coding: blue for home row, green for thumb keys
 5. Use this as reference when configuring your firmware
 
-### Recommended Implementation (V2 Approach)
+### Recommended Implementation
 
 Based on community feedback and ergonomic research, follow this implementation order. **Home row modifiers represent the steepest learning curve, requiring 2-3 weeks of dedicated practice**, but the ergonomic benefits justify this investment.
 
@@ -268,32 +263,6 @@ All layout versions now include comprehensive tooltips that appear when you hove
 - **Layer switching**: "Space key | Hold: Navigation layer" 
 - **Dual-function keys**: Clear explanation of tap vs hold behavior
 
-#### Optimized Version (index-v2.html)
-- **Direct symbol access**: "Backtick (`) key | Shift: Tilde (~)"
-- **Combined layers**: "Space key | Hold: Nav/Function layer (combined!)"
-- **Efficiency notes**: Highlights reduced layer switching requirements
-
-#### No HRM Version (index-v3.html)
-- **Dedicated modifiers**: "Dedicated Control modifier (always Ctrl)"
-- **Layer states**: "Layer inactive (not being held)" for "---" keys
-- **Traditional feel**: Familiar modifier placement explanations
-
-#### Coding Optimized Version (index-v5.html)
-- **Direct bracket access**: "Direct brackets: [ and ] keys (no layer needed)"
-- **IDE shortcuts**: "F5: Start debugging or run code", "Ctrl+D: Duplicate current line"
-- **Code navigation**: "Alt+↑: Move line up", "Ctrl+/: Toggle line comment"
-- **Numbers layer combo**: "Hold both Code + Nav keys simultaneously for numpad access"
-- **Programming focus**: Optimized tooltips for coding workflows and IDE integration
-
-### Version Navigation
-Each layout includes navigation buttons to easily compare between:
-- **Traditional HRM**: Full Miryoku experience with home row modifiers
-- **Silakka54 QWERTY**: Familiar alphas with Vim-style navigation and mouse movement
-- **Optimized 4-Layer**: Reduced complexity with direct symbol access
-- **No HRM Dedicated**: Familiar modifier keys for easier transition
-- **4-Layer Balanced**: Perfect balance between simplicity and efficiency
-- **Coding Optimized**: Programming-focused with direct bracket access and IDE shortcuts
-
 ## Architecture
 
 ### Modern Vue.js Implementation
@@ -318,8 +287,6 @@ Each layout includes navigation buttons to easily compare between:
 - `app-corne-enthium.json` - Corne Enthium v13 configuration data
 - `index-corne-promethium.html` - Corne 42-key Promethium layout (Vue.js app)
 - `app-corne-promethium.json` - Corne Promethium configuration data
-- `index-v2.html` - V2 Optimized 4-Layer layout (Vue.js app)
-- `app-v2.json` - V2 configuration data
 - `Keyboard layout.md` - **Comprehensive Miryoku adaptation guide** with detailed research on successful implementations, community feedback, and specific Silakka54 recommendations
 - `CLAUDE.md` - Development guidance for Claude Code
 
@@ -356,13 +323,6 @@ Each layout includes navigation buttons to easily compare between:
 - Vim-style `H/J/K/L` movement on both Navigation and Mouse layers
 - Eight combos moved with their physical key positions for QWERTY
 - Matching web visualizer in `index-qwerty.html` and `app-qwerty.json`
-
-### ✅ V1-P - Pinky Relief (Production Ready)
-- Weak finger optimized variant of V1
-- 50% reduction in right pinky load
-- No GUI modifiers on A/O keys
-- Redistributed outer column symbols
-- Strategic key placement for comfort
 
 ### ✅ Corne 42-Key Layouts (Production Ready)
 
@@ -435,35 +395,21 @@ Each layout includes navigation buttons to easily compare between:
 - Extra keys on the base layer: left ← and Play/Pause, right → and Next track. Outer thumbs: `=` and `;`
 - RGB: Typing Heatmap is the default effect after a Vial EEPROM reset
 
-### 🚧 V2 - Optimized 4-Layer (Work in Progress)
-- Reduced to 4 layers for efficiency
-- Direct symbol access on base layer
-- Separated Navigation and Function layers
-- Vue.js implementation complete
-- UI refinements ongoing
-
-### 🚧 V3-V5 (Planned)
-- V3: No HRM Dedicated modifiers
-- V4: 4-Layer Balanced approach  
-- V5: Coding-optimized version
-- Vue.js refactoring pending
-
 ## Contributing
 
 This project uses Vue.js 3 with a configuration-driven architecture:
 
 1. **Fork the repository**
-2. **Edit configuration**: Modify `app.json` or `app-v2.json` for layout changes
+2. **Edit configuration**: Modify the `app*.json` file of the layout
 3. **Test locally**: Use `npx serve` to run development server
-4. **Add new versions**: Create new `index-vX.html` and `app-vX.json` files
+4. **Add new versions**: Add an `app-<name>.json` file and an entry in `LAYOUTS` in `index.html`
 5. **Submit pull request**
 
-### Adding New Layout Versions
-1. Copy `index.html` → `index-vX.html`
-2. Copy `app.json` → `app-vX.json`
-3. Update configuration in JSON file
-4. Update version navigation in HTML
-5. Test with local server
+### Adding a New Layout
+1. Copy an existing data file, for example `app.json` → `app-<name>.json`
+2. Update the keys, combos, layer holds and notes in the new JSON file
+3. Add an entry with `name` and `file` under the board in `LAYOUTS` in `index.html`
+4. Test with a local server: open `index.html?board=<board>&base=<name>`
 
 ## Firmware Implementation
 
@@ -529,58 +475,6 @@ Following successful community implementations and the documented **56-key Sofle
 - **Virtual expansion via combos** - Adjacent key combinations (JK→Escape, DF→Tab) can add 6-8 virtual keys without physical additions
 
 **Key principle**: Extra keys should provide convenient access to additional functions without compromising the ergonomic benefits of the core layout. The goal is enhancing Miryoku's philosophy rather than replacing it.
-
-## Pinky Relief Optimizations
-
-For users experiencing strain with their weakest fingers, the **V1-P Pinky Relief** variant provides targeted ergonomic improvements while maintaining Miryoku's core principles.
-
-### Key Problems Addressed
-
-**Right Pinky Overload**: In standard layouts, the right pinky often handles:
-- Home row modifiers with hold-timing requirements
-- High-frequency outer column symbols (=, ], \)
-- Number row punctuation (-, _)
-- This creates disproportionate load on the weakest finger
-
-### Pinky Relief Solutions
-
-**Load Redistribution:**
-- **Removed GUI modifiers** from A and O keys (no hold-timing on pinkies)
-- **Moved = symbol** from outer column (R01) to inner column (R11)
-- **Relocated ] and \** to Symbol and Navigation layers respectively
-- **Swapped ' and =** positions (apostrophe less frequent than equals)
-
-**Benefits Achieved:**
-- **50% reduction** in right pinky workload
-- **Eliminated timing-dependent** modifier activation on weak fingers
-- **Maintained muscle memory** for core Miryoku layout
-- **Symmetric load distribution** between hands
-
-### Physical Setup Tips
-
-**Keyboard Positioning:**
-- **Angle adjustment**: Tilt right half outward 10-15° to reduce pinky reach
-- **Height optimization**: Lower keyboard 1-2cm to reduce wrist extension
-- **Wider split**: Increase distance between halves by 2-3cm
-
-**Adaptation Strategy:**
-1. **Week 1**: Focus on new pinky positions, ignore modifiers
-2. **Week 2**: Add back modifiers on stronger fingers only
-3. **Week 3**: Full system integration with comfort breaks
-4. **Week 4**: Fine-tune based on strain patterns
-
-### Files and Access
-
-- **Layout file**: `index-v1-pinky.html`
-- **Configuration**: `app-v1-pinky.json`
-- **Access**: Available from V1 layout navigation or direct link
-- **Visual indicators**: Pinky-optimized keys highlighted in yellow
-
-This variant is ideal for users with:
-- Existing pinky strain or weakness
-- Repetitive stress concerns
-- Preference for gentler key placement
-- Need for extended typing sessions
 
 ## Home Row Modifiers Configuration
 
