@@ -405,12 +405,11 @@ This project uses Vue.js 3 with a configuration-driven architecture:
 4. **Add new versions**: Add an `app-<name>.json` file and an entry in `LAYOUTS` in `index.html`
 5. **Submit pull request**
 
-### Adding New Layout Versions
-1. Copy `index.html` → `index-vX.html`
-2. Copy `app.json` → `app-vX.json`
-3. Update configuration in JSON file
-4. Update version navigation in HTML
-5. Test with local server
+### Adding a New Layout
+1. Copy an existing data file, for example `app.json` → `app-<name>.json`
+2. Update the keys, combos, layer holds and notes in the new JSON file
+3. Add an entry with `name` and `file` under the board in `LAYOUTS` in `index.html`
+4. Test with a local server: open `index.html?board=<board>&base=<name>`
 
 ## Firmware Implementation
 

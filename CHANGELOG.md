@@ -156,16 +156,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ```
 miryoku-silakka54-layout/
-├── index.html              # Traditional HRM layout (6 layers)
-├── index-v2.html           # Optimized 3-layer layout  
-├── index-v3.html           # No HRM dedicated layout (6 layers)
-├── index-v4.html           # 4-layer balanced layout
-├── index-v5.html           # Coding-optimized layout (4 layers)
+├── index.html              # Visualizer with board and base layout switch
+├── app-graphite.json       # Silakka54 Graphite (default)
+├── app.json                # Silakka54 Colemak-DH
+├── app-qwerty.json         # Silakka54 QWERTY
+├── app-corne*.json         # Corne layouts (with index-corne*.html)
+├── vial/                   # Vial saved layouts
+├── tests/                  # Site and keymap contract tests
 ├── README.md               # Project documentation
 ├── CHANGELOG.md            # This file
 ├── CLAUDE.md               # Development guidance
 ├── Keyboard layout.md      # Detailed Miryoku guide
-├── v3-vs-v4-comparison.md  # Layout comparison guide
 └── .git/                   # Version control
 ```
 
